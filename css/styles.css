@@ -140,6 +140,7 @@ h1 { font-size: clamp(40px, 4.7vw, 66px); font-weight: 800; letter-spacing: -2.5
 .status-message.success { color: #9eebc9; background: #143329; border-color: #35775d; }
 .status-message.error { color: #ffb0b0; background: #391e29; border-color: #965264; }
 .status-message.info { color: #c5d9ff; background: #182b4a; border-color: #416395; }
+#storeMessage:not(:empty) { position: sticky; top: 16px; z-index: 3; box-shadow: 0 8px 24px #0004; }
 .community-banner { display: flex; align-items: center; gap: 23px; margin-block: 48px; padding: 29px; border-radius: 12px; border: 1px solid var(--line); background: linear-gradient(110deg, #192940, #131e31); }
 .community-icon { color: var(--orange); font-family: Georgia, serif; font-size: 78px; line-height: 1; height: 52px; }
 .community-banner h2 { font-size: 20px; margin-block: 6px; letter-spacing: -.4px; }
