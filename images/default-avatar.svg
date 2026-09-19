@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <rect x="22" y="22" width="212" height="212" rx="56" fill="#192a46"/>
+  <circle cx="128" cy="119" r="65" fill="#f47a1f"/>
+  <g fill="none" stroke="#192a46" stroke-width="5">
+    <circle cx="128" cy="119" r="65"/>
+    <path d="M63 119h130M128 54v130M84 71c49 19 49 77 0 96M172 71c-49 19-49 77 0 96"/>
+  </g>
+  <rect x="88" y="183" width="80" height="28" rx="14" fill="#0c1424" stroke="#3b4c66"/>
+  <text x="128" y="202" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#f7f8fc">JF23</text>
+</svg>
