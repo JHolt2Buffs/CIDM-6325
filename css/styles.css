@@ -2,7 +2,6 @@
   color-scheme: dark;
   --navy: #0c1424;
   --card-navy: #14213a;
-  --blue: #2f6bff;
   --orange: #f47a1f;
   --gold: #f6c453;
   --off-white: #f7f8fc;
@@ -51,8 +50,6 @@ h1, h2, h3 { line-height: 1.15; }
 .coin-small { width: 18px; height: 18px; font-size: 10px; vertical-align: 2px; }
 .hero { display: grid; grid-template-columns: minmax(0, 1fr) 365px; align-items: center; gap: 70px; padding: 58px 0 46px; }
 .eyebrow { color: var(--muted-text); font-size: 10px; font-weight: 700; letter-spacing: 1.8px; line-height: 1.6; }
-.hero-copy > .eyebrow, .reviews-intro > .eyebrow { display: flex; gap: 10px; align-items: center; color: #d7dde9; }
-.small-line { display: inline-block; height: 2px; width: 24px; background: var(--orange); flex-shrink: 0; }
 h1 { font-size: clamp(40px, 4.7vw, 66px); font-weight: 800; letter-spacing: -2.5px; line-height: 1.04; }
 .hero h1 { margin: 18px 0 21px; }
 .hero-description { max-width: 550px; font-size: 14px; line-height: 1.85; color: var(--muted-text); }
@@ -65,7 +62,6 @@ h1 { font-size: clamp(40px, 4.7vw, 66px); font-weight: 800; letter-spacing: -2.5
 .button-secondary:hover { background: #203556; border-color: #89b0ff; }
 .demo-note { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; color: #c2cbdc; }
 .status-dot { width: 5px; height: 5px; background: var(--success); border-radius: 50%; flex-shrink: 0; }
-.hero-footnote { margin-top: 14px; color: var(--muted-text); font-size: 11px; }
 .profile-card { position: relative; overflow: hidden; padding: 23px 24px 20px; background: linear-gradient(155deg, #1b2b48, #111d32 76%); border: 1px solid #35445e; border-radius: var(--radius); text-align: center; box-shadow: 0 20px 65px #0002; }
 .profile-card-heading { display: flex; align-items: center; justify-content: space-between; gap: 10px; position: relative; z-index: 1; }
 .profile-card h2 { font-size: 12px; font-weight: 600; color: #d2daea; }
@@ -82,18 +78,11 @@ h1 { font-size: clamp(40px, 4.7vw, 66px); font-weight: 800; letter-spacing: -2.5
 .title-pill { display: inline-block; max-width: 100%; padding: 5px 12px; border: 1px solid #8c7240; border-radius: 5px; background: #131c2c; color: var(--gold); font-size: 11px; font-weight: 600; line-height: 1.5; letter-spacing: .5px; }
 #profileTitle { margin-top: 7px; }
 .title-pill.title-blue { color: #d0dfff; border-color: #5c88e1; background: #152645; }
-.profile-stats { display: grid; grid-template-columns: 1fr 1fr; margin-top: 22px; padding-top: 17px; border-top: 1px solid #32415c; text-align: left; gap: 20px; }
-.profile-stats > div + div { border-left: 1px solid #32415c; padding-left: 22px; }
-.stat-label { display: block; color: var(--muted-text); font-size: 8px; letter-spacing: 1.1px; margin-bottom: 4px; }
+.profile-stats { display: flex; margin-top: 22px; padding-top: 5px; border-top: 1px solid #32415c; text-align: left; gap: 20px; }
+.profile-stats > div {width: 100%; text-align: center;}
+.stat-label { font-weight: 800; display: block; color: var(--off-white); font-size: 15px; letter-spacing: 1.1px; margin-bottom: 4px; }
 .profile-stats strong { font-size: 20px; font-weight: 700; white-space: nowrap; }
 .profile-stats small { font-size: 10px; font-weight: 400; color: var(--muted-text); }
-.profile-hint { color: var(--muted-text); font-size: 9px; line-height: 1.7; margin-top: 16px; }
-.benefits { display: grid; grid-template-columns: repeat(3, 1fr); padding: 23px 0; border-block: 1px solid var(--line); }
-.benefits > div { display: flex; gap: 16px; align-items: center; }
-.benefits > div + div { padding-left: 27px; border-left: 1px solid var(--line); }
-.benefit-number { color: #b89b7d; font-size: 12px; font-weight: 700; letter-spacing: 1px; }
-.benefits strong { display: block; font-size: 12px; margin-bottom: 2px; }
-.benefits p span { display: block; font-size: 10px; color: var(--muted-text); }
 .rewards-section { padding-top: 43px; }
 .section-heading { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
 .section-heading h2 { font-size: 33px; letter-spacing: -1px; margin-top: 8px; }
@@ -232,8 +221,6 @@ input[aria-invalid="true"], select[aria-invalid="true"], textarea[aria-invalid="
   .hero { grid-template-columns: minmax(0, 1fr) 320px; gap: 35px; }
   .hero-actions { gap: 13px; }
   .profile-card { padding-inline: 19px; }
-  .benefits > div { gap: 12px; }
-  .benefits > div + div { padding-left: 18px; }
   .product-grid { gap: 18px; }
   .product-details { padding: 18px; }
   .product-price { gap: 5px; }
@@ -260,18 +247,10 @@ input[aria-invalid="true"], select[aria-invalid="true"], textarea[aria-invalid="
   .credit-label { display: none; }
   .hero { padding-top: 40px; gap: 24px; grid-template-columns: minmax(0, 1fr) 290px; }
   .hero h1 { font-size: 44px; letter-spacing: -1.7px; }
-  .hero-copy > .eyebrow { font-size: 8px; letter-spacing: 1px; }
   .hero-description { font-size: 12px; }
-  .hero-footnote { font-size: 10px; }
   .profile-stats { gap: 12px; }
-  .profile-stats > div + div { padding-left: 14px; }
   .profile-stats strong { font-size: 18px; }
   .profile-stats small { font-size: 9px; }
-  .benefits { gap: 16px; }
-  .benefits > div { align-items: flex-start; }
-  .benefits > div + div { padding-left: 15px; }
-  .benefits p span { font-size: 9px; }
-  .benefits strong { font-size: 11px; }
   .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .product-price small { display: inline; margin-left: 2px; }
   .community-banner .button { margin-left: auto; }
@@ -295,24 +274,15 @@ input[aria-invalid="true"], select[aria-invalid="true"], textarea[aria-invalid="
   .main-nav a { min-height: 49px; font-size: 12px; }
   .hero { grid-template-columns: 1fr; gap: 29px; padding-block: 33px; }
   .hero h1 { font-size: clamp(39px, 10.8vw, 62px); letter-spacing: -1.8px; margin-block: 17px 18px; }
-  .hero-copy > .eyebrow { font-size: 8px; letter-spacing: 1.15px; }
   .hero-description { font-size: 13px; }
   .hero-actions { margin-top: 22px; gap: 14px; }
-  .hero-footnote { max-width: 300px; }
   .profile-card { padding: 20px 25px; width: 100%; max-width: 410px; justify-self: center; }
   .profile-avatar { width: 140px; height: 140px; margin-top: 12px; }
   .profile-stats { margin-top: 20px; }
   .profile-stats strong { font-size: 21px; }
   .profile-stats small { font-size: 10px; }
-  .profile-hint { font-size: 10px; }
-  .benefits { grid-template-columns: 1fr; gap: 17px; padding-block: 22px; }
-  .benefits > div, .benefits > div + div { border: 0; padding: 0; gap: 15px; }
-  .benefit-number { min-width: 20px; }
-  .benefits strong { font-size: 12px; }
-  .benefits p span { font-size: 11px; }
   .rewards-section { padding-top: 30px; }
   .section-heading { align-items: flex-start; flex-direction: column; gap: 10px; }
-  .section-heading .eyebrow { font-size: 8px; letter-spacing: 1.3px; }
   .section-heading h2 { font-size: 31px; }
   .catalog-count { padding: 0; }
   .filter-bar { width: 100%; margin-block: 19px; gap: 3px; }
@@ -335,7 +305,6 @@ input[aria-invalid="true"], select[aria-invalid="true"], textarea[aria-invalid="
   .reviews-intro { padding-top: 18px; }
   .back-link { margin-bottom: 22px; }
   .reviews-intro h1 { font-size: 43px; line-height: 1.08; letter-spacing: -1.6px; }
-  .reviews-intro > .eyebrow { font-size: 8px; letter-spacing: 1px; }
   .reviews-list-heading { align-items: flex-start; flex-direction: column; gap: 6px; }
   .review-summary { padding: 20px 17px; gap: 10px; }
   .rating-summary { gap: 10px; }
