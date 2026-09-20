@@ -1,73 +1,240 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Read community feedback and share your experience with NBA Trivia Rewards.">
-  <meta name="theme-color" content="#0c1424">
-  <title>Reviews and Feedback | NBA Trivia Rewards</title>
-  <link rel="icon" href="images/logo-basketball-question.png" type="image/png">
-  <link rel="stylesheet" href="css/styles.css">
-  <script src="js/app.js" defer></script>
-</head>
-<body>
-  <a class="skip-link" href="#main">Skip to content</a>
-  <header class="site-header">
-    <div class="header-inner container">
-      <a class="brand" href="index.html" aria-label="NBA Trivia Rewards home"><img src="images/logo-basketball-question.png" alt="" width="44" height="44"><span>NBA TRIVIA <span class="brand-accent">REWARDS</span></span></a>
-      <nav class="main-nav" aria-label="Main navigation"><a href="index.html">Rewards Store</a><a href="reviews.html" aria-current="page">Reviews</a></nav>
-      <a class="header-balance" href="index.html" aria-label="Visit the store with 1,000 starting demo credits"><span class="coin" aria-hidden="true">C</span><span><strong>1,000</strong> <span class="credit-label">demo credits</span></span></a>
-    </div>
-  </header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Read community feedback and share your experience with NBA Trivia Rewards."
+    />
+    <meta name="theme-color" content="#0c1424" />
+    <title>Reviews and Feedback | NBA Trivia Rewards</title>
+    <link
+      rel="icon"
+      href="images/logo-basketball-question.png"
+      type="image/png"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <script src="js/app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="header-inner container">
+        <a class="brand" href="index.html" aria-label="NBA Trivia Rewards home"
+          ><img
+            src="images/logo-basketball-question.png"
+            alt=""
+            width="44"
+            height="44"
+          /><span>NBA TRIVIA <span class="brand-accent">REWARDS</span></span></a
+        >
+        <nav class="main-nav" aria-label="Main navigation">
+          <a href="index.html">Rewards Store</a
+          ><a href="reviews.html" aria-current="page">Reviews</a>
+        </nav>
+        <a
+          class="header-balance"
+          href="index.html"
+          aria-label="Visit the store with 1,000 starting demo credits"
+          ><span class="coin" aria-hidden="true">C</span
+          ><span
+            ><strong>1,000</strong>
+            <span class="credit-label">demo credits</span></span
+          ></a
+        >
+      </div>
+    </header>
 
-  <main class="container" id="main">
-    <section class="reviews-intro" aria-labelledby="reviewsHeading">
-      <a class="back-link" href="index.html"><span aria-hidden="true">←</span> Return to Rewards Store</a>
-      <p class="eyebrow"><span class="small-line" aria-hidden="true"></span> THE COMMUNITY HAS THE FLOOR</p>
-      <h1 id="reviewsHeading">Reviews and <span class="text-orange">Feedback.</span></h1>
-      <p class="hero-description">See what other basketball fans think about the NBA Trivia Rewards experience and share your own feedback.</p>
-    </section>
-
-    <div class="reviews-layout">
-      <section class="community-reviews" aria-labelledby="fanReviewsHeading">
-        <div class="review-summary">
-          <div class="rating-summary"><strong id="averageRating">4.5</strong><div><span class="stars" id="summaryStars" role="img" aria-label="Average rating: 4.5 out of 5 stars">★★★★★</span><span id="reviewCount">Based on 2 reviews</span></div></div>
-          <div class="recommend-summary"><strong id="recommendPercent">100%</strong><span>would recommend</span></div>
-        </div>
-        <div class="reviews-list-heading"><h2 id="fanReviewsHeading">From the community</h2><span class="small-muted">Real opinions. More possibilities.</span></div>
-        <div id="reviewList">
-          <article class="review-card">
-            <div class="review-card-top"><div class="review-author"><span class="review-initials" aria-hidden="true">AM</span><div><h3>Alex M.</h3><span class="small-muted">Sample review</span></div></div><span class="stars" role="img" aria-label="5 out of 5 stars">★★★★★</span></div>
-            <p class="review-feedback">The Hoop Scholar avatar makes my profile stand out, and the rewards give me something to work toward after every trivia challenge.</p>
-            <p class="recommendation"><span aria-hidden="true">✓</span> Recommends NBA Trivia Rewards</p>
-          </article>
-          <article class="review-card">
-            <div class="review-card-top"><div class="review-author"><span class="review-initials initials-blue" aria-hidden="true">JR</span><div><h3>Jordan R.</h3><span class="small-muted">Sample review</span></div></div><span class="stars" role="img" aria-label="4 out of 5 stars">★★★★<span class="empty-star">☆</span></span></div>
-            <p class="review-feedback">The profile frames look great and make the reward store feel worthwhile. I would like to see even more colors in the future.</p>
-            <p class="recommendation"><span aria-hidden="true">✓</span> Recommends NBA Trivia Rewards</p>
-          </article>
-        </div>
-        <p class="community-note"><span aria-hidden="true">↗</span> Your feedback helps inspire the next collection.</p>
+    <main class="container" id="main">
+      <section class="reviews-intro" aria-labelledby="reviewsHeading">
+        <a class="back-link" href="index.html"
+          ><span aria-hidden="true">←</span> Return to Rewards Store</a
+        >
+        <h1 id="reviewsHeading">
+          Reviews and <span class="text-orange">Feedback.</span>
+        </h1>
+        <p class="hero-description">
+          See what other basketball fans think about the NBA Trivia Rewards
+          experience and share your own feedback.
+        </p>
       </section>
 
-      <section class="feedback-panel" aria-labelledby="feedbackHeading">
-        <p class="eyebrow">YOUR TAKE MATTERS</p>
-        <h2 id="feedbackHeading">Leave your courtside take.</h2>
-        <p class="section-description">Tried a new look? Tell the community what you think.</p>
-        <form id="reviewForm" novalidate>
-          <div class="form-field"><label for="customerName">Your name <span class="required-marker">*</span></label><input id="customerName" name="customerName" type="text" autocomplete="name" placeholder="How should we call you?" maxlength="60" required></div>
-          <div class="form-field"><label for="rating">Your rating <span class="required-marker">*</span></label><select id="rating" name="rating" required><option value="">Select a star rating</option><option value="5">★★★★★ — 5 stars · Loved it</option><option value="4">★★★★☆ — 4 stars · Really good</option><option value="3">★★★☆☆ — 3 stars · Pretty good</option><option value="2">★★☆☆☆ — 2 stars · Could be better</option><option value="1">★☆☆☆☆ — 1 star · Not for me</option></select></div>
-          <div class="form-field"><label for="feedback">Your feedback <span class="required-marker">*</span></label><textarea id="feedback" name="feedback" rows="5" placeholder="The rewards, the look, the experience… let’s hear it." maxlength="1000" required aria-describedby="feedbackHint"></textarea><span class="field-hint" id="feedbackHint">Up to 1,000 characters. A little honesty goes a long way.</span></div>
-          <fieldset class="recommendation-field" id="recommendation"><legend>Would you recommend NBA Trivia Rewards?</legend><div class="radio-options"><label><input type="radio" name="recommendation" value="Yes" checked> <span>Yes, absolutely</span></label><label><input type="radio" name="recommendation" value="No"> <span>Not yet</span></label></div></fieldset>
-          <p id="reviewMessage" class="status-message" aria-live="polite" aria-atomic="true"></p>
-          <button class="button button-primary submit-review" type="submit">Post your review <span aria-hidden="true">↗</span></button>
-          <p class="form-footnote">* Required fields. Reviews are part of this demo and reset on reload.</p>
-        </form>
-        <noscript><p class="noscript-message">Enable JavaScript to submit a review without leaving this page.</p></noscript>
-      </section>
-    </div>
-    <aside class="reviews-bottom"><div><p class="eyebrow">FIND YOUR NEXT FAVORITE</p><h2>Your profile. Your game.</h2></div><a class="button button-secondary" href="index.html">Return to Rewards Store <span aria-hidden="true">→</span></a></aside>
-  </main>
-  <footer class="site-footer container"><p>NBA Trivia Rewards <span>·</span> Made for fans who know.</p><p>Student prototype. Virtual credits only. Not affiliated with the NBA.</p></footer>
-</body>
+      <div class="reviews-layout">
+        <section class="community-reviews" aria-labelledby="fanReviewsHeading">
+          <div class="review-summary">
+            <div class="rating-summary">
+              <strong id="averageRating">4.5</strong>
+              <div>
+                <span
+                  class="stars"
+                  id="summaryStars"
+                  role="img"
+                  aria-label="Average rating: 4.5 out of 5 stars"
+                  >★★★★★</span
+                ><span id="reviewCount">Based on 2 reviews</span>
+              </div>
+            </div>
+            <div class="recommend-summary">
+              <strong id="recommendPercent">100%</strong
+              ><span>would recommend</span>
+            </div>
+          </div>
+          <div class="reviews-list-heading">
+            <h2 id="fanReviewsHeading">From the community</h2>
+            <span class="small-muted">Real opinions. More possibilities.</span>
+          </div>
+          <div id="reviewList">
+            <article class="review-card">
+              <div class="review-card-top">
+                <div class="review-author">
+                  <span class="review-initials" aria-hidden="true">AM</span>
+                  <div>
+                    <h3>Alex M.</h3>
+                    <span class="small-muted">Sample review</span>
+                  </div>
+                </div>
+                <span class="stars" role="img" aria-label="5 out of 5 stars"
+                  >★★★★★</span
+                >
+              </div>
+              <p class="review-feedback">
+                The Hoop Scholar avatar makes my profile stand out, and the
+                rewards give me something to work toward after every trivia
+                challenge.
+              </p>
+              <p class="recommendation">
+                <span aria-hidden="true">✓</span> Recommends NBA Trivia Rewards
+              </p>
+            </article>
+            <article class="review-card">
+              <div class="review-card-top">
+                <div class="review-author">
+                  <span class="review-initials initials-blue" aria-hidden="true"
+                    >JR</span
+                  >
+                  <div>
+                    <h3>Jordan R.</h3>
+                    <span class="small-muted">Sample review</span>
+                  </div>
+                </div>
+                <span class="stars" role="img" aria-label="4 out of 5 stars"
+                  >★★★★<span class="empty-star">☆</span></span
+                >
+              </div>
+              <p class="review-feedback">
+                The profile frames look great and make the reward store feel
+                worthwhile. I would like to see even more colors in the future.
+              </p>
+              <p class="recommendation">
+                <span aria-hidden="true">✓</span> Recommends NBA Trivia Rewards
+              </p>
+            </article>
+          </div>
+          <p class="community-note">
+            <span aria-hidden="true">↗</span> Your feedback helps inspire the
+            next collection.
+          </p>
+        </section>
+
+        <section class="feedback-panel" aria-labelledby="feedbackHeading">
+          <p class="eyebrow">YOUR TAKE MATTERS</p>
+          <h2 id="feedbackHeading">Leave your courtside take.</h2>
+          <p class="section-description">
+            Tried a new look? Tell the community what you think.
+          </p>
+          <form id="reviewForm" novalidate>
+            <div class="form-field">
+              <label for="customerName"
+                >Your name <span class="required-marker">*</span></label
+              ><input
+                id="customerName"
+                name="customerName"
+                type="text"
+                autocomplete="name"
+                placeholder="How should we call you?"
+                maxlength="60"
+                required
+              />
+            </div>
+            <div class="form-field">
+              <label for="rating"
+                >Your rating <span class="required-marker">*</span></label
+              ><select id="rating" name="rating" required>
+                <option value="">Select a star rating</option>
+                <option value="5">★★★★★ — 5 stars · Loved it</option>
+                <option value="4">★★★★☆ — 4 stars · Really good</option>
+                <option value="3">★★★☆☆ — 3 stars · Pretty good</option>
+                <option value="2">★★☆☆☆ — 2 stars · Could be better</option>
+                <option value="1">★☆☆☆☆ — 1 star · Not for me</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label for="feedback"
+                >Your feedback <span class="required-marker">*</span></label
+              ><textarea
+                id="feedback"
+                name="feedback"
+                rows="5"
+                placeholder="The rewards, the look, the experience… let’s hear it."
+                maxlength="1000"
+                required
+                aria-describedby="feedbackHint"
+              ></textarea
+              ><span class="field-hint" id="feedbackHint"
+                >Up to 1,000 characters. A little honesty goes a long way.</span
+              >
+            </div>
+            <fieldset class="recommendation-field" id="recommendation">
+              <legend>Would you recommend NBA Trivia Rewards?</legend>
+              <div class="radio-options">
+                <label
+                  ><input
+                    type="radio"
+                    name="recommendation"
+                    value="Yes"
+                    checked
+                  />
+                  <span>Yes, absolutely</span></label
+                ><label
+                  ><input type="radio" name="recommendation" value="No" />
+                  <span>Not yet</span></label
+                >
+              </div>
+            </fieldset>
+            <p
+              id="reviewMessage"
+              class="status-message"
+              aria-live="polite"
+              aria-atomic="true"
+            ></p>
+            <button class="button button-primary submit-review" type="submit">
+              Post your review <span aria-hidden="true">↗</span>
+            </button>
+            <p class="form-footnote">
+              * Required fields. Reviews are part of this demo and reset on
+              reload.
+            </p>
+          </form>
+          <noscript
+            ><p class="noscript-message">
+              Enable JavaScript to submit a review without leaving this page.
+            </p></noscript
+          >
+        </section>
+      </div>
+      <aside class="reviews-bottom">
+        <div>
+          <p class="eyebrow">FIND YOUR NEXT FAVORITE</p>
+          <h2>Your profile. Your game.</h2>
+        </div>
+        <a class="button button-secondary" href="index.html"
+          >Return to Rewards Store <span aria-hidden="true">→</span></a
+        >
+      </aside>
+    </main>
+    <footer class="site-footer container">
+      <p>NBA Trivia Rewards <span>·</span> Made for fans who know.</p>
+    </footer>
+  </body>
 </html>

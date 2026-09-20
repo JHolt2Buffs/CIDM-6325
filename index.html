@@ -1,107 +1,235 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Make your basketball knowledge your signature. Explore avatars, profile frames, and titles in the NBA Trivia Rewards demo store.">
-  <meta name="theme-color" content="#0c1424">
-  <title>Rewards Store | NBA Trivia Rewards</title>
-  <link rel="icon" href="images/logo-basketball-question.png" type="image/png">
-  <link rel="stylesheet" href="css/styles.css">
-  <script src="js/app.js" defer></script>
-</head>
-<body>
-  <a class="skip-link" href="#main">Skip to content</a>
-  <header class="site-header">
-    <div class="header-inner container">
-      <a class="brand" href="index.html" aria-label="NBA Trivia Rewards home">
-        <img src="images/logo-basketball-question.png" alt="" width="44" height="44">
-        <span>NBA TRIVIA <span class="brand-accent">REWARDS</span></span>
-      </a>
-      <nav class="main-nav" aria-label="Main navigation">
-        <a href="index.html" aria-current="page">Rewards Store</a>
-        <a href="reviews.html">Reviews</a>
-      </nav>
-      <div class="header-balance" aria-label="Available virtual credits">
-        <span class="coin" aria-hidden="true">C</span>
-        <span><strong data-credit-balance>1,000</strong> <span class="credit-label">credits</span></span>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Make your basketball knowledge your signature. Explore avatars, profile frames, and titles in the NBA Trivia Rewards demo store."
+    />
+    <meta name="theme-color" content="#0c1424" />
+    <title>Rewards Store | NBA Trivia Rewards</title>
+    <link
+      rel="icon"
+      href="images/logo-basketball-question.png"
+      type="image/png"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <script src="js/app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="header-inner container">
+        <a class="brand" href="index.html" aria-label="NBA Trivia Rewards home">
+          <img
+            src="images/logo-basketball-question.png"
+            alt=""
+            width="44"
+            height="44"
+          />
+          <span>NBA TRIVIA <span class="brand-accent">REWARDS</span></span>
+        </a>
+        <nav class="main-nav" aria-label="Main navigation">
+          <a href="index.html" aria-current="page">Rewards Store</a>
+          <a href="reviews.html">Reviews</a>
+        </nav>
+        <div class="header-balance" aria-label="Available virtual credits">
+          <span class="coin" aria-hidden="true">C</span>
+          <span
+            ><strong data-credit-balance>1,000</strong>
+            <span class="credit-label">credits</span></span
+          >
+        </div>
       </div>
-    </div>
-  </header>
+    </header>
 
-  <main id="main" class="container">
-    <section class="hero" aria-labelledby="heroHeading">
-      <div class="hero-copy">
-        <p class="eyebrow"><span class="small-line" aria-hidden="true"></span> FOR THE FANS WHO KNOW THE GAME</p>
-        <h1 id="heroHeading">Turn Your NBA<br>Knowledge Into<br><span class="text-orange">Rewards.</span></h1>
-        <p class="hero-description">Complete basketball trivia challenges, earn virtual credits, and use those credits to customize your profile with avatars, frames, and titles.</p>
-        <div class="hero-actions">
-          <a class="button button-primary" href="#rewards">Explore the rewards <span aria-hidden="true">↗</span></a>
-          <span class="demo-note"><span class="status-dot" aria-hidden="true"></span> Demo store · 1,000 credits to start</span>
+    <main id="main" class="container">
+      <section class="hero" aria-labelledby="heroHeading">
+        <div class="hero-copy">
+          <h1 id="heroHeading">
+            Turn Your NBA<br />Knowledge Into<br /><span class="text-orange"
+              >Rewards.</span
+            >
+          </h1>
+          <p class="hero-description">
+            Complete basketball trivia challenges, earn virtual credits, and use
+            those credits to customize your profile with avatars, frames, and
+            titles.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#rewards"
+              >Explore the rewards <span aria-hidden="true">↗</span></a
+            >
+            <span class="demo-note"
+              ><span class="status-dot" aria-hidden="true"></span> Demo store ·
+              1,000 credits to start</span
+            >
+          </div>
         </div>
-        <p class="hero-footnote">Your next signature look starts here. Trivia challenges are coming later.</p>
-      </div>
 
-      <section class="profile-card" aria-labelledby="profileHeading">
-        <div class="profile-card-heading">
-          <h2 id="profileHeading">Your Profile Preview</h2>
-          <span class="live-indicator"><span class="status-dot" aria-hidden="true"></span> LIVE</span>
-        </div>
-        <div class="profile-court" aria-hidden="true"></div>
-        <div class="profile-avatar" id="profileAvatarLayers">
-          <img class="avatar-layer" id="profileAvatar" src="images/default-avatar.svg" alt="JordanFan23’s default basketball avatar" width="156" height="156">
-          <img class="frame-layer" id="profileFrame" alt="" width="156" height="156" hidden>
-        </div>
-        <p class="profile-username">JordanFan23</p>
-        <p class="profile-default-title" id="defaultProfileTitle">A fan of the game. A student of its history.</p>
-        <span class="title-pill" id="profileTitle" hidden></span>
-        <div class="profile-stats">
-          <div><span class="stat-label">YOUR BALANCE</span><strong class="text-gold"><span class="coin coin-small" aria-hidden="true">C</span> <span data-credit-balance>1,000</span> <small>credits</small></strong></div>
-          <div><span class="stat-label">COLLECTION</span><strong><span id="ownedCount">0</span> <small>/ 6 rewards</small></strong></div>
-        </div>
-        <p class="profile-hint">Redeem a reward to make it yours.<br>Demo progress resets when you reload or leave the store.</p>
+        <section class="profile-card" aria-labelledby="profileHeading">
+          <div class="profile-card-heading">
+            <h2 id="profileHeading">Your Profile Preview</h2>
+            <span class="live-indicator"
+              ><span class="status-dot" aria-hidden="true"></span> LIVE</span
+            >
+          </div>
+          <div class="profile-court" aria-hidden="true"></div>
+          <div class="profile-avatar" id="profileAvatarLayers">
+            <img
+              class="avatar-layer"
+              id="profileAvatar"
+              src="images/default-avatar.svg"
+              alt="JordanFan23’s default basketball avatar"
+              width="156"
+              height="156"
+            />
+            <img
+              class="frame-layer"
+              id="profileFrame"
+              alt=""
+              width="156"
+              height="156"
+              hidden
+            />
+          </div>
+          <p class="profile-username">JordanFan23</p>
+          <p class="profile-default-title" id="defaultProfileTitle">
+            A fan of the game. A student of its history.
+          </p>
+          <span class="title-pill" id="profileTitle" hidden></span>
+          <div class="profile-stats">
+            <div>
+              <span class="stat-label">YOUR BALANCE</span
+              ><strong class="text-gold"
+                ><span class="coin coin-small" aria-hidden="true">C</span>
+                <span data-credit-balance>1,000</span>
+                <small>credits</small></strong
+              >
+            </div>
+            </div>
+          </div>
+        </section>
       </section>
-    </section>
 
-    <div class="benefits" aria-label="How rewards work">
-      <div><span class="benefit-number">01</span><p><strong>Know the game</strong><span>A little basketball knowledge goes a long way.</span></p></div>
-      <div><span class="benefit-number">02</span><p><strong>Find your signature</strong><span>Avatars, frames, and titles with character.</span></p></div>
-      <div><span class="benefit-number">03</span><p><strong>Make it yours</strong><span>Redeem, equip, and stand out from the crowd.</span></p></div>
-    </div>
+      <section
+        class="rewards-section"
+        id="rewards"
+        aria-labelledby="rewardsHeading"
+      >
+        <div class="section-heading">
+          <div>
+            <h2 id="rewardsHeading">
+              Rewards Store<span class="text-orange">.</span>
+            </h2>
+            <p class="section-description">
+              Spend credits earned from trivia challenges on profile
+              customizations.
+            </p>
+          </div>
+          <span class="catalog-count" id="catalogCount" aria-live="polite"
+            >6 rewards to make your own</span
+          >
+        </div>
+        <div
+          class="filter-bar"
+          role="group"
+          aria-label="Filter rewards by category"
+        >
+          <button
+            type="button"
+            class="filter-button"
+            data-filter="all"
+            aria-pressed="true"
+          >
+            All rewards <span>6</span>
+          </button>
+          <button
+            type="button"
+            class="filter-button"
+            data-filter="Avatar"
+            aria-pressed="false"
+          >
+            Avatars <span>2</span>
+          </button>
+          <button
+            type="button"
+            class="filter-button"
+            data-filter="Profile Frame"
+            aria-pressed="false"
+          >
+            Frames <span>2</span>
+          </button>
+          <button
+            type="button"
+            class="filter-button"
+            data-filter="Profile Title"
+            aria-pressed="false"
+          >
+            Titles <span>2</span>
+          </button>
+        </div>
+        <p
+          id="storeMessage"
+          class="status-message"
+          aria-live="polite"
+          aria-atomic="true"
+        ></p>
+        <noscript
+          ><p class="noscript-message">
+            Enable JavaScript to browse the six rewards, redeem credits, and
+            customize your profile.
+          </p></noscript
+        >
+        <div class="product-grid" id="productGrid"></div>
+      </section>
 
-    <section class="rewards-section" id="rewards" aria-labelledby="rewardsHeading">
-      <div class="section-heading">
-        <div><p class="eyebrow">A LITTLE KNOWLEDGE. A LOT OF PERSONALITY.</p><h2 id="rewardsHeading">Rewards Store<span class="text-orange">.</span></h2><p class="section-description">Spend credits earned from trivia challenges on profile customizations.</p></div>
-        <span class="catalog-count" id="catalogCount" aria-live="polite">6 rewards to make your own</span>
+      <aside class="community-banner" aria-labelledby="communityHeading">
+        <div class="community-icon" aria-hidden="true">“</div>
+        <div>
+          <p class="eyebrow">FROM ONE FAN TO ANOTHER</p>
+          <h2 id="communityHeading">
+            Great rewards. Even better conversations.
+          </h2>
+          <p>See what the community thinks, and help shape what comes next.</p>
+        </div>
+        <a class="button button-secondary" href="reviews.html"
+          >Read Reviews and Leave Feedback <span aria-hidden="true">↗</span></a
+        >
+      </aside>
+    </main>
+
+    <footer class="site-footer container">
+      <p>NBA Trivia Rewards <span>·</span> Made for fans who know.</p>
+    </footer>
+
+    <dialog
+      class="redeem-dialog"
+      id="redeemDialog"
+      aria-labelledby="redeemHeading"
+      aria-describedby="redeemDescription"
+    >
+      <span class="dialog-icon coin" aria-hidden="true">C</span>
+      <p class="eyebrow">ADD TO YOUR COLLECTION</p>
+      <h2 id="redeemHeading">Make it yours?</h2>
+      <p id="redeemDescription"></p>
+      <p class="dialog-balance" id="remainingBalance"></p>
+      <div class="dialog-actions">
+        <button
+          class="button button-secondary"
+          id="cancelRedeem"
+          type="button"
+          autofocus
+        >
+          Keep browsing</button
+        ><button class="button button-primary" id="confirmRedeem" type="button">
+          Confirm redemption
+        </button>
       </div>
-      <div class="filter-bar" role="group" aria-label="Filter rewards by category">
-        <button type="button" class="filter-button" data-filter="all" aria-pressed="true">All rewards <span>6</span></button>
-        <button type="button" class="filter-button" data-filter="Avatar" aria-pressed="false">Avatars <span>2</span></button>
-        <button type="button" class="filter-button" data-filter="Profile Frame" aria-pressed="false">Frames <span>2</span></button>
-        <button type="button" class="filter-button" data-filter="Profile Title" aria-pressed="false">Titles <span>2</span></button>
-      </div>
-      <p id="storeMessage" class="status-message" aria-live="polite" aria-atomic="true"></p>
-      <noscript><p class="noscript-message">Enable JavaScript to browse the six rewards, redeem credits, and customize your profile.</p></noscript>
-      <div class="product-grid" id="productGrid"></div>
-    </section>
-
-    <aside class="community-banner" aria-labelledby="communityHeading">
-      <div class="community-icon" aria-hidden="true">“</div>
-      <div><p class="eyebrow">FROM ONE FAN TO ANOTHER</p><h2 id="communityHeading">Great rewards. Even better conversations.</h2><p>See what the community thinks, and help shape what comes next.</p></div>
-      <a class="button button-secondary" href="reviews.html">Read Reviews and Leave Feedback <span aria-hidden="true">↗</span></a>
-    </aside>
-  </main>
-
-  <footer class="site-footer container"><p>NBA Trivia Rewards <span>·</span> Made for fans who know.</p><p>Student prototype. Virtual credits only. Not affiliated with the NBA.</p></footer>
-
-  <dialog class="redeem-dialog" id="redeemDialog" aria-labelledby="redeemHeading" aria-describedby="redeemDescription">
-    <span class="dialog-icon coin" aria-hidden="true">C</span>
-    <p class="eyebrow">ADD TO YOUR COLLECTION</p>
-    <h2 id="redeemHeading">Make it yours?</h2>
-    <p id="redeemDescription"></p>
-    <p class="dialog-balance" id="remainingBalance"></p>
-    <div class="dialog-actions"><button class="button button-secondary" id="cancelRedeem" type="button" autofocus>Keep browsing</button><button class="button button-primary" id="confirmRedeem" type="button">Confirm redemption</button></div>
-    <p class="dialog-footnote">Virtual credits only. Your reward is equipped instantly.</p>
-  </dialog>
-</body>
+      <p class="dialog-footnote">
+        Virtual credits only. Your reward is equipped instantly.
+      </p>
+    </dialog>
+  </body>
 </html>

@@ -53,7 +53,7 @@ function renderProducts() {
     card.dataset.category = product.category;
     card.setAttribute("aria-labelledby", `${product.id}-name`);
     const previewClass = product.rarity === "Epic" ? "preview-epic" : product.id === "frame-hardwood-classic" ? "preview-hardwood" : "";
-    // This HTML contains only our fixed catalog data. Submitted reviews use textContent.
+    // This HTML contains only the fixed catalog data. Submitted reviews use textContent.
     const preview = product.image
       ? `<img src="${product.image}" alt="${product.alt}" width="180" height="180">`
       : `<div class="product-title-preview"><span class="preview-initials" aria-hidden="true">JF</span><span class="preview-player-name">JordanFan23</span><span class="title-pill ${product.id === "title-trivia-all-star" ? "title-blue" : ""}">${product.titleText}</span></div>`;
@@ -218,7 +218,6 @@ function filterProducts(category) {
 function createReviewCard(name, rating, feedback, recommendation) {
   const card = document.createElement("article");
   card.className = "review-card";
-  // The template is fixed. User input is assigned as text so markup stays harmless.
   card.innerHTML = `<div class="review-card-top"><div class="review-author"><span class="review-initials" aria-hidden="true"></span><div><h3></h3><span class="small-muted">Just posted</span></div></div><span class="stars" role="img"></span></div><p class="review-feedback"></p><p class="recommendation"></p>`;
   card.querySelector("h3").textContent = name;
   card.querySelector(".review-initials").textContent = name.split(/\s+/).slice(0, 2).map((part) => Array.from(part)[0]).join("").toUpperCase();
