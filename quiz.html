@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Take the Daily NBA Warmup: three basketball questions, instant explanations, and up to 75 demo credits."
+    />
+    <meta name="theme-color" content="#0c1424" />
+    <title>Play Trivia | NBA Trivia Rewards</title>
+    <link rel="icon" href="images/logo-basketball-question.png" type="image/png" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <script src="js/quiz.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="header-inner container">
+        <a class="brand" href="index.html" aria-label="NBA Trivia Rewards home">
+          <img src="images/logo-basketball-question.png" alt="" width="44" height="44" />
+          <span>NBA TRIVIA <span class="brand-accent">REWARDS</span></span>
+        </a>
+        <nav class="main-nav" aria-label="Main navigation">
+          <a href="index.html">Rewards Store</a>
+          <a href="quiz.html" aria-current="page">Play Trivia</a>
+          <a href="reviews.html">Reviews</a>
+        </nav>
+        <a
+          class="header-balance"
+          href="index.html"
+          aria-label="Visit the store with 1,000 starting demo credits"
+        >
+          <span class="coin" aria-hidden="true">C</span>
+          <span><strong>1,000</strong> <span class="credit-label">demo credits</span></span>
+        </a>
+      </div>
+    </header>
+
+    <main class="container quiz-page" id="main">
+      <div class="quiz-page-heading">
+        <a class="back-link" href="index.html">
+          <span aria-hidden="true">←</span> Return to Rewards Store
+        </a>
+        <p class="eyebrow">A LITTLE KNOWLEDGE GOES A LONG WAY</p>
+        <h1>Play <span class="text-orange">Trivia.</span></h1>
+        <p class="hero-description">From the rulebook to the history books. Show what you know.</p>
+      </div>
+
+      <section class="quiz-card quiz-intro" id="quizIntro" aria-labelledby="introHeading">
+        <div class="quiz-intro-copy">
+          <p class="eyebrow">YOUR DAILY CHALLENGE</p>
+          <h2 id="introHeading">Daily NBA Warmup</h2>
+          <p class="quiz-description">
+            Test your basketball knowledge with three quick questions.
+            Complete the challenge to see how many virtual credits you could earn.
+          </p>
+          <ul class="quiz-meta" aria-label="Quiz details">
+            <li>3 Questions</li>
+            <li>Mixed Difficulty</li>
+            <li class="text-gold">Up to 75 Demo Credits</li>
+          </ul>
+          <button class="button button-primary" id="startQuizButton" type="button">
+            Start Quiz <span aria-hidden="true">→</span>
+          </button>
+          <p class="quiz-intro-note">No timer. Take your best shot. Demo credits stay on this page.</p>
+        </div>
+        <div class="quiz-intro-art" aria-hidden="true">
+          <div class="quiz-court-lines"></div>
+          <span class="quiz-art-number">03</span>
+          <span class="quiz-art-label">QUESTIONS. ALL YOU.</span>
+          <span class="quiz-art-reward"><span class="coin">C</span> 25 per correct answer</span>
+        </div>
+      </section>
+
+      <section class="quiz-card" id="quizPanel" aria-labelledby="questionText" hidden>
+        <div class="quiz-question-topline">
+          <p class="eyebrow" id="questionNumber">Question 1 of 3</p>
+          <span class="quiz-reward"><span class="coin coin-small" aria-hidden="true">C</span> 25 demo credits per correct answer</span>
+        </div>
+        <div
+          class="quiz-progress"
+          id="quizProgress"
+          role="progressbar"
+          aria-label="Quiz progress"
+          aria-valuemin="0"
+          aria-valuemax="3"
+          aria-valuenow="0"
+          aria-valuetext="0 of 3 questions answered"
+        >
+          <div class="quiz-progress-bar"></div>
+        </div>
+        <div class="quiz-meta">
+          <span id="questionCategory">Rules</span>
+          <span id="questionDifficulty">Easy</span>
+        </div>
+        <h2 class="quiz-question" id="questionText" tabindex="-1"></h2>
+        <p class="quiz-answer-hint">Choose one answer. Each question counts once.</p>
+        <div class="answer-list" id="answerList" role="group" aria-labelledby="questionText"></div>
+        <div class="quiz-feedback" id="quizFeedback" aria-live="polite" aria-atomic="true"></div>
+        <div class="quiz-question-actions">
+          <button class="button button-primary" id="nextQuestionButton" type="button" disabled>
+            Next Question
+          </button>
+        </div>
+      </section>
+
+      <section class="quiz-card quiz-results" id="quizResults" aria-labelledby="resultsHeading" hidden>
+        <div class="quiz-result-icon" aria-hidden="true">✓</div>
+        <p class="eyebrow">THAT’S THE FINAL BUZZER</p>
+        <h2 id="resultsHeading" tabindex="-1">Your warmup, wrapped up.</h2>
+        <p class="quiz-description" id="resultMessage"></p>
+        <dl class="quiz-result-stats">
+          <div class="result-stat"><dt>Correct answers</dt><dd id="resultScore">0 / 3</dd></div>
+          <div class="result-stat"><dt>Accuracy</dt><dd id="resultAccuracy">0%</dd></div>
+          <div class="result-stat"><dt>Demo credits</dt><dd class="text-gold" id="resultCredits">0</dd></div>
+        </dl>
+        <div class="quiz-result-actions">
+          <button class="button button-primary" id="restartQuizButton" type="button">Play Again</button>
+          <a class="button button-secondary" href="index.html">Explore the rewards <span aria-hidden="true">↗</span></a>
+        </div>
+        <p class="quiz-demo-note">Demo credits are not saved or transferred to the rewards store in this prototype.</p>
+      </section>
+
+      <noscript>
+        <p class="noscript-message">Enable JavaScript to start the quiz, answer questions, and see your results.</p>
+      </noscript>
+      <p class="quiz-community-link">How was your warmup? <a href="reviews.html">Share your feedback <span aria-hidden="true">→</span></a></p>
+    </main>
+
+    <footer class="site-footer container">
+      <p>NBA Trivia Rewards <span>·</span> Made for fans who know.</p>
+    </footer>
+  </body>
+</html>
