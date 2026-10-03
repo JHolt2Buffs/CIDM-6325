@@ -1863,7 +1863,7 @@ textarea[aria-invalid="true"] {
   }
 
   .dialog-actions {
-    flex-direction: column-reverse;
+    flex-direction: column;
   }
 }
 

@@ -74,12 +74,7 @@ function renderProducts() {
   });
 }
 
-// Demo state lives only in this page. Reloading or navigating starts a fresh demo.
-let creditBalance = 1000;
-const ownedProducts = [];
-let equippedAvatar = null;
-let equippedFrame = null;
-let equippedTitle = null;
+let rewardsState = RewardsState.load();
 let pendingProductId = null;
 const reviewRatings = [5, 4];
 let recommendations = 2;
@@ -94,17 +89,35 @@ function displayMessage(elementId, message, type = "info") {
 
 function updateBalance() {
   document.querySelectorAll("[data-credit-balance]").forEach((element) => {
-    element.textContent = formatCredits(creditBalance);
+    element.textContent = formatCredits(rewardsState.creditBalance);
   });
+  const headerBalance = document.querySelector(".header-balance");
+  if (headerBalance) {
+    headerBalance.setAttribute("aria-label", `${headerBalance.matches("a") ? "Visit the rewards store. " : ""}${formatCredits(rewardsState.creditBalance)} available credits`);
+  }
   const ownedCount = document.getElementById("ownedCount");
-  if (ownedCount) ownedCount.textContent = ownedProducts.length;
+  if (ownedCount) ownedCount.textContent = rewardsState.ownedProducts.length;
+}
+
+function refreshStoreState() {
+  rewardsState = RewardsState.load();
+  rewardsState.ownedProducts = rewardsState.ownedProducts.filter((id) => products.some((product) => product.id === id));
+  const slots = { equippedAvatar: "Avatar", equippedFrame: "Profile Frame", equippedTitle: "Profile Title" };
+  for (const [slot, category] of Object.entries(slots)) {
+    if (!rewardsState.ownedProducts.includes(rewardsState[slot]) || !products.some((product) => product.id === rewardsState[slot] && product.category === category)) {
+      rewardsState[slot] = null;
+    }
+  }
+  updateBalance();
+  updateProductButtons();
+  updateProfilePreview();
 }
 
 function updateProductButtons() {
   document.querySelectorAll("[data-redeem]").forEach((button) => {
     const product = products.find((item) => item.id === button.dataset.redeem);
-    const owned = ownedProducts.includes(product.id);
-    const equipped = [equippedAvatar, equippedFrame, equippedTitle].includes(product.id);
+    const owned = rewardsState.ownedProducts.includes(product.id);
+    const equipped = [rewardsState.equippedAvatar, rewardsState.equippedFrame, rewardsState.equippedTitle].includes(product.id);
     button.disabled = equipped;
     button.classList.toggle("is-owned", owned && !equipped);
     button.classList.toggle("is-equipped", equipped);
@@ -117,12 +130,12 @@ function updateProductButtons() {
 function updateProfilePreview() {
   const avatar = document.getElementById("profileAvatar");
   if (!avatar) return;
-  const avatarProduct = products.find((product) => product.id === equippedAvatar);
+  const avatarProduct = products.find((product) => product.id === rewardsState.equippedAvatar);
   avatar.src = avatarProduct ? avatarProduct.image : "images/default-avatar.svg";
   avatar.alt = avatarProduct ? `JordanFan23’s ${avatarProduct.name} avatar: ${avatarProduct.alt}` : "JordanFan23’s default basketball avatar";
 
   const frame = document.getElementById("profileFrame");
-  const frameProduct = products.find((product) => product.id === equippedFrame);
+  const frameProduct = products.find((product) => product.id === rewardsState.equippedFrame);
   frame.hidden = !frameProduct;
   document.getElementById("profileAvatarLayers").classList.toggle("has-frame", Boolean(frameProduct));
   if (frameProduct) {
@@ -134,40 +147,42 @@ function updateProfilePreview() {
   }
 
   const title = document.getElementById("profileTitle");
-  const titleProduct = products.find((product) => product.id === equippedTitle);
+  const titleProduct = products.find((product) => product.id === rewardsState.equippedTitle);
   title.hidden = !titleProduct;
   title.textContent = titleProduct ? titleProduct.titleText : "";
-  title.classList.toggle("title-blue", equippedTitle === "title-trivia-all-star");
+  title.classList.toggle("title-blue", rewardsState.equippedTitle === "title-trivia-all-star");
   document.getElementById("defaultProfileTitle").hidden = Boolean(titleProduct);
 }
 
 function equipProduct(productId) {
   const product = products.find((item) => item.id === productId);
-  if (!product || !ownedProducts.includes(productId)) {
+  if (!product || !rewardsState.ownedProducts.includes(productId)) {
     displayMessage("storeMessage", "Redeem this reward before equipping it.", "error");
     return;
   }
   // Separate slots ensure exactly one avatar, frame, and title can be equipped.
-  if (product.category === "Avatar") equippedAvatar = productId;
-  if (product.category === "Profile Frame") equippedFrame = productId;
-  if (product.category === "Profile Title") equippedTitle = productId;
+  if (product.category === "Avatar") rewardsState.equippedAvatar = productId;
+  if (product.category === "Profile Frame") rewardsState.equippedFrame = productId;
+  if (product.category === "Profile Title") rewardsState.equippedTitle = productId;
+  rewardsState = RewardsState.save(rewardsState);
   updateProfilePreview();
   updateProductButtons();
   displayMessage("storeMessage", `${product.name} is equipped on your profile. You already own it, so no credits were used.`, "success");
 }
 
 function redeemProduct(productId) {
+  refreshStoreState();
   const product = products.find((item) => item.id === productId);
   if (!product) {
     displayMessage("storeMessage", "That reward could not be found. Please choose a reward from the store.", "error");
     return;
   }
-  if (ownedProducts.includes(productId)) {
+  if (rewardsState.ownedProducts.includes(productId)) {
     equipProduct(productId);
     return;
   }
-  if (creditBalance < product.price) {
-    displayMessage("storeMessage", `Not enough credits for ${product.name}. You need ${formatCredits(product.price - creditBalance)} more credits; your balance is ${formatCredits(creditBalance)}.`, "error");
+  if (rewardsState.creditBalance < product.price) {
+    displayMessage("storeMessage", `Not enough credits for ${product.name}. You need ${formatCredits(product.price - rewardsState.creditBalance)} more credits; your balance is ${formatCredits(rewardsState.creditBalance)}.`, "error");
     return;
   }
 
@@ -175,7 +190,7 @@ function redeemProduct(productId) {
   if (!dialog || dialog.open) return;
   pendingProductId = productId;
   document.getElementById("redeemDescription").textContent = `Redeem ${product.name} for ${formatCredits(product.price)} credits? It will be added to your collection and equipped on your profile.`;
-  document.getElementById("remainingBalance").textContent = `Your balance after redeeming: ${formatCredits(creditBalance - product.price)} credits`;
+  document.getElementById("remainingBalance").textContent = `Your balance after redeeming: ${formatCredits(rewardsState.creditBalance - product.price)} credits`;
   dialog.showModal();
 }
 
@@ -186,21 +201,22 @@ function confirmRedemption() {
   pendingProductId = null;
   dialog.close();
   if (!product) return;
+  refreshStoreState();
 
   // Recheck before spending so a repeat event can never charge twice or overdraw.
-  if (ownedProducts.includes(productId)) {
+  if (rewardsState.ownedProducts.includes(productId)) {
     equipProduct(productId);
     return;
   }
-  if (creditBalance < product.price) {
+  if (rewardsState.creditBalance < product.price) {
     displayMessage("storeMessage", `Not enough credits for ${product.name}. Your balance has not changed.`, "error");
     return;
   }
-  creditBalance -= product.price;
-  ownedProducts.push(productId);
+  rewardsState.creditBalance -= product.price;
+  rewardsState.ownedProducts.push(productId);
   equipProduct(productId);
   updateBalance();
-  displayMessage("storeMessage", `${product.name} redeemed and equipped! ${formatCredits(product.price)} credits used. You have ${formatCredits(creditBalance)} credits left.`, "success");
+  displayMessage("storeMessage", `${product.name} redeemed and equipped! ${formatCredits(product.price)} credits used. You have ${formatCredits(rewardsState.creditBalance)} credits left.`, "success");
 }
 
 function filterProducts(category) {
@@ -294,9 +310,13 @@ if (document.getElementById("productGrid")) {
   document.getElementById("confirmRedeem").addEventListener("click", confirmRedemption);
   document.getElementById("cancelRedeem").addEventListener("click", () => dialog.close());
   dialog.addEventListener("close", () => { pendingProductId = null; });
-  updateBalance();
-  updateProfilePreview();
 }
+
+refreshStoreState();
+window.addEventListener("pageshow", refreshStoreState);
+window.addEventListener("storage", (event) => {
+  if (event.key === RewardsState.storageKey || event.key === null) refreshStoreState();
+});
 
 const reviewForm = document.getElementById("reviewForm");
 if (reviewForm) {
