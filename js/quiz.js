@@ -60,6 +60,7 @@ let score = 0;
 let earnedCredits = 0;
 let answered = false;
 let quizStarted = false;
+let creditsAwarded = false;
 
 const quizIntro = document.getElementById("quizIntro");
 const quizPanel = document.getElementById("quizPanel");
@@ -78,6 +79,18 @@ function resetQuizState() {
   earnedCredits = 0;
   answered = false;
   quizStarted = false;
+  creditsAwarded = false;
+}
+
+function updateQuizBalance() {
+  const balance = RewardsState.load().creditBalance.toLocaleString("en-US");
+  document.querySelectorAll("[data-credit-balance]").forEach((element) => {
+    element.textContent = balance;
+  });
+  document.querySelector(".header-balance").setAttribute("aria-label", `Visit the rewards store. ${balance} available credits`);
+  if (creditsAwarded) {
+    document.getElementById("resultBalanceMessage").textContent = `You earned ${earnedCredits.toLocaleString("en-US")} credits. Your rewards balance is now ${balance} credits.`;
+  }
 }
 
 function updateQuizProgress(completedQuestions) {
@@ -161,7 +174,7 @@ function selectAnswer(selectedIndex) {
   });
 
   const feedbackHeading = document.createElement("strong");
-  feedbackHeading.textContent = correct ? `Correct! +${question.creditReward} demo credits.` : "Incorrect. No credits this time.";
+  feedbackHeading.textContent = correct ? `Correct! +${question.creditReward} credits.` : "Incorrect. No credits this time.";
   const explanation = document.createElement("p");
   explanation.textContent = question.explanation;
   quizFeedback.classList.add(correct ? "is-correct" : "is-incorrect");
@@ -186,6 +199,12 @@ function showResults() {
   if (!quizStarted || currentQuestionIndex < quizQuestions.length) return;
 
   quizStarted = false;
+  if (!creditsAwarded) {
+    const state = RewardsState.load();
+    state.creditBalance += earnedCredits;
+    RewardsState.save(state);
+    creditsAwarded = true;
+  }
   quizIntro.hidden = true;
   quizPanel.hidden = true;
   quizResults.hidden = false;
@@ -200,6 +219,7 @@ function showResults() {
   document.getElementById("resultAccuracy").textContent = `${accuracy}%`;
   document.getElementById("resultCredits").textContent = earnedCredits;
   document.getElementById("resultMessage").textContent = messages[accuracy];
+  updateQuizBalance();
   document.getElementById("resultsHeading").focus();
 }
 
@@ -215,7 +235,14 @@ function restartQuiz() {
   nextQuestionButton.textContent = "Next Question";
   updateQuizProgress(0);
   startQuizButton.focus();
+  updateQuizBalance();
 }
+
+updateQuizBalance();
+window.addEventListener("pageshow", updateQuizBalance);
+window.addEventListener("storage", (event) => {
+  if (event.key === RewardsState.storageKey || event.key === null) updateQuizBalance();
+});
 
 startQuizButton.addEventListener("click", startQuiz);
 nextQuestionButton.addEventListener("click", nextQuestion);
