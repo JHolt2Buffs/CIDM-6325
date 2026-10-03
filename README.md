@@ -27,7 +27,6 @@ js/quiz.js                   Quiz questions and scoring
 images/                      Logo and product images
 database/questions.seed.js   Five sample question documents
 database/products.seed.js    Six sample product documents
-database/README.md           Sample data setup
 ```
 
 MongoDB is not connected to the website yet. See the [database guide](database/README.md) to load the sample documents separately.
