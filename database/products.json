@@ -1,0 +1,60 @@
+[
+  {
+    "id": "avatar-hoop-scholar",
+    "name": "Hoop Scholar",
+    "category": "Avatar",
+    "price": 200,
+    "rarity": "Rare",
+    "image": "images/avatar-hoop-scholar.png",
+    "alt": "Orange basketball with a silver question mark and gold laurel leaves",
+    "description": "A basketball-and-question-mark avatar created for fans who treat every trivia question like a championship challenge."
+  },
+  {
+    "id": "avatar-neon-hoop",
+    "name": "Neon Hoop",
+    "category": "Avatar",
+    "price": 250,
+    "rarity": "Rare",
+    "image": "images/avatar-neon-hoop.png",
+    "alt": "Basketball and hoop surrounded by an electric-blue glow",
+    "description": "An electric-blue hoop and basketball avatar that gives any profile an energetic arena look."
+  },
+  {
+    "id": "frame-courtside-gold",
+    "name": "Courtside Gold",
+    "category": "Profile Frame",
+    "price": 450,
+    "rarity": "Epic",
+    "image": "images/frame-courtside-gold.png",
+    "alt": "Gold square profile frame with basketball corners and electric-blue accents",
+    "description": "A premium gold profile frame with basketball details and electric-blue lighting."
+  },
+  {
+    "id": "frame-hardwood-classic",
+    "name": "Hardwood Classic",
+    "category": "Profile Frame",
+    "price": 300,
+    "rarity": "Rare",
+    "image": "images/frame-hardwood-classic.png",
+    "alt": "Polished hardwood profile frame with basketball court line details",
+    "description": "A polished hardwood frame inspired by the painted lines and warm colors of a classic basketball court."
+  },
+  {
+    "id": "title-hardwood-historian",
+    "name": "Hardwood Historian",
+    "category": "Profile Title",
+    "price": 150,
+    "rarity": "Uncommon",
+    "titleText": "Hardwood Historian",
+    "description": "A profile title for fans who know the players, teams, and moments that shaped basketball history."
+  },
+  {
+    "id": "title-trivia-all-star",
+    "name": "Trivia All-Star",
+    "category": "Profile Title",
+    "price": 300,
+    "rarity": "Rare",
+    "titleText": "Trivia All-Star",
+    "description": "A premium title for users who want their basketball knowledge recognized."
+  }
+]

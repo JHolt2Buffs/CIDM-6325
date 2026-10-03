@@ -25,8 +25,8 @@ css/styles.css               Shared styles
 js/app.js                    Store and review interactions
 js/quiz.js                   Quiz questions and scoring
 images/                      Logo and product images
-database/questions.seed.js   Five sample question documents
-database/products.seed.js    Six sample product documents
+database/questions.json      Five sample question documents
+database/products.json       Six sample product documents
 ```
 
-MongoDB is not connected to the website yet. See the [database guide](database/README.md) to load the sample documents separately.
+MongoDB is not connected to the website yet. Import `database/questions.json` and `database/products.json` into the `questions` and `products` collections in MongoDB Compass.
