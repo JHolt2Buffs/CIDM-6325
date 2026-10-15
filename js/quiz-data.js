@@ -1,0 +1,364 @@
+"use strict";
+
+// Shared browser data; the Compass collections mirror these documents.
+window.NBATriviaQuizData = {
+  "quizzes": [
+    {
+      "quizId": "basketball-basics",
+      "title": "Basketball Basics",
+      "description": "Start with the rules that keep the game moving.",
+      "quizType": "general",
+      "teamId": null,
+      "teamName": null,
+      "category": "Rules",
+      "difficulty": "Easy",
+      "featured": true,
+      "questionCount": 3,
+      "maxCredits": 75,
+      "active": true
+    },
+    {
+      "quizId": "nba-history",
+      "title": "NBA History",
+      "description": "Revisit landmark seasons, draft nights, and champions.",
+      "quizType": "general",
+      "teamId": null,
+      "teamName": null,
+      "category": "NBA History",
+      "difficulty": "Medium",
+      "featured": false,
+      "questionCount": 3,
+      "maxCredits": 75,
+      "active": true
+    },
+    {
+      "quizId": "chicago-bulls",
+      "title": "Chicago Bulls Challenge",
+      "description": "Test your knowledge of Chicago’s championship years.",
+      "quizType": "team",
+      "teamId": "chicago-bulls",
+      "teamName": "Chicago Bulls",
+      "category": "Team History",
+      "difficulty": "Medium",
+      "featured": false,
+      "questionCount": 3,
+      "maxCredits": 75,
+      "active": true
+    },
+    {
+      "quizId": "los-angeles-lakers",
+      "title": "Los Angeles Lakers Challenge",
+      "description": "Follow the franchise from Minneapolis to memorable Finals.",
+      "quizType": "team",
+      "teamId": "los-angeles-lakers",
+      "teamName": "Los Angeles Lakers",
+      "category": "Team History",
+      "difficulty": "Medium",
+      "featured": false,
+      "questionCount": 3,
+      "maxCredits": 75,
+      "active": true
+    },
+    {
+      "quizId": "boston-celtics",
+      "title": "Boston Celtics Challenge",
+      "description": "Explore the beginnings of Boston’s championship tradition.",
+      "quizType": "team",
+      "teamId": "boston-celtics",
+      "teamName": "Boston Celtics",
+      "category": "Team History",
+      "difficulty": "Medium",
+      "featured": false,
+      "questionCount": 3,
+      "maxCredits": 75,
+      "active": true
+    }
+  ],
+  "questions": [
+    {
+      "questionId": "question-001",
+      "quizId": "basketball-basics",
+      "teamId": null,
+      "questionText": "How many points is a successful free throw worth?",
+      "category": "Rules",
+      "difficulty": "Easy",
+      "choices": [
+        "1 point",
+        "2 points",
+        "3 points",
+        "4 points"
+      ],
+      "correctAnswerIndex": 0,
+      "explanation": "A successful free throw adds one point to the team’s score.",
+      "creditReward": 25,
+      "active": true,
+      "imagePath": null
+    },
+    {
+      "questionId": "question-002",
+      "quizId": "basketball-basics",
+      "teamId": null,
+      "questionText": "How many players from one team normally play on the court?",
+      "category": "Rules",
+      "difficulty": "Easy",
+      "choices": [
+        "4 players",
+        "5 players",
+        "6 players",
+        "7 players"
+      ],
+      "correctAnswerIndex": 1,
+      "explanation": "Each team normally has five players on the court.",
+      "creditReward": 25,
+      "active": true,
+      "imagePath": null
+    },
+    {
+      "questionId": "question-005",
+      "quizId": "basketball-basics",
+      "teamId": null,
+      "questionText": "How many seconds normally start an NBA shot clock?",
+      "category": "Rules",
+      "difficulty": "Easy",
+      "choices": [
+        "20 seconds",
+        "30 seconds",
+        "24 seconds",
+        "35 seconds"
+      ],
+      "correctAnswerIndex": 2,
+      "explanation": "The shot clock normally starts at 24 seconds.",
+      "creditReward": 25,
+      "active": true,
+      "imagePath": null
+    },
+    {
+      "questionId": "question-003",
+      "quizId": "nba-history",
+      "teamId": null,
+      "questionText": "Who won the 1996 NBA Finals?",
+      "category": "NBA History",
+      "difficulty": "Medium",
+      "choices": [
+        "Utah Jazz",
+        "Chicago Bulls",
+        "Phoenix Suns",
+        "Houston Rockets"
+      ],
+      "correctAnswerIndex": 1,
+      "explanation": "Chicago beat Seattle to win the 1996 championship.",
+      "creditReward": 25,
+      "active": true,
+      "imagePath": null
+    },
+    {
+      "questionId": "question-004",
+      "quizId": "nba-history",
+      "teamId": null,
+      "questionText": "Which team drafted Kobe Bryant in 1996?",
+      "category": "NBA History",
+      "difficulty": "Medium",
+      "choices": [
+        "Boston Celtics",
+        "Chicago Bulls",
+        "Charlotte Hornets",
+        "New York Knicks"
+      ],
+      "correctAnswerIndex": 2,
+      "explanation": "Charlotte drafted Bryant before trading his rights to Los Angeles.",
+      "creditReward": 25,
+      "active": true,
+      "imagePath": null
+    },
+    {
+      "questionId": "question-006",
+      "quizId": "nba-history",
+      "teamId": null,
+      "questionText": "When did the NBA introduce the three-point line?",
+      "category": "NBA History",
+      "difficulty": "Medium",
+      "choices": [
+        "1969–70",
+        "1974–75",
+        "1984–85",
+        "1979–80"
+      ],
+      "correctAnswerIndex": 3,
+      "explanation": "The three-point line entered NBA play in 1979–80.",
+      "creditReward": 25,
+      "active": true,
+      "imagePath": null
+    },
+    {
+      "questionId": "question-007",
+      "quizId": "chicago-bulls",
+      "teamId": "chicago-bulls",
+      "questionText": "When did Chicago win its first NBA title?",
+      "category": "Team History",
+      "difficulty": "Medium",
+      "choices": [
+        "1989",
+        "1991",
+        "1993",
+        "1996"
+      ],
+      "correctAnswerIndex": 1,
+      "explanation": "The Bulls’ first championship came in 1991.",
+      "creditReward": 25,
+      "active": true,
+      "imagePath": null
+    },
+    {
+      "questionId": "question-008",
+      "quizId": "chicago-bulls",
+      "teamId": "chicago-bulls",
+      "questionText": "How many regular-season games did Chicago win in 1995–96?",
+      "category": "Team History",
+      "difficulty": "Medium",
+      "choices": [
+        "62",
+        "67",
+        "69",
+        "72"
+      ],
+      "correctAnswerIndex": 3,
+      "explanation": "Chicago finished that regular season with 72 wins.",
+      "creditReward": 25,
+      "active": true,
+      "imagePath": null
+    },
+    {
+      "questionId": "question-009",
+      "quizId": "chicago-bulls",
+      "teamId": "chicago-bulls",
+      "questionText": "Who faced Chicago in the 1998 Finals?",
+      "category": "Team History",
+      "difficulty": "Medium",
+      "choices": [
+        "Utah Jazz",
+        "Seattle SuperSonics",
+        "Phoenix Suns",
+        "Portland Trail Blazers"
+      ],
+      "correctAnswerIndex": 0,
+      "explanation": "The Bulls defeated Utah in the 1998 Finals.",
+      "creditReward": 25,
+      "active": true,
+      "imagePath": null
+    },
+    {
+      "questionId": "question-010",
+      "quizId": "los-angeles-lakers",
+      "teamId": "los-angeles-lakers",
+      "questionText": "Which city was home to the Lakers before Los Angeles?",
+      "category": "Team History",
+      "difficulty": "Medium",
+      "choices": [
+        "Detroit",
+        "Minneapolis",
+        "San Diego",
+        "St. Louis"
+      ],
+      "correctAnswerIndex": 1,
+      "explanation": "The franchise previously played in Minneapolis.",
+      "creditReward": 25,
+      "active": true,
+      "imagePath": null
+    },
+    {
+      "questionId": "question-011",
+      "quizId": "los-angeles-lakers",
+      "teamId": "los-angeles-lakers",
+      "questionText": "When did the Lakers move to Los Angeles?",
+      "category": "Team History",
+      "difficulty": "Medium",
+      "choices": [
+        "1950",
+        "1955",
+        "1960",
+        "1965"
+      ],
+      "correctAnswerIndex": 2,
+      "explanation": "Los Angeles became their home in 1960.",
+      "creditReward": 25,
+      "active": true,
+      "imagePath": null
+    },
+    {
+      "questionId": "question-012",
+      "quizId": "los-angeles-lakers",
+      "teamId": "los-angeles-lakers",
+      "questionText": "Which Lakers rookie was the 1980 Finals MVP?",
+      "category": "Team History",
+      "difficulty": "Medium",
+      "choices": [
+        "Magic Johnson",
+        "James Worthy",
+        "Kobe Bryant",
+        "Jerry West"
+      ],
+      "correctAnswerIndex": 0,
+      "explanation": "Magic Johnson earned Finals MVP as a rookie in 1980.",
+      "creditReward": 25,
+      "active": true,
+      "imagePath": null
+    },
+    {
+      "questionId": "question-013",
+      "quizId": "boston-celtics",
+      "teamId": "boston-celtics",
+      "questionText": "When did Boston win its first NBA championship?",
+      "category": "Team History",
+      "difficulty": "Medium",
+      "choices": [
+        "1947",
+        "1957",
+        "1967",
+        "1974"
+      ],
+      "correctAnswerIndex": 1,
+      "explanation": "Boston’s first championship came in 1957.",
+      "creditReward": 25,
+      "active": true,
+      "imagePath": null
+    },
+    {
+      "questionId": "question-014",
+      "quizId": "boston-celtics",
+      "teamId": "boston-celtics",
+      "questionText": "How many consecutive titles did Boston win from 1959 through 1966?",
+      "category": "Team History",
+      "difficulty": "Medium",
+      "choices": [
+        "4",
+        "6",
+        "7",
+        "8"
+      ],
+      "correctAnswerIndex": 3,
+      "explanation": "Boston won eight straight championships in that span.",
+      "creditReward": 25,
+      "active": true,
+      "imagePath": null
+    },
+    {
+      "questionId": "question-015",
+      "quizId": "boston-celtics",
+      "teamId": "boston-celtics",
+      "questionText": "How many NBA titles did Bill Russell win as a Celtics player?",
+      "category": "Team History",
+      "difficulty": "Medium",
+      "choices": [
+        "5",
+        "8",
+        "11",
+        "13"
+      ],
+      "correctAnswerIndex": 2,
+      "explanation": "Russell won 11 championships during his Celtics playing career.",
+      "creditReward": 25,
+      "active": true,
+      "imagePath": null
+    }
+  ]
+};
