@@ -330,11 +330,11 @@ h1 {
   color: var(--off-white);
 }
 
-.main-nav a[aria-current="page"] {
+.main-nav a[aria-current] {
   color: var(--off-white);
 }
 
-.main-nav a[aria-current="page"]::after {
+.main-nav a[aria-current]::after {
   position: absolute;
   content: "";
   height: 3px;
@@ -597,6 +597,7 @@ h1 {
 
 .filter-bar {
   display: flex;
+  flex-wrap: wrap;
   gap: 6px;
   margin: 24px 0;
   padding: 5px;
@@ -618,7 +619,7 @@ h1 {
   font-size: 11px;
   font-weight: 700;
   border-radius: 6px;
-  min-height: 38px;
+  min-height: 44px;
   padding: 7px 14px;
   transition: color 0.18s, background 0.18s;
 }
@@ -856,6 +857,7 @@ h1 {
 }
 
 .redeem-button:disabled {
+  cursor: default;
   transform: none;
 }
 
@@ -1680,11 +1682,11 @@ textarea[aria-invalid="true"] {
   }
 
   .filter-button {
-    flex: 1;
-    padding: 8px 5px;
-    font-size: 10px;
+    flex: 1 1 90px;
+    padding: 8px 10px;
+    font-size: 12px;
     gap: 5px;
-    min-height: 40px;
+    min-height: 44px;
   }
 
   .filter-button span {
@@ -2504,10 +2506,6 @@ textarea[aria-invalid="true"] {
 
 /* Prize Vault and saved rewards */
 
-.filter-bar {
-  flex-wrap: wrap;
-}
-
 .product-card.is-vault {
   grid-column: 1 / -1;
   display: grid;
@@ -2674,5 +2672,50 @@ textarea[aria-invalid="true"] {
 
   .my-rewards {
     padding: 22px;
+  }
+}
+
+/* Shared interaction and small-screen refinements */
+
+.quiz-option-card:hover,
+.quiz-option-card:focus-within {
+  border-color: #89b0ff;
+}
+
+.filter-button:active {
+  background: #36506e;
+}
+
+.reward-summary > div {
+  min-width: 0;
+  padding-top: 14px;
+  border-top: 1px solid #3b4b65;
+}
+
+.empty-state h2 {
+  margin-bottom: 15px;
+}
+
+.empty-state .button {
+  margin-top: 20px;
+}
+
+@media (max-width: 640px) {
+  .quiz-result-actions .button,
+  .dialog-actions .button {
+    width: 100%;
+  }
+
+  .reward-summary {
+    gap: 18px 12px;
+  }
+
+  .reward-summary dd {
+    overflow-wrap: anywhere;
+  }
+
+  .main-nav {
+    justify-content: space-between;
+    gap: 12px;
   }
 }
