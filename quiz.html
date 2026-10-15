@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Take the Daily NBA Warmup: three basketball questions, instant explanations, and up to 75 credits for your rewards-store balance."
+      content="Play a basketball challenge, learn from instant explanations, and earn credits for the rewards store."
     />
     <meta name="theme-color" content="#0c1424" />
     <title>Play Trivia | NBA Trivia Rewards</title>
@@ -16,6 +16,7 @@
     />
     <link rel="stylesheet" href="css/styles.css" />
     <script src="js/rewards-state.js" defer></script>
+    <script src="js/quiz-data.js" defer></script>
     <script src="js/quiz.js" defer></script>
   </head>
   <body>
@@ -33,7 +34,7 @@
         </a>
         <nav class="main-nav" aria-label="Main navigation">
           <a href="index.html">Rewards Store</a>
-          <a href="quiz.html" aria-current="page">Play Trivia</a>
+          <a href="quizzes.html" aria-current="page">Quizzes</a>
           <a href="reviews.html">Reviews</a>
         </nav>
         <a
@@ -52,8 +53,8 @@
 
     <main class="container quiz-page" id="main">
       <div class="quiz-page-heading">
-        <a class="back-link" href="index.html">
-          <span aria-hidden="true">←</span> Return to Rewards Store
+        <a class="back-link" href="quizzes.html">
+          <span aria-hidden="true">←</span> Choose Another Quiz
         </a>
         <h1>Play <span class="text-orange">Trivia.</span></h1>
         <p class="hero-description">
@@ -61,21 +62,25 @@
         </p>
       </div>
 
+      <section class="quiz-card empty-state" id="quizNotFound" aria-labelledby="notFoundHeading" hidden>
+        <h2 id="notFoundHeading">Quiz Not Found</h2>
+        <p>This challenge is unavailable. Choose an active quiz to keep playing.</p>
+        <a class="button button-primary" href="quizzes.html">Choose Another Quiz</a>
+      </section>
+
       <section
         class="quiz-card quiz-intro"
         id="quizIntro"
         aria-labelledby="introHeading"
       >
         <div class="quiz-intro-copy">
-          <h2 id="introHeading">Beginner Level Quiz</h2>
-          <p class="quiz-description">
-            Test your basketball knowledge with three quick questions. Complete
-            the challenge to earn virtual credits for rewards in the store.
-          </p>
+          <h2 id="introHeading">Your next challenge</h2>
+          <p class="quiz-description" id="quizIntroDescription"></p>
           <ul class="quiz-meta" aria-label="Quiz details">
-            <li>3 Questions</li>
-            <li>Mixed Difficulty</li>
-            <li class="text-gold">Up to 75 Credits</li>
+            <li id="introQuestionCount"></li>
+            <li id="introCategory"></li>
+            <li id="introDifficulty"></li>
+            <li class="text-gold" id="introMaxCredits"></li>
           </ul>
           <button
             class="button button-primary"
@@ -91,10 +96,10 @@
         </div>
         <div class="quiz-intro-art" aria-hidden="true">
           <div class="quiz-court-lines"></div>
-          <span class="quiz-art-number">03</span>
+          <span class="quiz-art-number" id="quizArtCount"></span>
           <span class="quiz-art-label">QUESTIONS. ALL YOU.</span>
           <span class="quiz-art-reward"
-            ><span class="coin">C</span> 25 per correct answer</span
+            ><span class="coin">C</span> <span id="quizArtReward"></span></span
           >
         </div>
       </section>
@@ -106,10 +111,9 @@
         hidden
       >
         <div class="quiz-question-topline">
-          <p class="eyebrow" id="questionNumber">Question 1 of 3</p>
+          <p class="eyebrow" id="questionNumber"></p>
           <span class="quiz-reward"
-            ><span class="coin coin-small" aria-hidden="true">C</span> 25
-            credits per correct answer</span
+            ><span class="coin coin-small" aria-hidden="true">C</span> <span id="questionReward"></span></span
           >
         </div>
         <div
@@ -118,9 +122,9 @@
           role="progressbar"
           aria-label="Quiz progress"
           aria-valuemin="0"
-          aria-valuemax="3"
+          aria-valuemax="1"
           aria-valuenow="0"
-          aria-valuetext="0 of 3 questions answered"
+          aria-valuetext="No questions answered"
         >
           <div class="quiz-progress-bar"></div>
         </div>
@@ -164,12 +168,12 @@
       >
         <div class="quiz-result-icon" aria-hidden="true">✓</div>
         <p class="eyebrow">THAT’S THE FINAL BUZZER</p>
-        <h2 id="resultsHeading" tabindex="-1">Your warmup, wrapped up.</h2>
+        <h2 id="resultsHeading" tabindex="-1">Your challenge, completed.</h2>
         <p class="quiz-description" id="resultMessage"></p>
         <dl class="quiz-result-stats">
           <div class="result-stat">
             <dt>Correct answers</dt>
-            <dd id="resultScore">0 / 3</dd>
+            <dd id="resultScore">0</dd>
           </div>
           <div class="result-stat">
             <dt>Accuracy</dt>
@@ -188,8 +192,9 @@
           >
             Play Again
           </button>
+          <a class="button button-secondary" href="quizzes.html">Choose Another Quiz</a>
           <a class="button button-secondary" href="index.html"
-            >Explore the rewards <span aria-hidden="true">↗</span></a
+            >Explore Rewards <span aria-hidden="true">↗</span></a
           >
         </div>
         <p
@@ -207,7 +212,7 @@
         </p>
       </noscript>
       <p class="quiz-community-link">
-        How was your warmup?
+        How was your challenge?
         <a href="reviews.html"
           >Share your feedback <span aria-hidden="true">→</span></a
         >
