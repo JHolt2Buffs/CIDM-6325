@@ -1,0 +1,72 @@
+[
+  {
+    "quizId": "basketball-basics",
+    "title": "Basketball Basics",
+    "description": "Start with the rules that keep the game moving.",
+    "quizType": "general",
+    "teamId": null,
+    "teamName": null,
+    "category": "Rules",
+    "difficulty": "Easy",
+    "featured": true,
+    "questionCount": 3,
+    "maxCredits": 75,
+    "active": true
+  },
+  {
+    "quizId": "nba-history",
+    "title": "NBA History",
+    "description": "Revisit landmark seasons, draft nights, and champions.",
+    "quizType": "general",
+    "teamId": null,
+    "teamName": null,
+    "category": "NBA History",
+    "difficulty": "Medium",
+    "featured": false,
+    "questionCount": 3,
+    "maxCredits": 75,
+    "active": true
+  },
+  {
+    "quizId": "chicago-bulls",
+    "title": "Chicago Bulls Challenge",
+    "description": "Test your knowledge of Chicago’s championship years.",
+    "quizType": "team",
+    "teamId": "chicago-bulls",
+    "teamName": "Chicago Bulls",
+    "category": "Team History",
+    "difficulty": "Medium",
+    "featured": false,
+    "questionCount": 3,
+    "maxCredits": 75,
+    "active": true
+  },
+  {
+    "quizId": "los-angeles-lakers",
+    "title": "Los Angeles Lakers Challenge",
+    "description": "Follow the franchise from Minneapolis to memorable Finals.",
+    "quizType": "team",
+    "teamId": "los-angeles-lakers",
+    "teamName": "Los Angeles Lakers",
+    "category": "Team History",
+    "difficulty": "Medium",
+    "featured": false,
+    "questionCount": 3,
+    "maxCredits": 75,
+    "active": true
+  },
+  {
+    "quizId": "boston-celtics",
+    "title": "Boston Celtics Challenge",
+    "description": "Explore the beginnings of Boston’s championship tradition.",
+    "quizType": "team",
+    "teamId": "boston-celtics",
+    "teamName": "Boston Celtics",
+    "category": "Team History",
+    "difficulty": "Medium",
+    "featured": false,
+    "questionCount": 3,
+    "maxCredits": 75,
+    "active": true
+  }
+]
