@@ -160,7 +160,6 @@ function equipProduct(productId) {
     displayMessage("storeMessage", "Redeem this reward before equipping it.", "error");
     return;
   }
-  // Separate slots ensure exactly one avatar, frame, and title can be equipped.
   if (product.category === "Avatar") rewardsState.equippedAvatar = productId;
   if (product.category === "Profile Frame") rewardsState.equippedFrame = productId;
   if (product.category === "Profile Title") rewardsState.equippedTitle = productId;
@@ -203,7 +202,6 @@ function confirmRedemption() {
   if (!product) return;
   refreshStoreState();
 
-  // Recheck before spending so a repeat event can never charge twice or overdraw.
   if (rewardsState.ownedProducts.includes(productId)) {
     equipProduct(productId);
     return;
@@ -296,7 +294,6 @@ function submitReview(event) {
   displayMessage("reviewMessage", `Thanks, ${name}! Your review is now at the top of the community reviews.`, "success");
 }
 
-// Each page only initializes the behavior for the elements it contains.
 if (document.getElementById("productGrid")) {
   renderProducts();
   document.getElementById("productGrid").addEventListener("click", (event) => {
