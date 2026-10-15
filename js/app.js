@@ -1,42 +1,6 @@
 "use strict";
 
-// The catalog is the single source of truth for product content and prices.
-const products = [
-  {
-    id: "avatar-hoop-scholar", name: "Hoop Scholar", category: "Avatar", price: 200, rarity: "Rare",
-    image: "images/avatar-hoop-scholar.png",
-    alt: "Orange basketball with a silver question mark and gold laurel leaves",
-    description: "A basketball-and-question-mark avatar created for fans who treat every trivia question like a championship challenge."
-  },
-  {
-    id: "avatar-neon-hoop", name: "Neon Hoop", category: "Avatar", price: 250, rarity: "Rare",
-    image: "images/avatar-neon-hoop.png",
-    alt: "Basketball and hoop surrounded by an electric-blue glow",
-    description: "An electric-blue hoop and basketball avatar that gives any profile an energetic arena look."
-  },
-  {
-    id: "frame-courtside-gold", name: "Courtside Gold", category: "Profile Frame", price: 450, rarity: "Epic",
-    image: "images/frame-courtside-gold.png",
-    alt: "Gold square profile frame with basketball corners and electric-blue accents",
-    description: "A premium gold profile frame with basketball details and electric-blue lighting."
-  },
-  {
-    id: "frame-hardwood-classic", name: "Hardwood Classic", category: "Profile Frame", price: 300, rarity: "Rare",
-    image: "images/frame-hardwood-classic.png",
-    alt: "Polished hardwood profile frame with basketball court line details",
-    description: "A polished hardwood frame inspired by the painted lines and warm colors of a classic basketball court."
-  },
-  {
-    id: "title-hardwood-historian", name: "Hardwood Historian", category: "Profile Title", price: 150, rarity: "Uncommon",
-    titleText: "Hardwood Historian",
-    description: "A profile title for fans who know the players, teams, and moments that shaped basketball history."
-  },
-  {
-    id: "title-trivia-all-star", name: "Trivia All-Star", category: "Profile Title", price: 300, rarity: "Rare",
-    titleText: "Trivia All-Star",
-    description: "A premium title for users who want their basketball knowledge recognized."
-  }
-];
+const products = window.NBATriviaRewardData.products;
 
 function formatCredits(amount) {
   return amount.toLocaleString("en-US");
@@ -46,9 +10,11 @@ function renderProducts() {
   const grid = document.getElementById("productGrid");
   if (!grid) return;
 
-  products.forEach((product) => {
+  products.filter((product) => product.active && product.redeemableDirectly).forEach((product) => {
     const card = document.createElement("article");
     card.className = "product-card";
+    const mystery = product.rewardType === "mystery-physical";
+    card.classList.toggle("is-vault", mystery);
     card.dataset.productId = product.id;
     card.dataset.category = product.category;
     card.setAttribute("aria-labelledby", `${product.id}-name`);
@@ -63,8 +29,10 @@ function renderProducts() {
         ${preview}
       </div>
       <div class="product-details">
+        ${mystery ? '<span class="prototype-label">PRIZE VAULT · PROTOTYPE</span>' : ""}
         <h3 id="${product.id}-name">${product.name}</h3>
         <p class="product-description">${product.description}</p>
+        ${mystery ? `<p class="vault-limit">One box per saved browser profile. Each outcome has a 1 in ${getPossibleRewards(product).length} chance.</p>${possibleRewardsMarkup(product)}` : ""}
         <div class="product-footer">
           <span class="product-price"><span class="coin coin-small" aria-hidden="true">C</span><span><strong>${formatCredits(product.price)}</strong><small> credits</small></span></span>
           <button type="button" class="button button-primary redeem-button" data-redeem="${product.id}" aria-label="Redeem ${product.name} for ${product.price} credits">Redeem <span aria-hidden="true">↗</span></button>
@@ -101,16 +69,10 @@ function updateBalance() {
 
 function refreshStoreState() {
   rewardsState = RewardsState.load();
-  rewardsState.ownedProducts = rewardsState.ownedProducts.filter((id) => products.some((product) => product.id === id));
-  const slots = { equippedAvatar: "Avatar", equippedFrame: "Profile Frame", equippedTitle: "Profile Title" };
-  for (const [slot, category] of Object.entries(slots)) {
-    if (!rewardsState.ownedProducts.includes(rewardsState[slot]) || !products.some((product) => product.id === rewardsState[slot] && product.category === category)) {
-      rewardsState[slot] = null;
-    }
-  }
   updateBalance();
   updateProductButtons();
   updateProfilePreview();
+  renderMyRewards();
 }
 
 function updateProductButtons() {
@@ -118,12 +80,14 @@ function updateProductButtons() {
     const product = products.find((item) => item.id === button.dataset.redeem);
     const owned = rewardsState.ownedProducts.includes(product.id);
     const equipped = [rewardsState.equippedAvatar, rewardsState.equippedFrame, rewardsState.equippedTitle].includes(product.id);
-    button.disabled = equipped;
+    const claimed = rewardsState.claimedPhysicalRewards.some((claim) => claim.sourceProductId === product.id);
+    button.disabled = equipped || claimed;
+    button.classList.toggle("is-claimed", claimed);
     button.classList.toggle("is-owned", owned && !equipped);
     button.classList.toggle("is-equipped", equipped);
     button.closest(".product-card").classList.toggle("is-equipped", equipped);
-    button.textContent = equipped ? "Equipped ✓" : owned ? "Equip →" : "Redeem ↗";
-    button.setAttribute("aria-label", equipped ? `${product.name} is equipped` : owned ? `Equip owned ${product.name}` : `Redeem ${product.name} for ${product.price} credits`);
+    button.textContent = claimed ? "Claimed ✓" : equipped ? "Equipped ✓" : owned ? "Equip →" : "Redeem ↗";
+    button.setAttribute("aria-label", claimed ? `${product.name} has already been claimed` : equipped ? `${product.name} is equipped` : owned ? `Equip owned ${product.name}` : `Redeem ${product.name} for ${product.price} credits`);
   });
 }
 
@@ -156,7 +120,7 @@ function updateProfilePreview() {
 
 function equipProduct(productId) {
   const product = products.find((item) => item.id === productId);
-  if (!product || !rewardsState.ownedProducts.includes(productId)) {
+  if (!product || !product.rewardType.startsWith("digital-") || !rewardsState.ownedProducts.includes(productId)) {
     displayMessage("storeMessage", "Redeem this reward before equipping it.", "error");
     return;
   }
@@ -166,14 +130,19 @@ function equipProduct(productId) {
   rewardsState = RewardsState.save(rewardsState);
   updateProfilePreview();
   updateProductButtons();
+  renderMyRewards();
   displayMessage("storeMessage", `${product.name} is equipped on your profile. You already own it, so no credits were used.`, "success");
 }
 
 function redeemProduct(productId) {
   refreshStoreState();
   const product = products.find((item) => item.id === productId);
-  if (!product) {
+  if (!product || !product.active || !product.redeemableDirectly) {
     displayMessage("storeMessage", "That reward could not be found. Please choose a reward from the store.", "error");
+    return;
+  }
+  if (rewardsState.claimedPhysicalRewards.some((claim) => claim.sourceProductId === productId)) {
+    displayMessage("storeMessage", "You already claimed this one-time box. Find your surprise in My Rewards.", "info");
     return;
   }
   if (rewardsState.ownedProducts.includes(productId)) {
@@ -188,8 +157,15 @@ function redeemProduct(productId) {
   const dialog = document.getElementById("redeemDialog");
   if (!dialog || dialog.open) return;
   pendingProductId = productId;
-  document.getElementById("redeemDescription").textContent = `Redeem ${product.name} for ${formatCredits(product.price)} credits? It will be added to your collection and equipped on your profile.`;
-  document.getElementById("remainingBalance").textContent = `Your balance after redeeming: ${formatCredits(rewardsState.creditBalance - product.price)} credits`;
+  const mystery = product.rewardType === "mystery-physical";
+  dialog.classList.toggle("is-mystery", mystery);
+  document.getElementById("mysteryDetails").hidden = !mystery;
+  document.getElementById("redeemDescription").textContent = mystery
+    ? `Open the ${product.name} for ${formatCredits(product.price)} credits? You will receive one randomly selected prototype reward from the list below.`
+    : `Redeem ${product.name} for ${formatCredits(product.price)} credits? It will be added to your collection and equipped on your profile.`;
+  document.getElementById("redemptionFootnote").textContent = mystery ? "Virtual credits only. One claim per saved browser profile." : "Virtual credits only. Your reward is equipped instantly.";
+  if (mystery) document.getElementById("mysteryPool").innerHTML = possibleRewardsMarkup(product);
+  document.getElementById("remainingBalance").textContent = `Current balance: ${formatCredits(rewardsState.creditBalance)} credits. After redeeming: ${formatCredits(rewardsState.creditBalance - product.price)} credits.`;
   dialog.showModal();
 }
 
@@ -199,9 +175,13 @@ function confirmRedemption() {
   const dialog = document.getElementById("redeemDialog");
   pendingProductId = null;
   dialog.close();
-  if (!product) return;
+  if (!product || !product.active || !product.redeemableDirectly) return;
   refreshStoreState();
 
+  if (rewardsState.claimedPhysicalRewards.some((claim) => claim.sourceProductId === productId)) {
+    displayMessage("storeMessage", "You already claimed this one-time box. Find your surprise in My Rewards.", "info");
+    return;
+  }
   if (rewardsState.ownedProducts.includes(productId)) {
     equipProduct(productId);
     return;
@@ -210,11 +190,72 @@ function confirmRedemption() {
     displayMessage("storeMessage", `Not enough credits for ${product.name}. Your balance has not changed.`, "error");
     return;
   }
+  if (product.rewardType === "mystery-physical") {
+    claimMysteryReward(product);
+    return;
+  }
   rewardsState.creditBalance -= product.price;
   rewardsState.ownedProducts.push(productId);
   equipProduct(productId);
   updateBalance();
   displayMessage("storeMessage", `${product.name} redeemed and equipped! ${formatCredits(product.price)} credits used. You have ${formatCredits(rewardsState.creditBalance)} credits left.`, "success");
+}
+
+function getPossibleRewards(product) {
+  return product.possibleRewardIds.map((id) => products.find((item) => item.id === id && item.active)).filter(Boolean);
+}
+
+function possibleRewardsMarkup(product) {
+  const pool = getPossibleRewards(product);
+  return `<ul class="possible-rewards">${pool.map((reward) => `<li><img src="${reward.image}" alt="${reward.alt}" width="72" height="72"><span><strong>${reward.name}</strong><small>1 in ${pool.length} chance</small></span></li>`).join("")}</ul>`;
+}
+
+function renderMyRewards() {
+  const summary = document.getElementById("myRewards");
+  if (!summary) return;
+  for (const [slot, elementId] of [["equippedAvatar", "myAvatar"], ["equippedFrame", "myFrame"], ["equippedTitle", "myTitle"]]) {
+    const product = products.find((item) => item.id === rewardsState[slot]);
+    document.getElementById(elementId).textContent = product ? product.name : "Nothing equipped yet";
+  }
+  const claim = rewardsState.claimedPhysicalRewards[0];
+  const reward = claim && products.find((item) => item.id === claim.rewardId);
+  document.getElementById("myMysteryReward").textContent = reward ? reward.name : "No box claimed yet";
+  document.getElementById("myClaimStatus").textContent = reward ? "Demo only · Nothing will be shipped" : "Your prototype surprise will appear here.";
+  const image = document.getElementById("myRewardImage");
+  image.hidden = !reward;
+  if (reward) { image.src = reward.image; image.alt = reward.alt; }
+  else { image.removeAttribute("src"); image.alt = ""; }
+}
+
+function claimMysteryReward(product) {
+  const pool = getPossibleRewards(product);
+  if (!pool.length) {
+    displayMessage("storeMessage", "This box is currently unavailable. No credits were used.", "error");
+    return;
+  }
+  const reward = pool[Math.floor(Math.random() * pool.length)];
+  const claim = {
+    claimId: `claim-${Date.now()}`,
+    sourceProductId: product.id,
+    rewardId: reward.id,
+    claimedAt: new Date().toISOString(),
+    fulfillmentStatus: "demo-only"
+  };
+  const saved = RewardsState.save({ ...rewardsState,
+    creditBalance: rewardsState.creditBalance - product.price,
+    claimedPhysicalRewards: [...rewardsState.claimedPhysicalRewards, claim]
+  }, { persistent: true });
+  if (!saved) {
+    displayMessage("storeMessage", "Browser storage is unavailable. Enable storage and reload to save a one-time box claim. No credits were used.", "error");
+    return;
+  }
+  refreshStoreState();
+  document.getElementById("revealRewardName").textContent = reward.name;
+  document.getElementById("revealRewardImage").src = reward.image;
+  document.getElementById("revealRewardImage").alt = reward.alt;
+  document.getElementById("revealBalance").textContent = `${formatCredits(product.price)} credits used. Your balance is ${formatCredits(rewardsState.creditBalance)} credits.`;
+  displayMessage("storeMessage", `${reward.name} added to My Rewards. This is a demo-only claim; no item will be shipped.`, "success");
+  document.getElementById("rewardRevealDialog").showModal();
 }
 
 function filterProducts(category) {
@@ -258,7 +299,7 @@ function updateReviewSummary() {
 function submitReview(event) {
   event.preventDefault();
   const form = event.currentTarget;
-  const nameInput = document.getElementById("customerName");
+  const nameInput = document.getElementById("displayName");
   const ratingInput = document.getElementById("rating");
   const feedbackInput = document.getElementById("feedback");
   const name = nameInput.value.trim();
@@ -266,7 +307,7 @@ function submitReview(event) {
   const feedback = feedbackInput.value.trim();
   const recommendation = new FormData(form).get("recommendation");
   const fields = [
-    { element: nameInput, valid: name.length > 0 && name.length <= 60, message: "Please enter your name (up to 60 characters)." },
+    { element: nameInput, valid: name.length > 0 && name.length <= 60, message: "Please enter a display name (up to 60 characters)." },
     { element: ratingInput, valid: Number.isInteger(rating) && rating >= 1 && rating <= 5, message: "Please select a rating from 1 to 5 stars." },
     { element: feedbackInput, valid: feedback.length > 0 && feedback.length <= 1000, message: "Please share your feedback (up to 1,000 characters)." }
   ];
@@ -307,6 +348,9 @@ if (document.getElementById("productGrid")) {
   document.getElementById("confirmRedeem").addEventListener("click", confirmRedemption);
   document.getElementById("cancelRedeem").addEventListener("click", () => dialog.close());
   dialog.addEventListener("close", () => { pendingProductId = null; });
+  const reveal = document.getElementById("rewardRevealDialog");
+  document.getElementById("closeRewardReveal").addEventListener("click", () => reveal.close());
+  reveal.addEventListener("close", () => document.getElementById("myRewardsHeading").focus());
 }
 
 refreshStoreState();

@@ -15,6 +15,7 @@
       type="image/png"
     />
     <link rel="stylesheet" href="css/styles.css" />
+    <script src="js/reward-data.js" defer></script>
     <script src="js/rewards-state.js" defer></script>
     <script src="js/app.js" defer></script>
   </head>
@@ -87,15 +88,15 @@
           </div>
           <div class="reviews-list-heading">
             <h2 id="fanReviewsHeading">From the community</h2>
-            <span class="small-muted">Real opinions. More possibilities.</span>
+            <span class="small-muted">Fan perspectives. More possibilities.</span>
           </div>
           <div id="reviewList">
             <article class="review-card">
               <div class="review-card-top">
                 <div class="review-author">
-                  <span class="review-initials" aria-hidden="true">AM</span>
+                  <span class="review-initials" aria-hidden="true">HF</span>
                   <div>
-                    <h3>Alex M.</h3>
+                    <h3>HoopFan23</h3>
                     <span class="small-muted">Sample review</span>
                   </div>
                 </div>
@@ -116,10 +117,10 @@
               <div class="review-card-top">
                 <div class="review-author">
                   <span class="review-initials initials-blue" aria-hidden="true"
-                    >JR</span
+                    >CC</span
                   >
                   <div>
-                    <h3>Jordan R.</h3>
+                    <h3>CourtsideCrew</h3>
                     <span class="small-muted">Sample review</span>
                   </div>
                 </div>
@@ -150,17 +151,19 @@
           </p>
           <form id="reviewForm" novalidate>
             <div class="form-field">
-              <label for="customerName"
-                >Your name <span class="required-marker">*</span></label
+              <label for="displayName"
+                >Display name <span class="required-marker">*</span></label
               ><input
-                id="customerName"
-                name="customerName"
+                id="displayName"
+                name="displayName"
                 type="text"
-                autocomplete="name"
-                placeholder="How should we call you?"
+                autocomplete="off"
+                aria-describedby="displayNameHint"
+                placeholder="Choose a basketball nickname"
                 maxlength="60"
                 required
               />
+              <p class="field-hint" id="displayNameHint">Use a nickname, not your real name. Keep personal details out of your feedback.</p>
             </div>
             <div class="form-field">
               <label for="rating"

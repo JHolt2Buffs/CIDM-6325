@@ -8,13 +8,14 @@
       content="Make your basketball knowledge your signature. Explore avatars, profile frames, and titles in the NBA Trivia Rewards demo store."
     />
     <meta name="theme-color" content="#0c1424" />
-    <title>Rewards Store | NBA Trivia Rewards</title>
+    <title>Rewards Store & Prize Vault | NBA Trivia Rewards</title>
     <link
       rel="icon"
       href="images/logo-basketball-question.png"
       type="image/png"
     />
     <link rel="stylesheet" href="css/styles.css" />
+    <script src="js/reward-data.js" defer></script>
     <script src="js/rewards-state.js" defer></script>
     <script src="js/app.js" defer></script>
   </head>
@@ -133,7 +134,7 @@
             </p>
           </div>
           <span class="catalog-count" id="catalogCount" aria-live="polite"
-            >6 rewards to make your own</span
+            >7 rewards to make your own</span
           >
         </div>
         <div
@@ -147,7 +148,7 @@
             data-filter="all"
             aria-pressed="true"
           >
-            All rewards <span>6</span>
+            All Rewards <span>7</span>
           </button>
           <button
             type="button"
@@ -173,6 +174,7 @@
           >
             Titles <span>2</span>
           </button>
+          <button type="button" class="filter-button" data-filter="Physical Reward" aria-pressed="false">Prize Vault <span>1</span></button>
         </div>
         <p
           id="storeMessage"
@@ -182,11 +184,23 @@
         ></p>
         <noscript
           ><p class="noscript-message">
-            Enable JavaScript to browse the six rewards, redeem credits, and
+            Enable JavaScript to browse rewards, redeem credits, and
             customize your profile.
           </p></noscript
         >
         <div class="product-grid" id="productGrid"></div>
+      </section>
+
+      <section class="my-rewards" id="myRewards" aria-labelledby="myRewardsHeading">
+        <p class="eyebrow">YOUR COLLECTION</p>
+        <h2 id="myRewardsHeading" tabindex="-1">My Rewards<span class="text-orange">.</span></h2>
+        <dl class="reward-summary">
+          <div><dt>Equipped avatar</dt><dd id="myAvatar">Nothing equipped yet</dd></div>
+          <div><dt>Equipped frame</dt><dd id="myFrame">Nothing equipped yet</dd></div>
+          <div><dt>Equipped title</dt><dd id="myTitle">Nothing equipped yet</dd></div>
+          <div class="claimed-reward"><dt>Mystery reward</dt><dd><img id="myRewardImage" alt="" width="80" height="80" hidden><span id="myMysteryReward">No box claimed yet</span><small id="myClaimStatus">Your prototype surprise will appear here.</small></dd></div>
+        </dl>
+        <p class="collection-note">Rewards and the one-box limit are saved in this browser for this site. Clearing site storage resets this prototype, including its claim limit.</p>
       </section>
 
       <aside class="community-banner" aria-labelledby="communityHeading">
@@ -219,6 +233,10 @@
       <h2 id="redeemHeading">Make it yours?</h2>
       <p id="redeemDescription"></p>
       <p class="dialog-balance" id="remainingBalance"></p>
+      <div id="mysteryDetails" hidden>
+        <p class="prototype-disclosure"><strong>Class-project prototype.</strong> No physical item will currently be shipped. Each of these three outcomes has an equal 1 in 3 chance.</p>
+        <div id="mysteryPool"></div>
+      </div>
       <div class="dialog-actions">
         <button
           class="button button-primary"
@@ -232,9 +250,17 @@
           Keep browsing
         </button>
       </div>
-      <p class="dialog-footnote">
+      <p class="dialog-footnote" id="redemptionFootnote">
         Virtual credits only. Your reward is equipped instantly.
       </p>
+    </dialog>
+    <dialog class="redeem-dialog reward-reveal" id="rewardRevealDialog" aria-labelledby="revealRewardName" aria-describedby="revealDisclaimer revealBalance">
+      <p class="eyebrow">YOUR MYSTERY REWARD</p>
+      <img id="revealRewardImage" alt="" width="180" height="180">
+      <h2 id="revealRewardName"></h2>
+      <p id="revealBalance"></p>
+      <p class="prototype-disclosure" id="revealDisclaimer">Saved to My Rewards with demo-only fulfillment. This is a class-project prototype; no physical item will be shipped.</p>
+      <button type="button" class="button button-primary" id="closeRewardReveal" autofocus>View My Rewards</button>
     </dialog>
   </body>
 </html>
