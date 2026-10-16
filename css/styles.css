@@ -2543,34 +2543,6 @@ textarea[aria-invalid="true"] {
   font-size: 12px;
 }
 
-.possible-rewards {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
-  padding: 0;
-  margin: 20px 0;
-  list-style: none;
-}
-
-.possible-rewards li {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 8px;
-  border: 1px solid #43506a;
-  border-radius: 8px;
-  background: #0c142480;
-  text-align: center;
-  font-size: 11px;
-}
-
-.possible-rewards small {
-  display: block;
-  margin-top: 5px;
-  color: var(--gold);
-}
-
 .my-rewards {
   margin-top: 40px;
   padding: 28px;
@@ -2619,20 +2591,6 @@ textarea[aria-invalid="true"] {
   overflow-y: auto;
 }
 
-.redeem-dialog.is-mystery {
-  width: min(650px, calc(100% - 32px));
-}
-
-.prototype-disclosure {
-  margin-block: 18px;
-  padding: 14px;
-  border: 1px solid #8e7447;
-  border-radius: 8px;
-  color: #e9cf9d;
-  background: #302b23;
-  font-size: 12px;
-}
-
 .reward-reveal {
   text-align: center;
 }
@@ -2658,16 +2616,6 @@ textarea[aria-invalid="true"] {
 
   .is-vault .product-preview {
     min-height: 275px;
-  }
-
-  .possible-rewards {
-    grid-template-columns: 1fr;
-  }
-
-  .possible-rewards li {
-    flex-direction: row;
-    text-align: left;
-    padding: 10px;
   }
 
   .my-rewards {

@@ -29,10 +29,10 @@ function renderProducts() {
         ${preview}
       </div>
       <div class="product-details">
-        ${mystery ? '<span class="prototype-label">PRIZE VAULT · PROTOTYPE</span>' : ""}
+        ${mystery ? '<span class="prototype-label">PRIZE VAULT (PROTOTYPE)</span>' : ""}
         <h3 id="${product.id}-name">${product.name}</h3>
         <p class="product-description">${product.description}</p>
-        ${mystery ? `<p class="vault-limit">One box per saved browser profile. Each outcome has a 1 in ${getPossibleRewards(product).length} chance.</p>${possibleRewardsMarkup(product)}` : ""}
+        ${mystery ? '<p class="vault-limit">One box per saved browser profile.</p>' : ""}
         <div class="product-footer">
           <span class="product-price"><span class="coin coin-small" aria-hidden="true">C</span><span><strong>${formatCredits(product.price)}</strong><small> credits</small></span></span>
           <button type="button" class="button button-primary redeem-button" data-redeem="${product.id}" aria-label="Redeem ${product.name} for ${product.price} credits">Redeem <span aria-hidden="true">↗</span></button>
@@ -158,13 +158,10 @@ function redeemProduct(productId) {
   if (!dialog || dialog.open) return;
   pendingProductId = productId;
   const mystery = product.rewardType === "mystery-physical";
-  dialog.classList.toggle("is-mystery", mystery);
-  document.getElementById("mysteryDetails").hidden = !mystery;
   document.getElementById("redeemDescription").textContent = mystery
-    ? `Open the ${product.name} for ${formatCredits(product.price)} credits? You will receive one randomly selected prototype reward from the list below.`
+    ? `Open the ${product.name} for ${formatCredits(product.price)} credits and reveal a random piece of physical basketball memorabilia (prototype)?`
     : `Redeem ${product.name} for ${formatCredits(product.price)} credits? It will be added to your collection and equipped on your profile.`;
   document.getElementById("redemptionFootnote").textContent = mystery ? "Virtual credits only. One claim per saved browser profile." : "Virtual credits only. Your reward is equipped instantly.";
-  if (mystery) document.getElementById("mysteryPool").innerHTML = possibleRewardsMarkup(product);
   document.getElementById("remainingBalance").textContent = `Current balance: ${formatCredits(rewardsState.creditBalance)} credits. After redeeming: ${formatCredits(rewardsState.creditBalance - product.price)} credits.`;
   dialog.showModal();
 }
@@ -203,11 +200,6 @@ function confirmRedemption() {
 
 function getPossibleRewards(product) {
   return product.possibleRewardIds.map((id) => products.find((item) => item.id === id && item.active)).filter(Boolean);
-}
-
-function possibleRewardsMarkup(product) {
-  const pool = getPossibleRewards(product);
-  return `<ul class="possible-rewards">${pool.map((reward) => `<li><img src="${reward.image}" alt="${reward.alt}" width="72" height="72"><span><strong>${reward.name}</strong><small>1 in ${pool.length} chance</small></span></li>`).join("")}</ul>`;
 }
 
 function renderMyRewards() {

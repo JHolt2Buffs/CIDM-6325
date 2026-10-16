@@ -19,7 +19,7 @@ Add teams through `js/quiz-data.js` and matching database JSON files, using cons
 
 ## Rewards and storage
 
-Six digital rewards provide avatars, frames, and titles. The 900-credit Mystery Memorabilia Box offers a Mini Basketball, Basketball Collectible Pack, or Hardwood Legends Poster with equal odds (1 in 3). One claim per saved browser profile; **demo-only, nothing ships**.
+Six digital rewards provide avatars, frames, and titles. The Mystery Memorabilia Box reveals a random piece of physical basketball memorabilia (prototype) for 2,500 credits. One claim per saved browser profile.
 
 Start with 1,000 credits. Balance, ownership, equipment, and claims persist in browser storage for the same site. Reviews and unfinished quizzes reset on reload. Clearing site storage resets everything, including the claim limit. Unavailable storage makes digital progress temporary and prevents mystery claims.
 

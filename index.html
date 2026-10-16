@@ -234,10 +234,6 @@
       <h2 id="redeemHeading">Make it yours?</h2>
       <p id="redeemDescription"></p>
       <p class="dialog-balance" id="remainingBalance"></p>
-      <div id="mysteryDetails" hidden>
-        <p class="prototype-disclosure"><strong>Class-project prototype.</strong> No physical item will currently be shipped. Each of these three outcomes has an equal 1 in 3 chance.</p>
-        <div id="mysteryPool"></div>
-      </div>
       <div class="dialog-actions">
         <button
           class="button button-primary"
@@ -255,12 +251,12 @@
         Virtual credits only. Your reward is equipped instantly.
       </p>
     </dialog>
-    <dialog class="redeem-dialog reward-reveal" id="rewardRevealDialog" aria-labelledby="revealRewardName" aria-describedby="revealDisclaimer revealBalance">
+    <dialog class="redeem-dialog reward-reveal" id="rewardRevealDialog" aria-labelledby="revealRewardName" aria-describedby="revealPrototype revealBalance">
       <p class="eyebrow">YOUR MYSTERY REWARD</p>
       <img id="revealRewardImage" alt="" width="180" height="180">
       <h2 id="revealRewardName"></h2>
       <p id="revealBalance"></p>
-      <p class="prototype-disclosure" id="revealDisclaimer">Saved to My Rewards with demo-only fulfillment. This is a class-project prototype; no physical item will be shipped.</p>
+      <p class="dialog-footnote" id="revealPrototype">(prototype)</p>
       <button type="button" class="button button-primary" id="closeRewardReveal" autofocus>View My Rewards</button>
     </dialog>
   </body>

@@ -38,7 +38,7 @@ for (const product of products) {
 }
 assert.equal(products.filter(product => product.redeemableDirectly).length, 7);
 const box = products.find(product => product.rewardType === "mystery-physical");
-assert.equal(box.price, 900);
+assert.equal(box.price, 2500);
 assert.equal(box.claimLimit, 1);
 assert.equal(box.possibleRewardIds.length, 3);
 for (const id of box.possibleRewardIds) {
