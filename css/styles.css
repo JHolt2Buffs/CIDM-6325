@@ -2424,8 +2424,7 @@ textarea[aria-invalid="true"] {
 }
 
 .quiz-type-badge,
-.difficulty-badge,
-.prototype-label {
+.difficulty-badge {
   padding: 4px 9px;
   border: 1px solid #4a5d7c;
   border-radius: 5px;
@@ -2504,7 +2503,7 @@ textarea[aria-invalid="true"] {
   }
 }
 
-/* Prize Vault and saved rewards */
+/* Prize Vault and reward reveal */
 
 .product-card.is-vault {
   grid-column: 1 / -1;
@@ -2525,59 +2524,16 @@ textarea[aria-invalid="true"] {
   max-width: 85%;
 }
 
-.is-vault .product-details h3 {
-  margin-top: 14px;
-}
-
-.prototype-label,
 .rarity-legendary {
   color: var(--gold);
   border: 1px solid #8e7447;
   background: #302b23;
 }
 
-.vault-limit,
-.collection-note {
+.vault-limit {
   margin-top: 15px;
   color: var(--muted-text);
   font-size: 12px;
-}
-
-.my-rewards {
-  margin-top: 40px;
-  padding: 28px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--card-navy);
-}
-
-.my-rewards h2 {
-  margin-top: 10px;
-  font-size: 30px;
-}
-
-.reward-summary {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 20px;
-  margin: 25px 0 0;
-}
-
-.reward-summary dt {
-  color: var(--muted-text);
-  font-size: 12px;
-}
-
-.reward-summary dd {
-  margin: 8px 0 0;
-  font-size: 14px;
-}
-
-.claimed-reward small {
-  display: block;
-  margin-top: 8px;
-  color: var(--gold);
-  font-size: 11px;
 }
 
 .redeem-button.is-claimed {
@@ -2603,12 +2559,6 @@ textarea[aria-invalid="true"] {
   width: 100%;
 }
 
-@media (max-width: 900px) {
-  .reward-summary {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
 @media (max-width: 640px) {
   .product-card.is-vault {
     grid-template-columns: 1fr;
@@ -2616,10 +2566,6 @@ textarea[aria-invalid="true"] {
 
   .is-vault .product-preview {
     min-height: 275px;
-  }
-
-  .my-rewards {
-    padding: 22px;
   }
 }
 
@@ -2634,12 +2580,6 @@ textarea[aria-invalid="true"] {
   background: #36506e;
 }
 
-.reward-summary > div {
-  min-width: 0;
-  padding-top: 14px;
-  border-top: 1px solid #3b4b65;
-}
-
 .empty-state h2 {
   margin-bottom: 15px;
 }
@@ -2652,14 +2592,6 @@ textarea[aria-invalid="true"] {
   .quiz-result-actions .button,
   .dialog-actions .button {
     width: 100%;
-  }
-
-  .reward-summary {
-    gap: 18px 12px;
-  }
-
-  .reward-summary dd {
-    overflow-wrap: anywhere;
   }
 
   .main-nav {

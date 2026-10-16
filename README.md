@@ -8,7 +8,7 @@ Run `python -m http.server 8000` from the project folder, then open `http://loca
 
 ## Pages and quizzes
 
-- `index.html` — Rewards Store, Prize Vault, and My Rewards.
+- `index.html` — Rewards Store and Prize Vault.
 - `quizzes.html` — Quiz selection with category/difficulty filters.
 - `quiz.html` — Shared player, e.g. `quiz.html?quiz=chicago-bulls`.
 - `reviews.html` — Reviews and nickname-based feedback.

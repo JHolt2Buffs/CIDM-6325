@@ -29,8 +29,7 @@ function renderProducts() {
         ${preview}
       </div>
       <div class="product-details">
-        ${mystery ? '<span class="prototype-label">PRIZE VAULT (PROTOTYPE)</span>' : ""}
-        <h3 id="${product.id}-name">${product.name}</h3>
+        <h3 id="${product.id}-name"${mystery ? ' tabindex="-1"' : ""}>${product.name}</h3>
         <p class="product-description">${product.description}</p>
         ${mystery ? '<p class="vault-limit">One box per saved browser profile.</p>' : ""}
         <div class="product-footer">
@@ -72,7 +71,6 @@ function refreshStoreState() {
   updateBalance();
   updateProductButtons();
   updateProfilePreview();
-  renderMyRewards();
 }
 
 function updateProductButtons() {
@@ -130,7 +128,6 @@ function equipProduct(productId) {
   rewardsState = RewardsState.save(rewardsState);
   updateProfilePreview();
   updateProductButtons();
-  renderMyRewards();
   displayMessage("storeMessage", `${product.name} is equipped on your profile. You already own it, so no credits were used.`, "success");
 }
 
@@ -142,7 +139,7 @@ function redeemProduct(productId) {
     return;
   }
   if (rewardsState.claimedPhysicalRewards.some((claim) => claim.sourceProductId === productId)) {
-    displayMessage("storeMessage", "You already claimed this one-time box. Find your surprise in My Rewards.", "info");
+    displayMessage("storeMessage", "You already claimed this one-time box.", "info");
     return;
   }
   if (rewardsState.ownedProducts.includes(productId)) {
@@ -176,7 +173,7 @@ function confirmRedemption() {
   refreshStoreState();
 
   if (rewardsState.claimedPhysicalRewards.some((claim) => claim.sourceProductId === productId)) {
-    displayMessage("storeMessage", "You already claimed this one-time box. Find your surprise in My Rewards.", "info");
+    displayMessage("storeMessage", "You already claimed this one-time box.", "info");
     return;
   }
   if (rewardsState.ownedProducts.includes(productId)) {
@@ -200,23 +197,6 @@ function confirmRedemption() {
 
 function getPossibleRewards(product) {
   return product.possibleRewardIds.map((id) => products.find((item) => item.id === id && item.active)).filter(Boolean);
-}
-
-function renderMyRewards() {
-  const summary = document.getElementById("myRewards");
-  if (!summary) return;
-  for (const [slot, elementId] of [["equippedAvatar", "myAvatar"], ["equippedFrame", "myFrame"], ["equippedTitle", "myTitle"]]) {
-    const product = products.find((item) => item.id === rewardsState[slot]);
-    document.getElementById(elementId).textContent = product ? product.name : "Nothing equipped yet";
-  }
-  const claim = rewardsState.claimedPhysicalRewards[0];
-  const reward = claim && products.find((item) => item.id === claim.rewardId);
-  document.getElementById("myMysteryReward").textContent = reward ? reward.name : "No box claimed yet";
-  document.getElementById("myClaimStatus").textContent = reward ? "Demo only · Nothing will be shipped" : "Your prototype surprise will appear here.";
-  const image = document.getElementById("myRewardImage");
-  image.hidden = !reward;
-  if (reward) { image.src = reward.image; image.alt = reward.alt; }
-  else { image.removeAttribute("src"); image.alt = ""; }
 }
 
 function claimMysteryReward(product) {
@@ -246,7 +226,7 @@ function claimMysteryReward(product) {
   document.getElementById("revealRewardImage").src = reward.image;
   document.getElementById("revealRewardImage").alt = reward.alt;
   document.getElementById("revealBalance").textContent = `${formatCredits(product.price)} credits used. Your balance is ${formatCredits(rewardsState.creditBalance)} credits.`;
-  displayMessage("storeMessage", `${reward.name} added to My Rewards. This is a demo-only claim; no item will be shipped.`, "success");
+  displayMessage("storeMessage", `Mystery box claimed. ${formatCredits(product.price)} credits used.`, "success");
   document.getElementById("rewardRevealDialog").showModal();
 }
 
@@ -342,7 +322,7 @@ if (document.getElementById("productGrid")) {
   dialog.addEventListener("close", () => { pendingProductId = null; });
   const reveal = document.getElementById("rewardRevealDialog");
   document.getElementById("closeRewardReveal").addEventListener("click", () => reveal.close());
-  reveal.addEventListener("close", () => document.getElementById("myRewardsHeading").focus());
+  reveal.addEventListener("close", () => document.getElementById("mystery-memorabilia-box-name").focus());
 }
 
 refreshStoreState();
