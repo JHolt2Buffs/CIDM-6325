@@ -11,22 +11,37 @@ for (const file of ["js/quiz-data.js", "js/reward-data.js"]) {
 }
 const { quizzes, questions } = context.window.NBATriviaQuizData;
 const { products } = context.window.NBATriviaRewardData;
-for (const [name, documents, idField, count] of [["quizzes", quizzes, "quizId", 5], ["questions", questions, "questionId", 15], ["products", products, "id", 10]]) {
+for (const [name, documents, idField, count] of [["quizzes", quizzes, "quizId", 8], ["questions", questions, "questionId", 24], ["products", products, "id", 10]]) {
   const imported = JSON.parse(fs.readFileSync(path.join(root, `database/${name}.json`), "utf8"));
   assert.deepEqual(imported, JSON.parse(JSON.stringify(documents)), `${name}: Compass and browser data match`);
   assert.equal(documents.length, count);
   assert.equal(new Set(documents.map(document => document[idField])).size, count);
 }
-assert.equal(quizzes.filter(quiz => quiz.quizType === "team").length, 3);
+assert.equal(quizzes.filter(quiz => quiz.quizType === "team").length, 4);
+assert.equal(quizzes.filter(quiz => quiz.quizType === "general").length, 4);
+assert.equal(quizzes.filter(quiz => quiz.category === "Rules").length, 2);
+assert.equal(quizzes.filter(quiz => quiz.category === "NBA History").length, 2);
+assert.equal(quizzes.filter(quiz => quiz.difficulty === "Easy").length, 2);
+assert.equal(quizzes.filter(quiz => quiz.difficulty === "Medium").length, 6);
+assert.ok(quizzes.every(quiz => quiz.active));
+for (const id of ["nba-legends", "basketball-strategy", "oklahoma-city-thunder"]) {
+  assert.ok(quizzes.some(quiz => quiz.quizId === id));
+}
 for (const quiz of quizzes) {
   const assigned = questions.filter(question => question.quizId === quiz.quizId && question.active);
-  assert.equal(assigned.length, quiz.questionCount);
-  assert.equal(assigned.reduce((sum, question) => sum + question.creditReward, 0), quiz.maxCredits);
+  assert.equal(assigned.length, 3);
+  assert.equal(quiz.questionCount, assigned.length);
+  assert.equal(quiz.maxCredits, 75);
+  assert.equal(assigned.reduce((sum, question) => sum + question.creditReward, 0), 75);
 }
 for (const question of questions) {
   const quiz = quizzes.find(quiz => quiz.quizId === question.quizId);
   assert.ok(quiz);
   assert.equal(question.teamId, quiz.teamId);
+  assert.equal(question.category, quiz.category);
+  assert.equal(question.difficulty, quiz.difficulty);
+  assert.equal(question.active, true);
+  assert.equal(question.imagePath, null);
   assert.ok(Number.isInteger(question.correctAnswerIndex) && question.correctAnswerIndex >= 0 && question.correctAnswerIndex < question.choices.length);
   assert.equal(question.creditReward, 25);
 }
