@@ -54,6 +54,73 @@ function displayMessage(elementId, message, type = "info") {
   element.classList.add(type);
 }
 
+function displayEarnCreditsMessage(message) {
+  displayMessage("storeMessage", message, "error");
+  const link = document.createElement("a");
+  link.href = "quizzes.html";
+  link.textContent = "Play a quiz to earn more credits →";
+  document.getElementById("storeMessage").append(" ", link);
+}
+
+function renderCreditEconomy() {
+  const target = document.getElementById("creditEconomy");
+  if (!target) return;
+  const quizData = window.NBATriviaQuizData;
+  const activeQuestions = quizData.questions.filter((question) => question.active);
+  const sampleQuiz = quizData.quizzes.find((quiz) => quiz.active && activeQuestions.filter((question) => question.quizId === quiz.quizId).length === 3);
+  const sampleQuestions = activeQuestions.filter((question) => question.quizId === sampleQuiz.quizId);
+  const rewardPerAnswer = activeQuestions[0].creditReward;
+  const maxCredits = sampleQuestions.reduce((total, question) => total + question.creditReward, 0);
+  document.querySelector("[data-credits-per-answer]").textContent = formatCredits(rewardPerAnswer);
+  document.querySelector("[data-starting-credits]").textContent = formatCredits(RewardsState.startingCredits);
+  target.textContent = `A ${sampleQuestions.length}-question quiz offers up to ${formatCredits(maxCredits)} credits. You begin with ${formatCredits(RewardsState.startingCredits)} credits, saved in this browser. Spend credits on digital profile rewards or save for the Mystery Memorabilia Box (prototype).`;
+}
+
+function renderPossibleRewards(list, box) {
+  list.replaceChildren();
+  const pool = getPossibleRewards(box);
+  pool.forEach((reward) => {
+    const item = document.createElement("li");
+    const image = document.createElement("img");
+    image.src = reward.image;
+    image.alt = reward.alt;
+    image.width = 64;
+    image.height = 64;
+    const copy = document.createElement("span");
+    const name = document.createElement("strong");
+    name.textContent = reward.name;
+    const odds = document.createElement("small");
+    odds.textContent = `Equal chance: 1 in ${pool.length}`;
+    copy.append(name, odds);
+    item.append(image, copy);
+    list.appendChild(item);
+  });
+}
+
+function renderVaultFeature() {
+  const feature = document.getElementById("prizeVault");
+  if (!feature) return;
+  const box = products.find((product) => product.rewardType === "mystery-physical" && product.active);
+  if (!box) { feature.hidden = true; return; }
+  renderPossibleRewards(document.getElementById("vaultOutcomeList"), box);
+  renderPossibleRewards(document.getElementById("dialogOutcomeList"), box);
+}
+
+function updateVaultProgress() {
+  if (!document.getElementById("prizeVault")) return;
+  const box = products.find((product) => product.rewardType === "mystery-physical" && product.active);
+  if (!box) return;
+  const balance = rewardsState.creditBalance;
+  const claimed = rewardsState.claimedPhysicalRewards.some((claim) => claim.sourceProductId === box.id);
+  const progress = document.getElementById("vaultProgress");
+  progress.max = box.price;
+  progress.value = claimed ? box.price : Math.min(balance, box.price);
+  document.getElementById("vaultPrice").textContent = `${formatCredits(box.price)} credits · Your balance: ${formatCredits(balance)} credits`;
+  document.getElementById("vaultProgressMessage").textContent = claimed ? "Mystery box claimed in this browser profile."
+    : balance >= box.price ? "You have enough credits to open the box."
+    : `${formatCredits(box.price - balance)} more credits to reach the box.`;
+}
+
 function updateBalance() {
   document.querySelectorAll("[data-credit-balance]").forEach((element) => {
     element.textContent = formatCredits(rewardsState.creditBalance);
@@ -64,6 +131,7 @@ function updateBalance() {
   }
   const ownedCount = document.getElementById("ownedCount");
   if (ownedCount) ownedCount.textContent = rewardsState.ownedProducts.length;
+  updateVaultProgress();
 }
 
 function refreshStoreState() {
@@ -147,7 +215,7 @@ function redeemProduct(productId) {
     return;
   }
   if (rewardsState.creditBalance < product.price) {
-    displayMessage("storeMessage", `Not enough credits for ${product.name}. You need ${formatCredits(product.price - rewardsState.creditBalance)} more credits; your balance is ${formatCredits(rewardsState.creditBalance)}.`, "error");
+    displayEarnCreditsMessage(`Not enough credits for ${product.name}. You need ${formatCredits(product.price - rewardsState.creditBalance)} more credits; your balance is ${formatCredits(rewardsState.creditBalance)}.`);
     return;
   }
 
@@ -155,6 +223,7 @@ function redeemProduct(productId) {
   if (!dialog || dialog.open) return;
   pendingProductId = productId;
   const mystery = product.rewardType === "mystery-physical";
+  document.getElementById("mysteryDetails").hidden = !mystery;
   document.getElementById("redeemDescription").textContent = mystery
     ? `Open the ${product.name} for ${formatCredits(product.price)} credits and reveal a random piece of physical basketball memorabilia (prototype)?`
     : `Redeem ${product.name} for ${formatCredits(product.price)} credits? It will be added to your collection and equipped on your profile.`;
@@ -181,7 +250,7 @@ function confirmRedemption() {
     return;
   }
   if (rewardsState.creditBalance < product.price) {
-    displayMessage("storeMessage", `Not enough credits for ${product.name}. Your balance has not changed.`, "error");
+    displayEarnCreditsMessage(`Not enough credits for ${product.name}. Your balance has not changed.`);
     return;
   }
   if (product.rewardType === "mystery-physical") {
@@ -309,6 +378,9 @@ function submitReview(event) {
 
 if (document.getElementById("productGrid")) {
   renderProducts();
+  renderCreditEconomy();
+  renderVaultFeature();
+  document.getElementById("viewVaultRewards").addEventListener("click", () => filterProducts("Physical Reward"));
   document.getElementById("productGrid").addEventListener("click", (event) => {
     const button = event.target.closest("[data-redeem]");
     if (button) redeemProduct(button.dataset.redeem);

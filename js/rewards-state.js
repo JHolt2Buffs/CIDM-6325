@@ -3,12 +3,13 @@
 // The store, quiz, and reviews share one browser-local rewards balance.
 const RewardsState = (() => {
   const storageKey = "nbaTriviaRewardsState";
+  const startingCredits = 1000;
   const products = window.NBATriviaRewardData.products;
   const slotTypes = { equippedAvatar: "digital-avatar", equippedFrame: "digital-frame", equippedTitle: "digital-title" };
 
   function defaultState() {
     return {
-      creditBalance: 1000,
+      creditBalance: startingCredits,
       ownedProducts: [],
       equippedAvatar: null,
       equippedFrame: null,
@@ -84,5 +85,5 @@ const RewardsState = (() => {
     return validateState(currentState);
   }
 
-  return { storageKey, load, save };
+  return { storageKey, startingCredits, load, save };
 })();

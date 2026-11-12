@@ -39,7 +39,7 @@
     });
     document.querySelector(".header-balance").setAttribute("aria-label", `Visit the rewards store. ${balance} available credits`);
     if (creditsAwarded) {
-      document.getElementById("resultBalanceMessage").textContent = `You earned ${earnedCredits.toLocaleString("en-US")} credits. Your rewards balance is now ${balance} credits.`;
+      document.getElementById("resultBalanceMessage").textContent = `You earned ${earnedCredits.toLocaleString("en-US")} credits. Your rewards balance is now ${balance} credits. Spend them on digital profile rewards or save for the Prize Vault.`;
     }
   }
 

@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="css/styles.css" />
     <script src="js/reward-data.js" defer></script>
     <script src="js/rewards-state.js" defer></script>
+    <script src="js/quiz-data.js" defer></script>
     <script src="js/app.js" defer></script>
   </head>
   <body>
@@ -67,7 +68,7 @@
             >
             <span class="demo-note"
               ><span class="status-dot" aria-hidden="true"></span> Demo store ·
-              1,000 credits to start</span
+              <span data-starting-credits>1,000</span> credits to start</span
             >
           </div>
         </div>
@@ -121,9 +122,10 @@
         <h2 id="journeyHeading">How it works<span class="text-orange">.</span></h2>
         <ol class="journey-steps">
           <li><span class="step-number">01</span><h3>Choose a Challenge</h3><p>Pick general, historical, strategy, or team trivia.</p></li>
-          <li><span class="step-number">02</span><h3>Earn Credits</h3><p>Get 25 credits for each correct answer and learn from every explanation.</p></li>
+          <li><span class="step-number">02</span><h3>Earn Credits</h3><p>Get <span data-credits-per-answer>25</span> credits for each correct answer and learn from every explanation.</p></li>
           <li><span class="step-number">03</span><h3>Unlock Rewards</h3><p>Customize your fan profile or save credits for the Prize Vault.</p></li>
         </ol>
+        <p class="credit-economy" id="creditEconomy"></p>
         <a class="button button-primary" href="quizzes.html">Start Playing <span aria-hidden="true">→</span></a>
       </section>
 
@@ -133,6 +135,25 @@
           <h2 id="valueHeading">Why play<span class="text-orange">?</span></h2>
         </div>
         <p>Test what you know, discover the story behind each answer, and explore basketball across teams and eras. Your credits can personalize your profile or move you closer to a prototype memorabilia reward.</p>
+      </section>
+
+      <section class="vault-feature" id="prizeVault" aria-labelledby="vaultHeading">
+        <img class="vault-feature-image" src="images/mystery-memorabilia-box.svg" alt="Illustrated navy mystery box with a gold question mark" width="300" height="300">
+        <div class="vault-feature-copy">
+          <p class="eyebrow">THE PRIZE VAULT</p>
+          <h2 id="vaultHeading">Save for a surprise<span class="text-orange">.</span></h2>
+          <p>Redeem the Mystery Memorabilia Box for a random physical basketball collectible (prototype). This class-project reward does not ship.</p>
+          <p class="vault-price" id="vaultPrice"></p>
+          <label for="vaultProgress" id="vaultProgressLabel">Progress toward the Mystery Memorabilia Box</label>
+          <progress id="vaultProgress" max="2500" value="0" aria-describedby="vaultProgressMessage"></progress>
+          <p id="vaultProgressMessage" role="status" aria-live="polite"></p>
+          <h3>Possible contents</h3>
+          <ul class="vault-outcomes" id="vaultOutcomeList"></ul>
+          <div class="vault-actions">
+            <a class="button button-primary" href="quizzes.html">Play to Earn Credits <span aria-hidden="true">→</span></a>
+            <a class="button button-secondary" href="#rewards" id="viewVaultRewards">View Prize Vault <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
       </section>
 
       <section
@@ -239,6 +260,10 @@
       <h2 id="redeemHeading">Make it yours?</h2>
       <p id="redeemDescription"></p>
       <p class="dialog-balance" id="remainingBalance"></p>
+      <div id="mysteryDetails" hidden>
+        <p class="vault-prototype-note">Mystery Memorabilia Box (prototype). One random outcome with equal odds. No physical item is shipped.</p>
+        <ul class="vault-outcomes" id="dialogOutcomeList" aria-label="Possible mystery box contents"></ul>
+      </div>
       <div class="dialog-actions">
         <button
           class="button button-primary"

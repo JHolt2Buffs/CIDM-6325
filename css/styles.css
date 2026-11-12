@@ -265,6 +265,13 @@ h1 {
   box-shadow: 0 8px 24px #0004;
 }
 
+#storeMessage a {
+  color: var(--off-white);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .noscript-message {
   padding: 18px;
   border: 1px solid var(--orange);
@@ -461,6 +468,15 @@ h1 {
   gap: 30px;
   padding: 30px 0;
   border-bottom: 1px solid var(--line);
+}
+
+.credit-economy {
+  margin: 0 0 22px;
+  padding: 12px 16px;
+  border-left: 3px solid var(--orange);
+  background: #1b2d49;
+  color: #e0e8f6;
+  font-size: 13px;
 }
 
 @media (max-width: 900px) {
@@ -2589,6 +2605,143 @@ textarea[aria-invalid="true"] {
 }
 
 /* Prize Vault and reward reveal */
+
+.vault-feature {
+  display: grid;
+  grid-template-columns: minmax(220px, 290px) minmax(0, 1fr);
+  align-items: center;
+  gap: 32px;
+  margin-block: 30px 10px;
+  padding: 30px;
+  border: 1px solid #8e7447;
+  border-radius: var(--radius);
+  background: linear-gradient(130deg, #2b2a30, #14213a 58%);
+}
+
+.vault-feature-image {
+  width: 100%;
+  max-width: 300px;
+  margin-inline: auto;
+  filter: drop-shadow(0 20px 24px #0007);
+}
+
+.vault-feature-copy h2 {
+  margin-block: 8px 12px;
+  font-size: clamp(27px, 3vw, 39px);
+}
+
+.vault-feature-copy > p:not(.eyebrow):not(.vault-price),
+.vault-prototype-note {
+  color: #d1d9e7;
+  font-size: 13px;
+}
+
+.vault-price {
+  margin-top: 16px;
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.vault-feature label {
+  display: block;
+  margin-top: 14px;
+  color: var(--muted-text);
+  font-size: 12px;
+}
+
+.vault-feature progress {
+  display: block;
+  width: 100%;
+  height: 16px;
+  margin-block: 7px;
+  accent-color: var(--orange);
+}
+
+#vaultProgressMessage {
+  color: var(--gold);
+  font-size: 12px;
+}
+
+.vault-feature h3 {
+  margin-top: 20px;
+  font-size: 16px;
+}
+
+.vault-outcomes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  padding: 0;
+  margin: 13px 0 20px;
+  list-style: none;
+}
+
+.vault-outcomes li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  padding: 8px;
+  border: 1px solid #54647c;
+  border-radius: 8px;
+  background: #111d32;
+}
+
+.vault-outcomes img {
+  flex: 0 0 46px;
+  width: 46px;
+  height: 46px;
+}
+
+.vault-outcomes strong,
+.vault-outcomes small {
+  display: block;
+  font-size: 11px;
+  line-height: 1.35;
+}
+
+.vault-outcomes small {
+  margin-top: 4px;
+  color: var(--gold);
+}
+
+.vault-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.vault-prototype-note {
+  margin-bottom: 12px;
+}
+
+.redeem-dialog .vault-outcomes {
+  grid-template-columns: 1fr;
+}
+
+@media (max-width: 1000px) {
+  .vault-feature {
+    grid-template-columns: 1fr;
+  }
+
+  .vault-feature-image {
+    width: 185px;
+  }
+}
+
+@media (max-width: 640px) {
+  .vault-feature {
+    padding: 22px;
+  }
+
+  .vault-outcomes {
+    grid-template-columns: 1fr;
+  }
+
+  .vault-actions .button {
+    width: 100%;
+  }
+}
 
 .product-card.is-vault {
   grid-column: 1 / -1;
