@@ -11,6 +11,8 @@ const { createAttemptService } = require("./services/attempts");
 const { createAttemptRoutes } = require("./routes/attempts");
 const { createRewardService } = require("./services/rewards");
 const { createRewardRoutes } = require("./routes/rewards");
+const { createReviewService } = require("./services/reviews");
+const { createReviewRoutes } = require("./routes/reviews");
 
 function createApp({ database, services = {} }) {
   if (!database) throw new Error("A database connection is required.");
@@ -29,6 +31,7 @@ function createApp({ database, services = {} }) {
   app.use("/api", createProfileRoutes(services.profiles ?? createProfileService(database)));
   app.use("/api", createAttemptRoutes(services.attempts ?? createAttemptService(database)));
   app.use("/api", createRewardRoutes(services.rewards ?? createRewardService(database)));
+  app.use("/api", createReviewRoutes(services.reviews ?? createReviewService(database)));
   app.use("/api", (req, res) => res.status(404).json({ error: { code: "NOT_FOUND", message: "API route not found." } }));
   app.use(express.static(path.join(__dirname, "..", "public"), { extensions: ["html"] }));
   app.use((req, res) => res.status(404).send("Page not found."));

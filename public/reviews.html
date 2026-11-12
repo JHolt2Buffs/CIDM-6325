@@ -15,9 +15,9 @@
       type="image/png"
     />
     <link rel="stylesheet" href="css/styles.css" />
-    <script src="js/reward-data.js" defer></script>
-    <script src="js/rewards-state.js" defer></script>
-    <script src="js/app.js" defer></script>
+    <script src="js/api.js" defer></script>
+    <script src="js/profile-session.js" defer></script>
+    <script src="js/reviews.js" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -50,6 +50,7 @@
     </header>
 
     <main class="container" id="main">
+      <p id="sessionNotice" class="status-message" hidden>Browser storage is unavailable. Your profile will last only until this page closes.</p>
       <section class="reviews-intro" aria-labelledby="reviewsHeading">
         <a class="back-link" href="index.html"
           ><span aria-hidden="true">←</span> Return to Rewards Store</a
@@ -90,53 +91,9 @@
             <h2 id="fanReviewsHeading">From the community</h2>
             <span class="small-muted">Fan perspectives. More possibilities.</span>
           </div>
-          <div id="reviewList">
-            <article class="review-card">
-              <div class="review-card-top">
-                <div class="review-author">
-                  <span class="review-initials" aria-hidden="true">HF</span>
-                  <div>
-                    <h3>HoopFan23</h3>
-                    <span class="small-muted">Sample review</span>
-                  </div>
-                </div>
-                <span class="stars" role="img" aria-label="5 out of 5 stars"
-                  >★★★★★</span
-                >
-              </div>
-              <p class="review-feedback">
-                The Hoop Scholar avatar makes my profile stand out, and the
-                rewards give me something to work toward after every trivia
-                challenge.
-              </p>
-              <p class="recommendation">
-                <span aria-hidden="true">✓</span> Recommends NBA Trivia Rewards
-              </p>
-            </article>
-            <article class="review-card">
-              <div class="review-card-top">
-                <div class="review-author">
-                  <span class="review-initials initials-blue" aria-hidden="true"
-                    >CC</span
-                  >
-                  <div>
-                    <h3>CourtsideCrew</h3>
-                    <span class="small-muted">Sample review</span>
-                  </div>
-                </div>
-                <span class="stars" role="img" aria-label="4 out of 5 stars"
-                  >★★★★<span class="empty-star">☆</span></span
-                >
-              </div>
-              <p class="review-feedback">
-                The profile frames look great and make the reward store feel
-                worthwhile. I would like to see even more colors in the future.
-              </p>
-              <p class="recommendation">
-                <span aria-hidden="true">✓</span> Recommends NBA Trivia Rewards
-              </p>
-            </article>
-          </div>
+          <p id="reviewStatus" class="status-message" role="status" aria-live="polite">Loading reviews…</p>
+          <button class="button button-secondary" id="reviewRetry" type="button" hidden>Retry loading reviews</button>
+          <div id="reviewList"></div>
           <p class="community-note">
             <span aria-hidden="true">↗</span> Your feedback helps inspire the
             next collection.
@@ -220,8 +177,7 @@
               Post your review <span aria-hidden="true">↗</span>
             </button>
             <p class="form-footnote">
-              * Required fields. Reviews are part of this demo and reset on
-              reload.
+              * Required fields. Reviews are saved in the project database.
             </p>
           </form>
           <noscript
