@@ -403,6 +403,91 @@ h1 {
   color: #c2cbdc;
 }
 
+/* Customer journey */
+
+.journey-section {
+  padding: 30px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #111e33;
+}
+
+.journey-section h2,
+.value-section h2 {
+  margin-top: 9px;
+  font-size: clamp(28px, 3vw, 38px);
+}
+
+.journey-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  padding: 0;
+  margin: 24px 0;
+  list-style: none;
+}
+
+.journey-steps li {
+  padding: 21px;
+  border: 1px solid #33445f;
+  border-radius: 10px;
+  background: var(--card-navy);
+}
+
+.step-number {
+  display: inline-block;
+  margin-bottom: 14px;
+  color: var(--gold);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.journey-steps h3 {
+  font-size: 18px;
+}
+
+.journey-steps p,
+.value-section p:not(.eyebrow) {
+  margin-top: 10px;
+  color: var(--muted-text);
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+.value-section {
+  display: grid;
+  grid-template-columns: minmax(230px, 1fr) minmax(0, 2fr);
+  align-items: center;
+  gap: 30px;
+  padding: 30px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+@media (max-width: 900px) {
+  .journey-steps {
+    gap: 10px;
+  }
+
+  .journey-steps li {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 640px) {
+  .journey-section {
+    padding: 22px;
+  }
+
+  .journey-steps,
+  .value-section {
+    grid-template-columns: 1fr;
+  }
+
+  .value-section {
+    gap: 6px;
+  }
+}
+
 /* Live profile preview */
 
 .profile-card {
