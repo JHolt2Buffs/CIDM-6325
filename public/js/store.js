@@ -93,7 +93,6 @@
     const current = profile();
     document.querySelectorAll("[data-credit-balance]").forEach((element) => { element.textContent = money(current.creditBalance); });
     document.querySelector(".header-balance").setAttribute("aria-label", `${money(current.creditBalance)} available credits`);
-    document.getElementById("ownedCount").textContent = current.ownedProductIds.length;
     document.getElementById("sessionNotice").hidden = !ProfileSession.temporary;
     const avatar = productById(current.equipped.avatarId);
     const avatarImage = document.getElementById("profileAvatar");
