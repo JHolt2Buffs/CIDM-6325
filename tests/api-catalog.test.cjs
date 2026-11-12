@@ -7,7 +7,7 @@ const { createApp } = require("../server/app");
 const { createCatalogService } = require("../server/services/catalog");
 const { AppError } = require("../server/errors");
 
-const database = { db: { command: async () => ({ ok: 1 }) }, collection: () => { throw new Error("Unexpected database call"); } };
+const database = { db: { command: async () => ({ ok: 1 }) }, collection: () => ({}) };
 
 test("catalog endpoints return their service data", async () => {
   const services = { catalog: {

@@ -5,6 +5,8 @@ const path = require("node:path");
 const { AppError } = require("./errors");
 const { createCatalogService } = require("./services/catalog");
 const { createCatalogRoutes } = require("./routes/catalog");
+const { createProfileService } = require("./services/profiles");
+const { createProfileRoutes } = require("./routes/profiles");
 
 function createApp({ database, services = {} }) {
   if (!database) throw new Error("A database connection is required.");
@@ -20,6 +22,7 @@ function createApp({ database, services = {} }) {
     }
   });
   app.use("/api", createCatalogRoutes(services.catalog ?? createCatalogService(database)));
+  app.use("/api", createProfileRoutes(services.profiles ?? createProfileService(database)));
   app.use("/api", (req, res) => res.status(404).json({ error: { code: "NOT_FOUND", message: "API route not found." } }));
   app.use(express.static(path.join(__dirname, "..", "public"), { extensions: ["html"] }));
   app.use((req, res) => res.status(404).send("Page not found."));
