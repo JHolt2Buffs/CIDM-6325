@@ -9,9 +9,7 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
-    "seed": "node scripts/seed-database.js",
-    "test": "node --test",
-    "check": "node scripts/check-project.js"
+    "seed": "node scripts/seed-database.js"
   },
   "dependencies": {
     "dotenv": "^18.0.10",
@@ -19,7 +17,6 @@
     "mongodb": "^7.8.0"
   },
   "devDependencies": {
-    "nodemon": "3.1.11",
-    "supertest": "^7.3.2"
+    "nodemon": "3.1.11"
   }
 }
