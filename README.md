@@ -1,38 +1,24 @@
 # NBA Trivia Rewards
 
-A static HTML, CSS, and JavaScript class project: choose a basketball quiz, learn from each answer, earn credits, and redeem them for profile upgrades or a prototype memorabilia reward.
+Basketball fans choose from eight quizzes, earn credits for correct answers, customize a profile, and leave reviews. A 2,500-credit Mystery Memorabilia Box reveals a random physical basketball collectible **(prototype)**. This class project does not ship items and is not affiliated with the NBA or its teams. AI assisted implementation and testing.
 
 ## Run locally
 
-Run `python -m http.server 8000` from the project folder, then open `http://localhost:8000`. VS Code Live Server also works.
+Install **Node.js 20.19+** and **MongoDB Community Server**; start MongoDB. MongoDB Compass is optional for inspecting the data.
 
-## Pages and quizzes
+```bash
+npm install
+cp .env.example .env       # Windows Command Prompt: copy .env.example .env
+npm run seed
+npm start
+```
 
-- `index.html` — Rewards Store and Prize Vault.
-- `quizzes.html` — Quiz selection with category/difficulty filters.
-- `quiz.html` — Shared player, e.g. `quiz.html?quiz=chicago-bulls`.
-- `reviews.html` — Reviews and nickname-based feedback.
+Open **http://localhost:3000**. Edit `.env` to change the port, MongoDB URI, or database name. Use `npm run dev` for automatic server restarts. If startup fails, check that MongoDB is running and that `.env` points to it.
 
-Eight quizzes cover Basketball Basics, NBA History, NBA Legends, Basketball Strategy and Positions, Chicago Bulls, Los Angeles Lakers, Boston Celtics, and Oklahoma City Thunder. Each has three questions worth 25 credits each; a perfect quiz earns 75. The homepage explains the journey and shows Prize Vault progress.
+## Data and checks
 
-Add teams through `js/quiz-data.js` and matching database JSON files, using consistent `quizId` and `teamId` values. All quizzes reuse the same player.
+`npm run seed` idempotently loads 8 quizzes, 24 questions, 10 products, and 2 sample reviews from `database/*.json` into matching MongoDB collections. The server also stores `profiles` and `quizAttempts`. Run `npm test` and `npm run check`; set `MONGODB_TEST_URI=mongodb://127.0.0.1:27017` to include the isolated MongoDB integration test (Windows Command Prompt: `set MONGODB_TEST_URI=mongodb://127.0.0.1:27017 && npm test`).
 
-## Rewards and storage
+The browser stores only an anonymous profile ID. The server owns credits, answers, purchases, equipment, claims, and reviews. A first server-backed visit creates a fresh 1,000-credit profile; old browser-only balances are not imported. Clear this site's browser storage to start a new profile; the previous MongoDB profile remains. Unfinished quiz attempts reset on refresh. If browser storage is blocked, the profile lasts only for the current page session.
 
-Six digital rewards provide avatars, frames, and titles. The 2,500-credit Mystery Memorabilia Box has three possible contents with equal odds. It is a class-project prototype: no physical item ships. One claim per saved browser profile.
-
-Start with 1,000 credits. Balance, ownership, equipment, and claims persist in browser storage for the same site. Reviews and unfinished quizzes reset on reload. Clearing site storage resets everything, including the claim limit. Unavailable storage makes digital progress temporary and prevents mystery claims.
-
-## MongoDB samples
-
-MongoDB is **not connected** to the website. Import these JSON arrays into matching collections in `nba_trivia_rewards`:
-
-| File | Collection | Documents |
-| --- | --- | --- |
-| `database/quizzes.json` | `quizzes` | 8 |
-| `database/questions.json` | `questions` | 24 |
-| `database/products.json` | `products` | 10 |
-
-In Compass, connect to MongoDB, create the database and empty collections, then use **Add Data → Import JSON or CSV file** for each file. Import once to avoid duplicates.
-
-AI assisted implementation and testing. Not affiliated with or endorsed by the NBA or its teams.
+The Express API provides `/api/health`, `/api/quizzes`, `/api/products`, `/api/profiles`, `/api/quiz-attempts`, and `/api/reviews`. The pages in `public/` use these endpoints; opening HTML files directly will not work.
