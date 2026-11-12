@@ -1258,12 +1258,6 @@ h1 {
   font-weight: 700;
 }
 
-.initials-blue {
-  background: #243b60;
-  border-color: #35588c;
-  color: #abcaff;
-}
-
 .review-feedback {
   font-size: 13px;
   color: #c6cfdf;
@@ -1273,17 +1267,9 @@ h1 {
   overflow-wrap: anywhere;
 }
 
-.empty-star {
-  color: #9aa8bf;
-}
-
 .recommendation {
   color: #8ee0b7;
   font-size: 10px;
-}
-
-.recommendation span {
-  margin-right: 5px;
 }
 
 .recommendation.not-recommended {
@@ -2662,54 +2648,6 @@ textarea[aria-invalid="true"] {
   font-size: 12px;
 }
 
-.vault-feature h3 {
-  margin-top: 20px;
-  font-size: 16px;
-}
-
-.vault-outcomes {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
-  padding: 0;
-  margin: 13px 0 20px;
-  list-style: none;
-}
-
-.vault-outcomes li {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  min-width: 0;
-  padding: 8px;
-  border: 1px solid #54647c;
-  border-radius: 8px;
-  background: #111d32;
-  overflow-wrap: anywhere;
-}
-
-.vault-outcomes img {
-  flex: 0 0 46px;
-  width: 46px;
-  height: 46px;
-}
-
-.vault-outcomes strong,
-.vault-outcomes small {
-  display: block;
-  line-height: 1.35;
-}
-
-.vault-outcomes strong {
-  font-size: 12px;
-}
-
-.vault-outcomes small {
-  margin-top: 4px;
-  color: var(--gold);
-  font-size: 11px;
-}
-
 .vault-actions {
   display: flex;
   flex-wrap: wrap;
@@ -2718,10 +2656,6 @@ textarea[aria-invalid="true"] {
 
 .vault-prototype-note {
   margin-bottom: 12px;
-}
-
-.redeem-dialog .vault-outcomes {
-  grid-template-columns: 1fr;
 }
 
 @media (max-width: 1000px) {
@@ -2741,10 +2675,6 @@ textarea[aria-invalid="true"] {
 
   .vault-feature {
     padding: 22px;
-  }
-
-  .vault-outcomes {
-    grid-template-columns: 1fr;
   }
 
   .vault-actions .button {

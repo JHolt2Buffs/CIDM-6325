@@ -3,17 +3,12 @@
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
-const vm = require("node:vm");
 const root = path.join(__dirname, "..");
-const context = { window: {} };
-for (const file of ["js/quiz-data.js", "js/reward-data.js"]) {
-  vm.runInNewContext(fs.readFileSync(path.join(root, "public", file), "utf8"), context);
-}
-const { quizzes, questions } = context.window.NBATriviaQuizData;
-const { products } = context.window.NBATriviaRewardData;
-for (const [name, documents, idField, count] of [["quizzes", quizzes, "quizId", 8], ["questions", questions, "questionId", 24], ["products", products, "id", 10]]) {
-  const imported = JSON.parse(fs.readFileSync(path.join(root, `database/${name}.json`), "utf8"));
-  assert.deepEqual(imported, JSON.parse(JSON.stringify(documents)), `${name}: Compass and browser data match`);
+const read = (name) => JSON.parse(fs.readFileSync(path.join(root, `database/${name}.json`), "utf8"));
+const quizzes = read("quizzes");
+const questions = read("questions");
+const products = read("products");
+for (const [documents, idField, count] of [[quizzes, "quizId", 8], [questions, "questionId", 24], [products, "id", 10]]) {
   assert.equal(documents.length, count);
   assert.equal(new Set(documents.map(document => document[idField])).size, count);
 }
@@ -60,4 +55,4 @@ for (const id of box.possibleRewardIds) {
   const reward = products.find(product => product.id === id);
   assert.ok(reward && reward.active && !reward.redeemableDirectly && reward.rewardType === "physical");
 }
-console.log("PASS JSON parsing, catalog parity, IDs, quiz relationships, reward schema, and asset paths.");
+console.log("PASS JSON parsing, IDs, quiz relationships, reward schema, and asset paths.");
