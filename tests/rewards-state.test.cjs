@@ -13,7 +13,7 @@ function createState(raw = null, failure = null) {
     setItem(key, value) { if (failure === "write") throw new Error("Storage full"); stored = value; }
   }});
   for (const file of ["js/reward-data.js", "js/rewards-state.js"]) {
-    vm.runInContext(fs.readFileSync(path.join(root, file), "utf8"), context);
+    vm.runInContext(fs.readFileSync(path.join(root, "public", file), "utf8"), context);
   }
   return vm.runInContext("RewardsState", context);
 }

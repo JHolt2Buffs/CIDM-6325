@@ -7,7 +7,7 @@ const vm = require("node:vm");
 const root = path.join(__dirname, "..");
 const context = { window: {} };
 for (const file of ["js/quiz-data.js", "js/reward-data.js"]) {
-  vm.runInNewContext(fs.readFileSync(path.join(root, file), "utf8"), context);
+  vm.runInNewContext(fs.readFileSync(path.join(root, "public", file), "utf8"), context);
 }
 const { quizzes, questions } = context.window.NBATriviaQuizData;
 const { products } = context.window.NBATriviaRewardData;
@@ -49,7 +49,7 @@ const fields = ["id", "name", "category", "rewardType", "price", "rarity", "desc
 for (const product of products) {
   assert.deepEqual(Object.keys(product).sort(), fields);
   if (product.redeemableDirectly) assert.ok(Number.isFinite(product.price) && product.price >= 0);
-  if (product.image) assert.ok(fs.existsSync(path.join(root, product.image)));
+  if (product.image) assert.ok(fs.existsSync(path.join(root, "public", product.image)));
 }
 assert.equal(products.filter(product => product.redeemableDirectly).length, 7);
 const box = products.find(product => product.rewardType === "mystery-physical");
