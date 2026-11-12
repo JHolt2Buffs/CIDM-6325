@@ -1,0 +1,20 @@
+[
+  {
+    "reviewId": "sample-hoopfan23",
+    "displayName": "HoopFan23",
+    "rating": 5,
+    "feedback": "The Hoop Scholar avatar makes my profile stand out, and the rewards give me something to work toward after every trivia challenge.",
+    "recommends": true,
+    "source": "sample",
+    "createdAt": "2026-01-01T00:00:00.000Z"
+  },
+  {
+    "reviewId": "sample-courtsidecrew",
+    "displayName": "CourtsideCrew",
+    "rating": 4,
+    "feedback": "The profile frames look great and make the reward store feel worthwhile. I would like to see even more colors in the future.",
+    "recommends": true,
+    "source": "sample",
+    "createdAt": "2026-01-02T00:00:00.000Z"
+  }
+]
