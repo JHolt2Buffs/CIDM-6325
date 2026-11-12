@@ -2685,6 +2685,7 @@ textarea[aria-invalid="true"] {
   border: 1px solid #54647c;
   border-radius: 8px;
   background: #111d32;
+  overflow-wrap: anywhere;
 }
 
 .vault-outcomes img {
@@ -2696,13 +2697,17 @@ textarea[aria-invalid="true"] {
 .vault-outcomes strong,
 .vault-outcomes small {
   display: block;
-  font-size: 11px;
   line-height: 1.35;
+}
+
+.vault-outcomes strong {
+  font-size: 12px;
 }
 
 .vault-outcomes small {
   margin-top: 4px;
   color: var(--gold);
+  font-size: 11px;
 }
 
 .vault-actions {
@@ -2730,6 +2735,10 @@ textarea[aria-invalid="true"] {
 }
 
 @media (max-width: 640px) {
+  .redeem-dialog {
+    padding: 24px;
+  }
+
   .vault-feature {
     padding: 22px;
   }
