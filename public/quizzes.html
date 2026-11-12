@@ -8,9 +8,8 @@
     <title>Quizzes | NBA Trivia Rewards</title>
     <link rel="icon" href="images/logo-basketball-question.png" type="image/png" />
     <link rel="stylesheet" href="css/styles.css" />
-    <script src="js/reward-data.js" defer></script>
-    <script src="js/rewards-state.js" defer></script>
-    <script src="js/quiz-data.js" defer></script>
+    <script src="js/api.js" defer></script>
+    <script src="js/profile-session.js" defer></script>
     <script src="js/quizzes.js" defer></script>
   </head>
   <body>
@@ -67,6 +66,8 @@
           </div>
         </div>
         <p id="quizCount" class="catalog-count" role="status" aria-live="polite"></p>
+        <p id="sessionNotice" class="catalog-count" hidden>Browser storage is unavailable. Your profile will last only until this page closes.</p>
+        <button class="button button-secondary" id="quizRetry" type="button" hidden>Retry loading quizzes</button>
         <div class="quiz-grid" id="quizGrid"></div>
         <p class="empty-state" id="quizEmpty" hidden>No quizzes match these filters. Try All Quizzes and All Difficulties.</p>
         <noscript><p class="noscript-message">Enable JavaScript to browse quizzes and earn credits.</p></noscript>

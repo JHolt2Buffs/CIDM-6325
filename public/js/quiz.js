@@ -1,224 +1,205 @@
 "use strict";
 
 (() => {
-  const quizId = new URLSearchParams(location.search).get("quiz") ?? "basketball-basics";
-  const quiz = window.NBATriviaQuizData.quizzes.find((item) => item.quizId === quizId && item.active);
-  const quizQuestions = window.NBATriviaQuizData.questions.filter((question) => question.quizId === quizId && question.active);
-
-  let currentQuestionIndex = 0;
-  let score = 0;
-  let earnedCredits = 0;
-  let answered = false;
-  let quizStarted = false;
-  let creditsAwarded = false;
-
-  const quizIntro = document.getElementById("quizIntro");
-  const quizPanel = document.getElementById("quizPanel");
-  const quizResults = document.getElementById("quizResults");
-  const questionText = document.getElementById("questionText");
-  const quizProgress = document.getElementById("quizProgress");
+  const quizId = new URLSearchParams(location.search).get("quiz") || "basketball-basics";
+  const intro = document.getElementById("quizIntro");
+  const panel = document.getElementById("quizPanel");
+  const results = document.getElementById("quizResults");
+  const status = document.getElementById("quizStatus");
+  const retry = document.getElementById("quizRetry");
   const answerList = document.getElementById("answerList");
-  const quizFeedback = document.getElementById("quizFeedback");
-  const startQuizButton = document.getElementById("startQuizButton");
-  const nextQuestionButton = document.getElementById("nextQuestionButton");
-  const restartQuizButton = document.getElementById("restartQuizButton");
+  const feedback = document.getElementById("quizFeedback");
+  const next = document.getElementById("nextQuestionButton");
+  const start = document.getElementById("startQuizButton");
+  let quiz = null;
+  let attempt = null;
+  let index = 0;
+  let answered = false;
+  let busy = false;
 
-  function resetQuizState() {
-    currentQuestionIndex = 0;
-    score = 0;
-    earnedCredits = 0;
-    answered = false;
-    quizStarted = false;
-    creditsAwarded = false;
+  function balance() {
+    const value = ProfileSession.profile?.creditBalance;
+    if (value === undefined) return;
+    document.querySelectorAll("[data-credit-balance]").forEach((node) => { node.textContent = value.toLocaleString("en-US"); });
+    document.querySelector(".header-balance").setAttribute("aria-label", `Visit the rewards store. ${value.toLocaleString("en-US")} available credits`);
+    document.getElementById("sessionNotice").hidden = !ProfileSession.temporary;
   }
 
-  function updateQuizBalance() {
-    const balance = RewardsState.load().creditBalance.toLocaleString("en-US");
-    document.querySelectorAll("[data-credit-balance]").forEach((element) => {
-      element.textContent = balance;
-    });
-    document.querySelector(".header-balance").setAttribute("aria-label", `Visit the rewards store. ${balance} available credits`);
-    if (creditsAwarded) {
-      document.getElementById("resultBalanceMessage").textContent = `You earned ${earnedCredits.toLocaleString("en-US")} credits. Your rewards balance is now ${balance} credits. Spend them on digital profile rewards or save for the Prize Vault.`;
+  function errorState(error) {
+    status.textContent = error.message;
+    status.hidden = false;
+    retry.hidden = false;
+  }
+
+  async function load() {
+    retry.hidden = true;
+    status.hidden = false;
+    status.textContent = "Loading quiz…";
+    try {
+      const [response] = await Promise.all([NBATriviaApi.get(`/quizzes/${encodeURIComponent(quizId)}`), ProfileSession.ensure()]);
+      quiz = response.quiz;
+      document.title = `${quiz.title} | NBA Trivia Rewards`;
+      document.getElementById("introHeading").textContent = quiz.title;
+      document.getElementById("quizIntroDescription").textContent = quiz.description;
+      document.getElementById("introQuestionCount").textContent = `${quiz.questionCount} Questions`;
+      document.getElementById("introCategory").textContent = quiz.category;
+      document.getElementById("introDifficulty").textContent = quiz.difficulty;
+      document.getElementById("introMaxCredits").textContent = `Up to ${quiz.maxCredits} Credits`;
+      document.getElementById("quizArtCount").textContent = String(quiz.questionCount).padStart(2, "0");
+      document.getElementById("quizArtReward").textContent = `Up to ${quiz.maxCredits} credits`;
+      balance();
+      status.hidden = true;
+      intro.hidden = false;
+    } catch (error) {
+      if (error.code === "QUIZ_NOT_FOUND" || error.code === "INVALID_REQUEST") {
+        status.hidden = true;
+        intro.hidden = true;
+        document.getElementById("quizNotFound").hidden = false;
+        document.title = "Quiz Not Found | NBA Trivia Rewards";
+      } else errorState(error);
     }
   }
 
-  function updateQuizProgress(completedQuestions) {
-    quizProgress.setAttribute("aria-valuemax", String(quizQuestions.length));
-    quizProgress.setAttribute("aria-valuenow", String(completedQuestions));
-    quizProgress.setAttribute("aria-valuetext", `${completedQuestions} of ${quizQuestions.length} questions answered`);
-    quizProgress.querySelector(".quiz-progress-bar").style.width = `${completedQuestions / quizQuestions.length * 100}%`;
-  }
-
-  function startQuiz() {
-    resetQuizState();
-    quizStarted = true;
-    quizIntro.hidden = true;
-    quizResults.hidden = true;
-    quizPanel.hidden = false;
-    renderQuestion();
+  function progress(done) {
+    const bar = document.getElementById("quizProgress");
+    bar.setAttribute("aria-valuemax", String(attempt.questions.length));
+    bar.setAttribute("aria-valuenow", String(done));
+    bar.setAttribute("aria-valuetext", `${done} of ${attempt.questions.length} questions answered`);
+    bar.querySelector(".quiz-progress-bar").style.width = `${done / attempt.questions.length * 100}%`;
   }
 
   function renderQuestion() {
-    if (!quizStarted || currentQuestionIndex >= quizQuestions.length) return;
-
-    const question = quizQuestions[currentQuestionIndex];
+    const question = attempt.questions[index];
     document.getElementById("questionReward").textContent = `${question.creditReward} credits for a correct answer`;
-    document.getElementById("questionNumber").textContent = `Question ${currentQuestionIndex + 1} of ${quizQuestions.length}`;
+    document.getElementById("questionNumber").textContent = `Question ${index + 1} of ${attempt.questions.length}`;
     document.getElementById("questionCategory").textContent = question.category;
     document.getElementById("questionDifficulty").textContent = question.difficulty;
-    questionText.textContent = question.questionText;
-    updateQuizProgress(currentQuestionIndex);
+    document.getElementById("questionText").textContent = question.questionText;
     answerList.replaceChildren();
-
-    question.choices.forEach((choice, index) => {
+    question.choices.forEach((choice, choiceIndex) => {
       const button = document.createElement("button");
       button.type = "button";
       button.className = "answer-button";
-      button.dataset.answerIndex = String(index);
-
+      button.dataset.answerIndex = String(choiceIndex);
       const letter = document.createElement("span");
       letter.className = "answer-letter";
       letter.setAttribute("aria-hidden", "true");
-      letter.textContent = String.fromCharCode(65 + index);
+      letter.textContent = String.fromCharCode(65 + choiceIndex);
       const label = document.createElement("span");
       label.className = "answer-label";
       label.textContent = choice;
       button.append(letter, label);
       answerList.appendChild(button);
     });
-
-    quizFeedback.replaceChildren();
-    quizFeedback.classList.remove("is-correct", "is-incorrect");
-    nextQuestionButton.disabled = true;
-    nextQuestionButton.textContent = currentQuestionIndex === quizQuestions.length - 1 ? "See Results" : "Next Question";
+    feedback.replaceChildren();
+    feedback.classList.remove("is-correct", "is-incorrect");
     answered = false;
-    questionText.focus();
+    next.disabled = true;
+    next.textContent = index === attempt.questions.length - 1 ? "See Results" : "Next Question";
+    progress(index);
+    document.getElementById("questionText").focus();
   }
 
-  function selectAnswer(selectedIndex) {
-    if (!quizStarted || answered) return;
-
-    const question = quizQuestions[currentQuestionIndex];
-    if (!Number.isInteger(selectedIndex) || selectedIndex < 0 || selectedIndex >= question.choices.length) return;
-
-    answered = true;
-    const correct = selectedIndex === question.correctAnswerIndex;
-    if (correct) {
-      score += 1;
-      earnedCredits += question.creditReward;
-    }
-
-    answerList.querySelectorAll("[data-answer-index]").forEach((button) => {
-      const index = Number(button.dataset.answerIndex);
-      button.disabled = true;
-      if (index === question.correctAnswerIndex || index === selectedIndex) {
-        const isCorrect = index === question.correctAnswerIndex;
-        button.classList.add(isCorrect ? "is-correct" : "is-incorrect");
-        const status = document.createElement("span");
-        status.className = "answer-status";
-        status.textContent = isCorrect
-          ? index === selectedIndex ? "✓ Your answer · Correct" : "✓ Correct answer"
-          : "✕ Your answer · Incorrect";
-        button.appendChild(status);
-      }
-    });
-
-    const feedbackHeading = document.createElement("strong");
-    feedbackHeading.textContent = correct ? `Correct! +${question.creditReward} credits.` : "Incorrect. No credits this time.";
-    const explanation = document.createElement("p");
-    explanation.textContent = question.explanation;
-    quizFeedback.classList.add(correct ? "is-correct" : "is-incorrect");
-    quizFeedback.replaceChildren(feedbackHeading, explanation);
-    updateQuizProgress(currentQuestionIndex + 1);
-    nextQuestionButton.disabled = false;
-    nextQuestionButton.focus();
-  }
-
-  function nextQuestion() {
-    if (!quizStarted || !answered) return;
-
-    currentQuestionIndex += 1;
-    if (currentQuestionIndex < quizQuestions.length) {
+  async function startAttempt() {
+    if (busy) return;
+    busy = true;
+    start.disabled = true;
+    status.hidden = false;
+    status.textContent = "Starting quiz…";
+    try {
+      attempt = await NBATriviaApi.post("/quiz-attempts", { profileId: ProfileSession.profileId, quizId });
+      index = 0;
+      intro.hidden = true;
+      results.hidden = true;
+      panel.hidden = false;
+      status.hidden = true;
       renderQuestion();
-    } else {
-      showResults();
-    }
+    } catch (error) { errorState(error); }
+    finally { busy = false; start.disabled = false; }
   }
 
-  function showResults() {
-    if (!quizStarted || currentQuestionIndex < quizQuestions.length) return;
-
-    quizStarted = false;
-    if (!creditsAwarded) {
-      const state = RewardsState.load();
-      state.creditBalance += earnedCredits;
-      RewardsState.save(state);
-      creditsAwarded = true;
-    }
-    quizIntro.hidden = true;
-    quizPanel.hidden = true;
-    quizResults.hidden = false;
-    const accuracy = Math.round(score / quizQuestions.length * 100);
-    const message = score === quizQuestions.length ? "Perfect game! You mastered this challenge."
-      : accuracy >= 50 ? "Strong performance! Review the explanations and aim for a perfect score."
-      : score > 0 ? "Good start. Keep practicing and try again."
-      : "Tough round. Review the explanations and take another shot.";
-    document.getElementById("resultScore").textContent = `${score} / ${quizQuestions.length}`;
-    document.getElementById("resultAccuracy").textContent = `${accuracy}%`;
-    document.getElementById("resultCredits").textContent = earnedCredits;
-    document.getElementById("resultMessage").textContent = message;
-    updateQuizBalance();
-    document.getElementById("resultsHeading").focus();
+  async function selectAnswer(choice) {
+    if (busy || answered || !attempt) return;
+    const question = attempt.questions[index];
+    if (!Number.isInteger(choice) || choice < 0 || choice >= question.choices.length) return;
+    busy = true;
+    answerList.querySelectorAll("button").forEach((button) => { button.disabled = true; });
+    try {
+      const response = await NBATriviaApi.post(`/quiz-attempts/${attempt.attemptId}/answers`, {
+        profileId: ProfileSession.profileId, questionId: question.questionId, selectedIndex: choice
+      });
+      answered = true;
+      answerList.querySelectorAll("[data-answer-index]").forEach((button) => {
+        const value = Number(button.dataset.answerIndex);
+        if (value !== choice && value !== response.correctAnswerIndex) return;
+        const correct = value === response.correctAnswerIndex;
+        button.classList.add(correct ? "is-correct" : "is-incorrect");
+        const text = document.createElement("span");
+        text.className = "answer-status";
+        text.textContent = correct ? value === choice ? "✓ Your answer · Correct" : "✓ Correct answer" : "✕ Your answer · Incorrect";
+        button.appendChild(text);
+      });
+      const heading = document.createElement("strong");
+      heading.textContent = response.correct ? `Correct! +${response.earnedCredits} credits.` : "Incorrect. No credits this time.";
+      const explanation = document.createElement("p");
+      explanation.textContent = response.explanation;
+      feedback.classList.add(response.correct ? "is-correct" : "is-incorrect");
+      feedback.replaceChildren(heading, explanation);
+      progress(index + 1);
+      next.disabled = false;
+      next.focus();
+    } catch (error) {
+      errorState(error);
+      if (error.code !== "ANSWER_ALREADY_SUBMITTED") answerList.querySelectorAll("button").forEach((button) => { button.disabled = false; });
+    } finally { busy = false; }
   }
 
-  function restartQuiz() {
-    resetQuizState();
-    quizPanel.hidden = true;
-    quizResults.hidden = true;
-    quizIntro.hidden = false;
-    answerList.replaceChildren();
-    quizFeedback.replaceChildren();
-    quizFeedback.classList.remove("is-correct", "is-incorrect");
-    nextQuestionButton.disabled = true;
-    nextQuestionButton.textContent = "Next Question";
-    updateQuizProgress(0);
-    startQuizButton.focus();
-    updateQuizBalance();
+  async function advance() {
+    if (!answered || busy) return;
+    index++;
+    if (index < attempt.questions.length) return renderQuestion();
+    busy = true;
+    next.disabled = true;
+    status.hidden = false;
+    status.textContent = "Saving your result…";
+    try {
+      const result = await NBATriviaApi.post(`/quiz-attempts/${attempt.attemptId}/complete`, { profileId: ProfileSession.profileId });
+      ProfileSession.replace(result.profile);
+      panel.hidden = true;
+      results.hidden = false;
+      status.hidden = true;
+      document.getElementById("resultScore").textContent = `${result.score} / ${result.totalQuestions}`;
+      document.getElementById("resultAccuracy").textContent = `${result.accuracy}%`;
+      document.getElementById("resultCredits").textContent = result.earnedCredits;
+      document.getElementById("resultMessage").textContent = result.score === result.totalQuestions ? "Perfect game! You mastered this challenge." : result.accuracy >= 50 ? "Strong performance! Review the explanations and aim for a perfect score." : result.score ? "Good start. Keep practicing and try again." : "Tough round. Review the explanations and take another shot.";
+      document.getElementById("resultBalanceMessage").textContent = `You earned ${result.earnedCredits.toLocaleString("en-US")} credits. Your rewards balance is now ${result.balance.toLocaleString("en-US")} credits. Spend them on digital profile rewards or save for the Prize Vault.`;
+      document.getElementById("resultsHeading").focus();
+    } catch (error) {
+      index--;
+      errorState(error);
+      next.disabled = false;
+    } finally { busy = false; }
   }
 
-  updateQuizBalance();
-  window.addEventListener("pageshow", updateQuizBalance);
-  window.addEventListener("storage", (event) => {
-    if (event.key === RewardsState.storageKey || event.key === null) updateQuizBalance();
+  start.addEventListener("click", startAttempt);
+  next.addEventListener("click", advance);
+  document.getElementById("restartQuizButton").addEventListener("click", () => {
+    attempt = null;
+    results.hidden = true;
+    intro.hidden = false;
+    start.focus();
   });
-
-  if (!quiz || quizQuestions.length === 0) {
-    quizIntro.hidden = true;
-    document.getElementById("quizNotFound").hidden = false;
-    document.title = "Quiz Not Found | NBA Trivia Rewards";
-    return;
-  }
-
-  const maxCredits = quizQuestions.reduce((total, question) => total + question.creditReward, 0);
-  document.title = `${quiz.title} | NBA Trivia Rewards`;
-  document.getElementById("introHeading").textContent = quiz.title;
-  document.getElementById("quizIntroDescription").textContent = quiz.description;
-  document.getElementById("introQuestionCount").textContent = `${quizQuestions.length} Questions`;
-  document.getElementById("introCategory").textContent = quiz.category;
-  document.getElementById("introDifficulty").textContent = quiz.difficulty;
-  document.getElementById("introMaxCredits").textContent = `Up to ${maxCredits} Credits`;
-  document.getElementById("quizArtCount").textContent = String(quizQuestions.length).padStart(2, "0");
-  document.getElementById("quizArtReward").textContent = `Up to ${maxCredits} credits`;
-  updateQuizProgress(0);
-
-  startQuizButton.addEventListener("click", startQuiz);
-  nextQuestionButton.addEventListener("click", nextQuestion);
-  restartQuizButton.addEventListener("click", restartQuiz);
-
-  answerList.addEventListener("click", function (event) {
+  answerList.addEventListener("click", (event) => {
     const button = event.target.closest("[data-answer-index]");
-    if (!button) return;
-    selectAnswer(Number(button.dataset.answerIndex));
+    if (button) selectAnswer(Number(button.dataset.answerIndex));
   });
+  retry.addEventListener("click", () => {
+    retry.hidden = true;
+    if (!quiz) load();
+    else if (attempt && index === attempt.questions.length) advance();
+    else if (!attempt) startAttempt();
+    else status.hidden = true;
+  });
+  window.addEventListener("profilechange", balance);
+  load();
 })();
