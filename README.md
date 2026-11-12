@@ -1,6 +1,6 @@
 # NBA Trivia Rewards
 
-A static HTML, CSS, and JavaScript class project where basketball fans earn quiz credits, redeem rewards, and leave feedback.
+A static HTML, CSS, and JavaScript class project: choose a basketball quiz, learn from each answer, earn credits, and redeem them for profile upgrades or a prototype memorabilia reward.
 
 ## Run locally
 
@@ -13,13 +13,13 @@ Run `python -m http.server 8000` from the project folder, then open `http://loca
 - `quiz.html` — Shared player, e.g. `quiz.html?quiz=chicago-bulls`.
 - `reviews.html` — Reviews and nickname-based feedback.
 
-Five quizzes cover Basketball Basics, NBA History, Chicago Bulls, Los Angeles Lakers, and Boston Celtics: three questions each, worth 25 credits per correct answer. Completed attempts add credits to the store.
+Eight quizzes cover Basketball Basics, NBA History, NBA Legends, Basketball Strategy and Positions, Chicago Bulls, Los Angeles Lakers, Boston Celtics, and Oklahoma City Thunder. Each has three questions worth 25 credits each; a perfect quiz earns 75. The homepage explains the journey and shows Prize Vault progress.
 
 Add teams through `js/quiz-data.js` and matching database JSON files, using consistent `quizId` and `teamId` values. All quizzes reuse the same player.
 
 ## Rewards and storage
 
-Six digital rewards provide avatars, frames, and titles. The Mystery Memorabilia Box reveals a random piece of physical basketball memorabilia (prototype) for 2,500 credits. One claim per saved browser profile.
+Six digital rewards provide avatars, frames, and titles. The 2,500-credit Mystery Memorabilia Box has three possible contents with equal odds. It is a class-project prototype: no physical item ships. One claim per saved browser profile.
 
 Start with 1,000 credits. Balance, ownership, equipment, and claims persist in browser storage for the same site. Reviews and unfinished quizzes reset on reload. Clearing site storage resets everything, including the claim limit. Unavailable storage makes digital progress temporary and prevents mystery claims.
 
@@ -29,8 +29,8 @@ MongoDB is **not connected** to the website. Import these JSON arrays into match
 
 | File | Collection | Documents |
 | --- | --- | --- |
-| `database/quizzes.json` | `quizzes` | 5 |
-| `database/questions.json` | `questions` | 15 |
+| `database/quizzes.json` | `quizzes` | 8 |
+| `database/questions.json` | `questions` | 24 |
 | `database/products.json` | `products` | 10 |
 
 In Compass, connect to MongoDB, create the database and empty collections, then use **Add Data → Import JSON or CSV file** for each file. Import once to avoid duplicates.
