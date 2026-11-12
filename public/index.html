@@ -15,10 +15,9 @@
       type="image/png"
     />
     <link rel="stylesheet" href="css/styles.css" />
-    <script src="js/reward-data.js" defer></script>
-    <script src="js/rewards-state.js" defer></script>
-    <script src="js/quiz-data.js" defer></script>
-    <script src="js/app.js" defer></script>
+    <script src="js/api.js" defer></script>
+    <script src="js/profile-session.js" defer></script>
+    <script src="js/store.js" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -142,13 +141,11 @@
         <div class="vault-feature-copy">
           <p class="eyebrow">THE PRIZE VAULT</p>
           <h2 id="vaultHeading">Save for a surprise<span class="text-orange">.</span></h2>
-          <p>Redeem the Mystery Memorabilia Box for a random physical basketball collectible (prototype). This class-project reward does not ship.</p>
+          <p>Redeem the Mystery Memorabilia Box for a random piece of physical basketball memorabilia (prototype).</p>
           <p class="vault-price" id="vaultPrice"></p>
           <label for="vaultProgress" id="vaultProgressLabel">Progress toward the Mystery Memorabilia Box</label>
           <progress id="vaultProgress" max="2500" value="0" aria-describedby="vaultProgressMessage"></progress>
           <p id="vaultProgressMessage" role="status" aria-live="polite"></p>
-          <h3>Possible contents</h3>
-          <ul class="vault-outcomes" id="vaultOutcomeList"></ul>
           <div class="vault-actions">
             <a class="button button-primary" href="quizzes.html">Play to Earn Credits <span aria-hidden="true">→</span></a>
             <a class="button button-secondary" href="#rewards" id="viewVaultRewards">View Prize Vault <span aria-hidden="true">↗</span></a>
@@ -220,6 +217,8 @@
           aria-live="polite"
           aria-atomic="true"
         ></p>
+        <p id="sessionNotice" class="status-message" hidden>Browser storage is unavailable. Your profile will last only until this page closes.</p>
+        <button class="button button-secondary" id="storeRetry" type="button" hidden>Retry loading rewards</button>
         <noscript
           ><p class="noscript-message">
             Enable JavaScript to browse rewards, redeem credits, and
@@ -261,8 +260,7 @@
       <p id="redeemDescription"></p>
       <p class="dialog-balance" id="remainingBalance"></p>
       <div id="mysteryDetails" hidden>
-        <p class="vault-prototype-note">Mystery Memorabilia Box (prototype). One random outcome with equal odds. No physical item is shipped.</p>
-        <ul class="vault-outcomes" id="dialogOutcomeList" aria-label="Possible mystery box contents"></ul>
+        <p class="vault-prototype-note">A random piece of physical basketball memorabilia (prototype). One box per profile.</p>
       </div>
       <div class="dialog-actions">
         <button
