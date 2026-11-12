@@ -32,6 +32,34 @@ window.NBATriviaQuizData = {
       "active": true
     },
     {
+      "quizId": "nba-legends",
+      "title": "NBA Legends",
+      "description": "Explore the signature skills and lasting impact of basketball greats.",
+      "quizType": "general",
+      "teamId": null,
+      "teamName": null,
+      "category": "NBA History",
+      "difficulty": "Medium",
+      "featured": false,
+      "questionCount": 3,
+      "maxCredits": 75,
+      "active": true
+    },
+    {
+      "quizId": "basketball-strategy",
+      "title": "Basketball Strategy and Positions",
+      "description": "Learn how roles, screens, and defensive schemes shape a game.",
+      "quizType": "general",
+      "teamId": null,
+      "teamName": null,
+      "category": "Rules",
+      "difficulty": "Easy",
+      "featured": false,
+      "questionCount": 3,
+      "maxCredits": 75,
+      "active": true
+    },
+    {
       "quizId": "chicago-bulls",
       "title": "Chicago Bulls Challenge",
       "description": "Test your knowledge of Chicago’s championship years.",
@@ -66,6 +94,20 @@ window.NBATriviaQuizData = {
       "quizType": "team",
       "teamId": "boston-celtics",
       "teamName": "Boston Celtics",
+      "category": "Team History",
+      "difficulty": "Medium",
+      "featured": false,
+      "questionCount": 3,
+      "maxCredits": 75,
+      "active": true
+    },
+    {
+      "quizId": "oklahoma-city-thunder",
+      "title": "Oklahoma City Thunder Challenge",
+      "description": "Follow the franchise from Seattle to its first Oklahoma City Finals.",
+      "quizType": "team",
+      "teamId": "oklahoma-city-thunder",
+      "teamName": "Oklahoma City Thunder",
       "category": "Team History",
       "difficulty": "Medium",
       "featured": false,
@@ -356,6 +398,177 @@ window.NBATriviaQuizData = {
       ],
       "correctAnswerIndex": 2,
       "explanation": "Russell won 11 championships during his Celtics playing career.",
+      "creditReward": 25,
+      "active": true,
+      "imagePath": null
+    },
+    {
+      "questionId": "question-016",
+      "quizId": "nba-legends",
+      "teamId": null,
+      "questionText": "Which player made the skyhook a signature NBA shot?",
+      "category": "NBA History",
+      "difficulty": "Medium",
+      "choices": [
+        "Wilt Chamberlain",
+        "Kareem Abdul-Jabbar",
+        "Bill Russell",
+        "Magic Johnson"
+      ],
+      "correctAnswerIndex": 1,
+      "explanation": "Kareem Abdul-Jabbar became famous for his skyhook.",
+      "creditReward": 25,
+      "active": true,
+      "imagePath": null
+    },
+    {
+      "questionId": "question-017",
+      "quizId": "nba-legends",
+      "teamId": null,
+      "questionText": "How many points did Wilt Chamberlain score in one game in 1962?",
+      "category": "NBA History",
+      "difficulty": "Medium",
+      "choices": [
+        "81",
+        "90",
+        "100",
+        "110"
+      ],
+      "correctAnswerIndex": 2,
+      "explanation": "Chamberlain scored 100 points against the New York Knicks on March 2, 1962.",
+      "creditReward": 25,
+      "active": true,
+      "imagePath": null
+    },
+    {
+      "questionId": "question-018",
+      "quizId": "nba-legends",
+      "teamId": null,
+      "questionText": "What was a key part of Bill Russell’s impact on Boston’s championship teams?",
+      "category": "NBA History",
+      "difficulty": "Medium",
+      "choices": [
+        "Three-point shooting",
+        "Defense and rebounding",
+        "Free-throw shooting",
+        "Midcourt scoring"
+      ],
+      "correctAnswerIndex": 1,
+      "explanation": "Russell anchored Boston with defense and rebounding during its championship years.",
+      "creditReward": 25,
+      "active": true,
+      "imagePath": null
+    },
+    {
+      "questionId": "question-019",
+      "quizId": "basketball-strategy",
+      "teamId": null,
+      "questionText": "What is a traditional job of a point guard?",
+      "category": "Rules",
+      "difficulty": "Easy",
+      "choices": [
+        "Organizing the offense",
+        "Guarding only the basket",
+        "Taking every tipoff",
+        "Calling timeouts from the bench"
+      ],
+      "correctAnswerIndex": 0,
+      "explanation": "A point guard traditionally directs the offense and helps set up teammates.",
+      "creditReward": 25,
+      "active": true,
+      "imagePath": null
+    },
+    {
+      "questionId": "question-020",
+      "quizId": "basketball-strategy",
+      "teamId": null,
+      "questionText": "In a pick-and-roll, what does the player who sets the screen do next?",
+      "category": "Rules",
+      "difficulty": "Easy",
+      "choices": [
+        "Moves toward the basket",
+        "Moves to the bench",
+        "Guards a teammate",
+        "Waits at half court"
+      ],
+      "correctAnswerIndex": 0,
+      "explanation": "After setting the screen, the screener rolls toward the basket.",
+      "creditReward": 25,
+      "active": true,
+      "imagePath": null
+    },
+    {
+      "questionId": "question-021",
+      "quizId": "basketball-strategy",
+      "teamId": null,
+      "questionText": "What do defenders primarily cover in a zone defense?",
+      "category": "Rules",
+      "difficulty": "Easy",
+      "choices": [
+        "Only the player with the ball",
+        "Specific areas of the court",
+        "Only players outside the arc",
+        "The opposing bench"
+      ],
+      "correctAnswerIndex": 1,
+      "explanation": "In a zone, defenders are responsible for areas rather than assigned opponents.",
+      "creditReward": 25,
+      "active": true,
+      "imagePath": null
+    },
+    {
+      "questionId": "question-022",
+      "quizId": "oklahoma-city-thunder",
+      "teamId": "oklahoma-city-thunder",
+      "questionText": "What was the Thunder’s first NBA season in Oklahoma City?",
+      "category": "Team History",
+      "difficulty": "Medium",
+      "choices": [
+        "2006–07",
+        "2008–09",
+        "2010–11",
+        "2012–13"
+      ],
+      "correctAnswerIndex": 1,
+      "explanation": "The franchise began playing in Oklahoma City in the 2008–09 season.",
+      "creditReward": 25,
+      "active": true,
+      "imagePath": null
+    },
+    {
+      "questionId": "question-023",
+      "quizId": "oklahoma-city-thunder",
+      "teamId": "oklahoma-city-thunder",
+      "questionText": "From which city did the franchise move before becoming the Thunder?",
+      "category": "Team History",
+      "difficulty": "Medium",
+      "choices": [
+        "Vancouver",
+        "Kansas City",
+        "San Diego",
+        "Seattle"
+      ],
+      "correctAnswerIndex": 3,
+      "explanation": "The franchise moved from Seattle, where it was called the SuperSonics.",
+      "creditReward": 25,
+      "active": true,
+      "imagePath": null
+    },
+    {
+      "questionId": "question-024",
+      "quizId": "oklahoma-city-thunder",
+      "teamId": "oklahoma-city-thunder",
+      "questionText": "Which team faced Oklahoma City in the 2012 NBA Finals?",
+      "category": "Team History",
+      "difficulty": "Medium",
+      "choices": [
+        "Boston Celtics",
+        "Los Angeles Lakers",
+        "Miami Heat",
+        "San Antonio Spurs"
+      ],
+      "correctAnswerIndex": 2,
+      "explanation": "Oklahoma City met the Miami Heat in the 2012 NBA Finals.",
       "creditReward": 25,
       "active": true,
       "imagePath": null
