@@ -1,24 +1,140 @@
 # NBA Trivia Rewards
 
-Basketball fans choose from eight quizzes, earn credits for correct answers, customize a profile, and leave reviews. A 2,500-credit Mystery Memorabilia Box reveals a random physical basketball collectible **(prototype)**. This class project does not ship items and is not affiliated with the NBA or its teams. AI assisted implementation and testing.
+NBA Trivia Rewards is a full-stack web application where basketball fans complete trivia quizzes, earn credits, and redeem those credits for digital profile items or a prototype Mystery Memorabilia Box.
 
-## Run locally
+I built the project to create a clear customer journey from playing trivia to earning and redeeming rewards. The application uses an automatically generated anonymous profile, so no registration or personal information is required.
 
-Install **Node.js 20.19+** and **MongoDB Community Server**; start MongoDB. MongoDB Compass is optional for inspecting the data.
+## Main Features
 
-```bash
+- Eight basketball quizzes with 24 total questions
+- General and team-specific quiz categories
+- Immediate answer feedback and explanations
+- Server-calculated scores and credit awards
+- Persistent credit balances and anonymous profiles
+- Redeemable avatars, profile frames, and titles
+- Prototype Mystery Memorabilia Box
+- Persistent reviews and ratings
+- Responsive and keyboard-accessible interface
+
+## Technology
+
+- HTML, CSS, and vanilla JavaScript
+- Node.js and Express
+- MongoDB
+- Fetch API
+- REST-style API routes
+- Server-side validation
+
+The application follows this basic structure:
+
+```
+Browser → Express API → MongoDB
+```
+
+Quiz scoring, credit awards, product redemption, and Mystery Box claims are processed by the server and saved in MongoDB.
+
+## Requirements
+
+Install the following before running the project:
+
+- Node.js 20.19 or later
+- MongoDB Community Server
+- A modern web browser
+
+MongoDB Compass is optional but useful for viewing the database.
+
+## Running the Project
+
+Open a terminal in the project folder and install the dependencies:
+
+```
 npm install
-cp .env.example .env       # Windows Command Prompt: copy .env.example .env
+```
+
+Copy `.env.example` and name the copy `.env`.
+
+The default configuration is:
+
+```ini
+PORT=3000
+MONGODB_URI=mongodb://127.0.0.1:27017
+MONGODB_DATABASE=nba_trivia_rewards
+```
+
+Make sure MongoDB is running, and then seed the database:
+
+```
 npm run seed
+```
+
+Start the application:
+
+```
 npm start
 ```
 
-Open **http://localhost:3000**. Edit `.env` to change the port, MongoDB URI, or database name. Use `npm run dev` for automatic server restarts. If startup fails, check that MongoDB is running and that `.env` points to it.
+For development with automatic restarts:
 
-## Data
+```
+npm run dev
+```
 
-`npm run seed` idempotently loads 8 quizzes, 24 questions, 10 products, and 2 sample reviews from `database/*.json` into matching MongoDB collections. The server also stores `profiles` and `quizAttempts`.
+Open the application at:
 
-The browser stores only an anonymous profile ID. The server owns credits, answers, purchases, equipment, claims, and reviews. A first server-backed visit creates a fresh 1,000-credit profile; old browser-only balances are not imported. Clear this site's browser storage to start a new profile; the previous MongoDB profile remains. Unfinished quiz attempts reset on refresh. If browser storage is blocked, the profile lasts only for the current page session.
+```
+http://localhost:3000
+```
 
-The Express API provides `/api/health`, `/api/quizzes`, `/api/products`, `/api/profiles`, `/api/quiz-attempts`, and `/api/reviews`. The pages in `public/` use these endpoints; opening HTML files directly will not work.
+Do not open the HTML files directly because the application requires Express and MongoDB.
+
+## Database
+
+The application uses these MongoDB collections:
+
+- `quizzes`
+- `questions`
+- `products`
+- `reviews`
+- `profiles`
+- `quizAttempts`
+
+The initial seed contains:
+
+- 8 quizzes
+- 24 questions
+- 10 products
+- 2 sample reviews
+
+Profiles and quiz attempts are created as the application is used.
+
+To view the database in MongoDB Compass, connect to:
+
+```yaml
+mongodb://127.0.0.1:27017
+```
+
+Then open the `nba_trivia_rewards` database.
+
+## Verification
+
+After starting the application, confirm that:
+
+1. All eight quizzes appear.
+2. Completing a quiz increases the credit balance.
+3. The balance remains after refreshing the page.
+4. Digital rewards can be redeemed and equipped.
+5. Submitted reviews remain after refreshing.
+
+The server health check is available at:
+
+```
+http://localhost:3000/api/health
+```
+
+If the latest quizzes or sample data do not appear, run `npm run seed` again and refresh the browser.
+
+## Prototype Limitations
+
+This is a class-project prototype. It does not include payment processing, shipping, password-based accounts, or real prize fulfillment. The Mystery Memorabilia Box demonstrates the planned reward experience, but no physical product is shipped.
+
+This project is not affiliated with or endorsed by the NBA or any NBA team.
