@@ -50,9 +50,10 @@
     <main id="main" class="container">
       <section class="hero" aria-labelledby="heroHeading">
         <div class="hero-copy">
-          <p class="eyebrow">LEARN THE GAME. EARN YOUR REWARDS.</p>
           <h1 id="heroHeading">
-            Know the game.<br /><span class="text-orange">Earn the rewards.</span>
+            Know the game.<br /><span class="text-orange"
+              >Earn the rewards.</span
+            >
           </h1>
           <p class="hero-description">
             Choose a basketball quiz, learn from every answer, and earn credits
@@ -117,38 +118,89 @@
       </section>
 
       <section class="journey-section" aria-labelledby="journeyHeading">
-        <p class="eyebrow">THREE STEPS TO YOUR NEXT REWARD</p>
-        <h2 id="journeyHeading">How it works<span class="text-orange">.</span></h2>
+        <h2 id="journeyHeading">
+          How it works<span class="text-orange">.</span>
+        </h2>
         <ol class="journey-steps">
-          <li><span class="step-number">01</span><h3>Choose a Challenge</h3><p>Pick general, historical, strategy, or team trivia.</p></li>
-          <li><span class="step-number">02</span><h3>Earn Credits</h3><p>Get <span data-credits-per-answer>25</span> credits for each correct answer and learn from every explanation.</p></li>
-          <li><span class="step-number">03</span><h3>Unlock Rewards</h3><p>Customize your fan profile or save credits for the Prize Vault.</p></li>
+          <li>
+            <span class="step-number">01</span>
+            <h3>Choose a Challenge</h3>
+            <p>Pick general, historical, strategy, or team trivia.</p>
+          </li>
+          <li>
+            <span class="step-number">02</span>
+            <h3>Earn Credits</h3>
+            <p>
+              Get <span data-credits-per-answer>25</span> credits for each
+              correct answer and learn from every explanation.
+            </p>
+          </li>
+          <li>
+            <span class="step-number">03</span>
+            <h3>Unlock Rewards</h3>
+            <p>
+              Customize your fan profile or save credits for the Prize Vault.
+            </p>
+          </li>
         </ol>
         <p class="credit-economy" id="creditEconomy"></p>
-        <a class="button button-primary" href="quizzes.html">Start Playing <span aria-hidden="true">→</span></a>
+        <a class="button button-primary" href="quizzes.html"
+          >Start Playing <span aria-hidden="true">→</span></a
+        >
       </section>
 
       <section class="value-section" aria-labelledby="valueHeading">
         <div>
-          <p class="eyebrow">PLAY, LEARN, MAKE IT YOURS</p>
           <h2 id="valueHeading">Why play<span class="text-orange">?</span></h2>
         </div>
-        <p>Test what you know, discover the story behind each answer, and explore basketball across teams and eras. Your credits can personalize your profile or move you closer to a prototype memorabilia reward.</p>
+        <p>
+          Test what you know, discover the story behind each answer, and explore
+          basketball across teams and eras. Your credits can personalize your
+          profile or move you closer to a prototype memorabilia reward.
+        </p>
       </section>
 
-      <section class="vault-feature" id="prizeVault" aria-labelledby="vaultHeading">
-        <img class="vault-feature-image" src="images/mystery-memorabilia-box.svg" alt="Illustrated navy mystery box with a gold question mark" width="300" height="300">
+      <section
+        class="vault-feature"
+        id="prizeVault"
+        aria-labelledby="vaultHeading"
+      >
+        <img
+          class="vault-feature-image"
+          src="images/mystery-memorabilia-box.svg"
+          alt="Illustrated navy mystery box with a gold question mark"
+          width="300"
+          height="300"
+        />
         <div class="vault-feature-copy">
-          <p class="eyebrow">THE PRIZE VAULT</p>
-          <h2 id="vaultHeading">Save for a surprise<span class="text-orange">.</span></h2>
-          <p>Redeem the Mystery Memorabilia Box for a random piece of physical basketball memorabilia (prototype).</p>
+          <h2 id="vaultHeading">
+            Save for a surprise<span class="text-orange">.</span>
+          </h2>
+          <p>
+            Redeem the Mystery Memorabilia Box for a random piece of physical
+            basketball memorabilia (prototype).
+          </p>
           <p class="vault-price" id="vaultPrice"></p>
-          <label for="vaultProgress" id="vaultProgressLabel">Progress toward the Mystery Memorabilia Box</label>
-          <progress id="vaultProgress" max="2500" value="0" aria-describedby="vaultProgressMessage"></progress>
+          <label for="vaultProgress" id="vaultProgressLabel"
+            >Progress toward the Mystery Memorabilia Box</label
+          >
+          <progress
+            id="vaultProgress"
+            max="2500"
+            value="0"
+            aria-describedby="vaultProgressMessage"
+          ></progress>
           <p id="vaultProgressMessage" role="status" aria-live="polite"></p>
           <div class="vault-actions">
-            <a class="button button-primary" href="quizzes.html">Play to Earn Credits <span aria-hidden="true">→</span></a>
-            <a class="button button-secondary" href="#rewards" id="viewVaultRewards">View Prize Vault <span aria-hidden="true">↗</span></a>
+            <a class="button button-primary" href="quizzes.html"
+              >Play to Earn Credits <span aria-hidden="true">→</span></a
+            >
+            <a
+              class="button button-secondary"
+              href="#rewards"
+              id="viewVaultRewards"
+              >View Prize Vault <span aria-hidden="true">↗</span></a
+            >
           </div>
         </div>
       </section>
@@ -209,7 +261,14 @@
           >
             Titles <span>2</span>
           </button>
-          <button type="button" class="filter-button" data-filter="Physical Reward" aria-pressed="false">Prize Vault <span>1</span></button>
+          <button
+            type="button"
+            class="filter-button"
+            data-filter="Physical Reward"
+            aria-pressed="false"
+          >
+            Prize Vault <span>1</span>
+          </button>
         </div>
         <p
           id="storeMessage"
@@ -217,12 +276,22 @@
           aria-live="polite"
           aria-atomic="true"
         ></p>
-        <p id="sessionNotice" class="status-message" hidden>Browser storage is unavailable. Your profile will last only until this page closes.</p>
-        <button class="button button-secondary" id="storeRetry" type="button" hidden>Retry loading rewards</button>
+        <p id="sessionNotice" class="status-message" hidden>
+          Browser storage is unavailable. Your profile will last only until this
+          page closes.
+        </p>
+        <button
+          class="button button-secondary"
+          id="storeRetry"
+          type="button"
+          hidden
+        >
+          Retry loading rewards
+        </button>
         <noscript
           ><p class="noscript-message">
-            Enable JavaScript to browse rewards, redeem credits, and
-            customize your profile.
+            Enable JavaScript to browse rewards, redeem credits, and customize
+            your profile.
           </p></noscript
         >
         <div class="product-grid" id="productGrid"></div>
@@ -231,7 +300,6 @@
       <aside class="community-banner" aria-labelledby="communityHeading">
         <div class="community-icon" aria-hidden="true">“</div>
         <div>
-          <p class="eyebrow">FROM ONE FAN TO ANOTHER</p>
           <h2 id="communityHeading">
             Great rewards. Even better conversations.
           </h2>
@@ -255,12 +323,14 @@
       aria-describedby="redeemDescription remainingBalance"
     >
       <span class="dialog-icon coin" aria-hidden="true">C</span>
-      <p class="eyebrow">ADD TO YOUR COLLECTION</p>
       <h2 id="redeemHeading">Make it yours?</h2>
       <p id="redeemDescription"></p>
       <p class="dialog-balance" id="remainingBalance"></p>
       <div id="mysteryDetails" hidden>
-        <p class="vault-prototype-note">A random piece of physical basketball memorabilia (prototype). One box per profile.</p>
+        <p class="vault-prototype-note">
+          A random piece of physical basketball memorabilia (prototype). One box
+          per profile.
+        </p>
       </div>
       <div class="dialog-actions">
         <button
@@ -279,13 +349,24 @@
         Virtual credits only. Your reward is equipped instantly.
       </p>
     </dialog>
-    <dialog class="redeem-dialog reward-reveal" id="rewardRevealDialog" aria-labelledby="revealRewardName" aria-describedby="revealPrototype revealBalance">
-      <p class="eyebrow">YOUR MYSTERY REWARD</p>
-      <img id="revealRewardImage" alt="" width="180" height="180">
+    <dialog
+      class="redeem-dialog reward-reveal"
+      id="rewardRevealDialog"
+      aria-labelledby="revealRewardName"
+      aria-describedby="revealPrototype revealBalance"
+    >
+      <img id="revealRewardImage" alt="" width="180" height="180" />
       <h2 id="revealRewardName"></h2>
       <p id="revealBalance"></p>
       <p class="dialog-footnote" id="revealPrototype">(prototype)</p>
-      <button type="button" class="button button-primary" id="closeRewardReveal" autofocus>Continue browsing</button>
+      <button
+        type="button"
+        class="button button-primary"
+        id="closeRewardReveal"
+        autofocus
+      >
+        Continue browsing
+      </button>
     </dialog>
   </body>
 </html>

@@ -3,10 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Choose a general or team basketball quiz, earn credits, and discover your next reward." />
+    <meta
+      name="description"
+      content="Choose a general or team basketball quiz, earn credits, and discover your next reward."
+    />
     <meta name="theme-color" content="#0c1424" />
     <title>Quizzes | NBA Trivia Rewards</title>
-    <link rel="icon" href="images/logo-basketball-question.png" type="image/png" />
+    <link
+      rel="icon"
+      href="images/logo-basketball-question.png"
+      type="image/png"
+    />
     <link rel="stylesheet" href="css/styles.css" />
     <script src="js/api.js" defer></script>
     <script src="js/profile-session.js" defer></script>
@@ -42,19 +49,65 @@
 
     <main id="main" class="container quiz-selection">
       <section class="selection-hero" aria-labelledby="selectionHeading">
-        <p class="eyebrow">YOUR KNOWLEDGE. YOUR NEXT REWARD.</p>
-        <h1 id="selectionHeading">Choose your <span class="text-orange">challenge.</span></h1>
-        <p class="hero-description">Choose general, historical, strategy, or team trivia. Correct answers earn credits when you finish; spend them on profile upgrades or save for the Prize Vault.</p>
-        <a class="quiz-inline-link" href="index.html">See what your credits can unlock <span aria-hidden="true">→</span></a>
+        <h1 id="selectionHeading">
+          Choose your <span class="text-orange">challenge.</span>
+        </h1>
+        <p class="hero-description">
+          Choose general, historical, strategy, or team trivia. Correct answers
+          earn credits when you finish; spend them on profile upgrades or save
+          for the Prize Vault.
+        </p>
+        <a class="quiz-inline-link" href="index.html"
+          >See what your credits can unlock <span aria-hidden="true">→</span></a
+        >
       </section>
       <section aria-label="Find a quiz">
         <div class="quiz-filter-toolbar">
-          <div class="filter-bar quiz-filters" role="group" aria-label="Filter quizzes by category">
-            <button class="filter-button" type="button" data-quiz-filter="all" aria-pressed="true">All Quizzes</button>
-            <button class="filter-button" type="button" data-quiz-filter="general" aria-pressed="false">General</button>
-            <button class="filter-button" type="button" data-quiz-filter="team" aria-pressed="false">Team Challenges</button>
-            <button class="filter-button" type="button" data-quiz-filter="Rules" aria-pressed="false">Rules</button>
-            <button class="filter-button" type="button" data-quiz-filter="NBA History" aria-pressed="false">NBA History</button>
+          <div
+            class="filter-bar quiz-filters"
+            role="group"
+            aria-label="Filter quizzes by category"
+          >
+            <button
+              class="filter-button"
+              type="button"
+              data-quiz-filter="all"
+              aria-pressed="true"
+            >
+              All Quizzes
+            </button>
+            <button
+              class="filter-button"
+              type="button"
+              data-quiz-filter="general"
+              aria-pressed="false"
+            >
+              General
+            </button>
+            <button
+              class="filter-button"
+              type="button"
+              data-quiz-filter="team"
+              aria-pressed="false"
+            >
+              Team Challenges
+            </button>
+            <button
+              class="filter-button"
+              type="button"
+              data-quiz-filter="Rules"
+              aria-pressed="false"
+            >
+              Rules
+            </button>
+            <button
+              class="filter-button"
+              type="button"
+              data-quiz-filter="NBA History"
+              aria-pressed="false"
+            >
+              NBA History
+            </button>
           </div>
           <div class="difficulty-filter">
             <label for="quizDifficulty">Difficulty</label>
@@ -65,14 +118,37 @@
             </select>
           </div>
         </div>
-        <p id="quizCount" class="catalog-count" role="status" aria-live="polite"></p>
-        <p id="sessionNotice" class="catalog-count" hidden>Browser storage is unavailable. Your profile will last only until this page closes.</p>
-        <button class="button button-secondary" id="quizRetry" type="button" hidden>Retry loading quizzes</button>
+        <p
+          id="quizCount"
+          class="catalog-count"
+          role="status"
+          aria-live="polite"
+        ></p>
+        <p id="sessionNotice" class="catalog-count" hidden>
+          Browser storage is unavailable. Your profile will last only until this
+          page closes.
+        </p>
+        <button
+          class="button button-secondary"
+          id="quizRetry"
+          type="button"
+          hidden
+        >
+          Retry loading quizzes
+        </button>
         <div class="quiz-grid" id="quizGrid"></div>
-        <p class="empty-state" id="quizEmpty" hidden>No quizzes match these filters. Try All Quizzes and All Difficulties.</p>
-        <noscript><p class="noscript-message">Enable JavaScript to browse quizzes and earn credits.</p></noscript>
+        <p class="empty-state" id="quizEmpty" hidden>
+          No quizzes match these filters. Try All Quizzes and All Difficulties.
+        </p>
+        <noscript
+          ><p class="noscript-message">
+            Enable JavaScript to browse quizzes and earn credits.
+          </p></noscript
+        >
       </section>
-      <p class="quiz-community-link">More team challenges will join the lineup later.</p>
+      <p class="quiz-community-link">
+        More team challenges will join the lineup later.
+      </p>
     </main>
     <footer class="site-footer container">
       <p>NBA Trivia Rewards <span>·</span> Made for fans who know.</p>

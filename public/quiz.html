@@ -52,9 +52,21 @@
     </header>
 
     <main class="container quiz-page" id="main">
-      <p id="quizStatus" class="catalog-count" role="status" aria-live="polite">Loading quiz…</p>
-      <p id="sessionNotice" class="catalog-count" hidden>Browser storage is unavailable. Your profile will last only until this page closes.</p>
-      <button class="button button-secondary" id="quizRetry" type="button" hidden>Retry</button>
+      <p id="quizStatus" class="catalog-count" role="status" aria-live="polite">
+        Loading quiz…
+      </p>
+      <p id="sessionNotice" class="catalog-count" hidden>
+        Browser storage is unavailable. Your profile will last only until this
+        page closes.
+      </p>
+      <button
+        class="button button-secondary"
+        id="quizRetry"
+        type="button"
+        hidden
+      >
+        Retry
+      </button>
       <div class="quiz-page-heading">
         <a class="back-link" href="quizzes.html">
           <span aria-hidden="true">←</span> Choose Another Quiz
@@ -65,10 +77,19 @@
         </p>
       </div>
 
-      <section class="quiz-card empty-state" id="quizNotFound" aria-labelledby="notFoundHeading" hidden>
+      <section
+        class="quiz-card empty-state"
+        id="quizNotFound"
+        aria-labelledby="notFoundHeading"
+        hidden
+      >
         <h2 id="notFoundHeading">Quiz Not Found</h2>
-        <p>This challenge is unavailable. Choose an active quiz to keep playing.</p>
-        <a class="button button-primary" href="quizzes.html">Choose Another Quiz</a>
+        <p>
+          This challenge is unavailable. Choose an active quiz to keep playing.
+        </p>
+        <a class="button button-primary" href="quizzes.html"
+          >Choose Another Quiz</a
+        >
       </section>
 
       <section
@@ -103,8 +124,8 @@
           <span class="quiz-art-number" id="quizArtCount"></span>
           <span class="quiz-art-label">QUESTIONS. ALL YOU.</span>
           <span class="quiz-art-reward"
-            ><span class="coin">C</span> <span id="quizArtReward"></span></span
-          >
+            ><span class="coin">C</span> <span id="quizArtReward"></span
+          ></span>
         </div>
       </section>
 
@@ -117,8 +138,9 @@
         <div class="quiz-question-topline">
           <p class="eyebrow" id="questionNumber"></p>
           <span class="quiz-reward"
-            ><span class="coin coin-small" aria-hidden="true">C</span> <span id="questionReward"></span></span
-          >
+            ><span class="coin coin-small" aria-hidden="true">C</span>
+            <span id="questionReward"></span
+          ></span>
         </div>
         <div
           class="quiz-progress"
@@ -171,7 +193,6 @@
         hidden
       >
         <div class="quiz-result-icon" aria-hidden="true">✓</div>
-        <p class="eyebrow">THAT’S THE FINAL BUZZER</p>
         <h2 id="resultsHeading" tabindex="-1">Your challenge, completed.</h2>
         <p class="quiz-description" id="resultMessage"></p>
         <dl class="quiz-result-stats">
@@ -196,7 +217,9 @@
           >
             Play Again
           </button>
-          <a class="button button-secondary" href="quizzes.html">Choose Another Quiz</a>
+          <a class="button button-secondary" href="quizzes.html"
+            >Choose Another Quiz</a
+          >
           <a class="button button-secondary" href="index.html"
             >Explore Rewards <span aria-hidden="true">↗</span></a
           >
